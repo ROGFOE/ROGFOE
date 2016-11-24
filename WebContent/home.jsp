@@ -35,35 +35,35 @@
       </div>
 
       <div class="item">
-        <img src="images/1.png" alt="Image">
+        <img src="images/1.png" alt="Image" class="img-responsive">
         <div class="carousel-caption">
                     <h3 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">To Pour Your Hearts Into Our Business Of Selling Human Hearts...</h3>
         </div>
       </div>
       
       <div class="item">
-        <img src="images/2.jpg" alt="Image">
+        <img src="images/2.jpg" alt="Image" class="img-responsive">
         <div class="carousel-caption">
                     <h3 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">And Kidneys...</h3>
         </div>
       </div>
       
       <div class="item">
-        <img src="images/3.jpg" alt="Image">
+        <img src="images/3.jpg" alt="Image" class="img-responsive">
         <div class="carousel-caption">
                     <h3 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">And Livers...</h3>
         </div>
       </div>
       
       <div class="item">
-        <img src="images/4.png" alt="Image">
+        <img src="images/4.png" alt="Image" class="img-responsive">
         <div class="carousel-caption">
                     <h3 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">And Whatever Other Organ You May Wish For...</h3>
         </div>
       </div>
       
       <div class="item">
-        <img src="images/5.jpg" alt="Image">
+        <img src="images/5.jpg" alt="Image" class="img-responsive">
         <div class="carousel-caption">
         </div>
       </div>
