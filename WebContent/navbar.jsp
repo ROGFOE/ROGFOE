@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li><a href="about.jsp">About</a></li>
-        <li><a href="">Contact</a></li>
+        <li><a href="#">Contact</a></li>
         <li><a href="location.jsp">Locations</a></li>
         <li><a href="#">Shop</a></li>
       </ul>
