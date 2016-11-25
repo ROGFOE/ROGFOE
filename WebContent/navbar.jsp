@@ -14,12 +14,12 @@
       <ul class="nav navbar-nav">
         <li><a href="about.jsp">About</a></li>
         <li><a href="contact.jsp">Contact</a></li>
-        <li><a href="#">Locations</a></li>
+        <li><a href="location.jsp">Locations</a></li>
         <li><a href="#">Shop</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="Signup.jsp">Sign Up</a></li>
+        <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
       </ul>
     </div>
