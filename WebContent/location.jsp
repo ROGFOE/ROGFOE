@@ -9,6 +9,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
 </head>
 
 <body>
@@ -22,7 +28,8 @@
     <div class="col-sm-8 text-left" style="text-align:center">
       <h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Locations</h1><p>&nbsp;</p>
       <img src="images/shop.jpg" alt="Image" class="img-responsive">
-      <h3 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Vancouver, BC</h3><p>&nbsp;</p>
+      <h3 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Vancouver, BC</h3>
+      <p>&nbsp;</p>
   
       <hr>
 		 <img src="images/shop2.jpg" alt="Image" class="img-responsive">
@@ -37,17 +44,8 @@
       	<img src="images/shop5.jpg" alt="Image" class="img-responsive">
       	<h3 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Manila, Philippines</h3><p>&nbsp;</p>
       	<hr>
-      	
-      	<html>
-  <head>
-    <style>
-      #map {
-        height: 400px;
-        width: 100%;
-       }
-    </style>
-  </head>
-  <body>
+ 
+  
     <h2 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Address</h2><p>&nbsp;</p>
     <div id="map"></div>
     <script>
@@ -86,8 +84,8 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD155hbzvlPXhucZkvWMypkBcpASr0OevM&callback=initMap">
     </script>
-  </body>
-</html>
+  
+
       	
 <hr>
 
