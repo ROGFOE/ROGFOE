@@ -28,7 +28,6 @@
    </div>
     <div class="col-sm-8 text-left" style="text-align:center">
       <h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Profile Saved!</h1><p>&nbsp;</p>
-      <img src="images/shop3.jpg" alt="Image" class="img-responsive"> 
       <p>&nbsp;</p>
       
       
