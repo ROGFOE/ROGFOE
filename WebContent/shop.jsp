@@ -11,11 +11,9 @@
 <html lang="en">
 
 <head>
-
 	<title>Shop</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -87,6 +85,7 @@ body > div > div > div.row.form-group.filter-list > ul.nav.nav-pills {
 	width: 50%;
 }
 </style>
+
 </head>
 
 <body>
@@ -320,7 +319,6 @@ $(document).ready(function() {
 });
 
 </script>
-
 </body>
 
 </html>
