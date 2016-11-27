@@ -1,3 +1,10 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,40 +31,52 @@
       <img src="images/shop3.jpg" alt="Image" class="img-responsive"> 
       <p>&nbsp;</p>
       <div class="row">
-				<form>
+				
+				<form method="get" action="profilesaved.jsp">
 					<div class="col-sm-12">
 						<div class="row">
-							<div class="col-sm-6 form-group">
+							<div class="col-sm-4 form-group">
 								<label>First Name</label>
-								<input type="text" placeholder="Donald" class="form-control" required>
+								<input type="text" name="fname" placeholder="Donald" class="form-control" required>
 							</div>
-							<div class="col-sm-6 form-group">
+							<div class="col-sm-4 form-group">
+								<label>Middle Name</label>
+								<input type="text" name="mname" placeholder="J." class="form-control">
+							</div>
+							<div class="col-sm-4 form-group">
 								<label>Last Name</label>
-								<input type="text" placeholder="Trump" class="form-control" required>
+								<input type="text" name="lname" placeholder="Trump" class="form-control" required>
 							</div>
 						</div>					
 						<div class="form-group">
-							<label>Address</label>
-							<input type="text" placeholder="1161 W Georgia St." class="form-control">
+							<label>Street</label>
+							<input type="text" name="street" placeholder="1161 W Georgia St." class="form-control">
 						</div>	
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>City</label>
-								<input type="text" placeholder="Vancouver" class="form-control">
+								<input type="text" name="city" placeholder="Vancouver" class="form-control">
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Country</label>
-								<input type="text" placeholder="Canada" class="form-control">
+								<select class="form-control" name="country" required>
+        							<option value="cad">Canada</option>
+        							<option value="us">United States of America</option>
+        							<option value="uk">United Kingdom</option>
+        							<option value="irn">Iran</option>
+        							<option value="ind">India</option>
+        							<option value="phl">The Philippines</option>
+      							</select>
 							</div>	
 							</div>
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Province/State</label>
-								<input type="text" placeholder="BC" class="form-control">
+								<input type="text" name="state" placeholder="BC" class="form-control">
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Postal Code/Zip Code</label>
-								<input type="text" placeholder="V6E 0C6" class="form-control">
+								<input type="text" name="postal" placeholder="V6E 0C6" class="form-control">
 							</div>		
 						</div>
 						
@@ -66,28 +85,28 @@
 					<div class="row">						
 					<div class="col-sm-4 form-group">
 						<label>Home Phone</label>
-						<input type="text" placeholder="+9 (999) - 9999" class="form-control" required>
+						<input type="text" name="hphone" placeholder="+9 (999) - 9999" class="form-control" required>
 					</div>
 					
 					<div class="col-sm-4 form-group">
 						<label>Work Phone</label>
-						<input type="text" placeholder="+9 (999) - 9999" class="form-control">
+						<input type="text" name="wphone" placeholder="+9 (999) - 9999" class="form-control">
 					</div>		
 					
 					<div class="col-sm-4 form-group">
 						<label>Cell Phone</label>
-						<input type="text" placeholder="+9 (999) - 9999" class="form-control">
+						<input type="text" name="cphone" placeholder="+9 (999) - 9999" class="form-control">
 					</div>		
 					</div>		
 					<div class="form-group">
 						<label>Email Address</label>
-						<input type="text" placeholder="iloveorgans@example.com" class="form-control" required>
+						<input type="text" name="email" placeholder="iloveorgans@example.com" class="form-control" required>
 					</div>	
 					
 					<div class="row">
 					 <div class="col-sm-6 form-group">
 								<label>Password</label>
-								<input type="password" placeholder="Enter Password Here.." class="form-control" required>
+								<input type="password" name="pw" placeholder="Enter Password Here.." class="form-control" required>
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Password Confirmation</label>
@@ -99,8 +118,6 @@
 					</div>
 				</form> 
 				</div>
-      
-    
       <hr>
       
     </div>
@@ -108,8 +125,6 @@
    </div>
   </div>
 </div>
-
-
 
 <%@include file="footer.jsp" %>
 

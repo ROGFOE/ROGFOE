@@ -5,10 +5,10 @@ CREATE TABLE `User` (
 	`fName` varchar(50) NOT NULL,
 	`mName` varchar(50),
 	`lName` varchar(50) NOT NULL,
-	`UphoneH` varchar(10) NOT NULL,
-	`UphoneC` varchar(10),
-	`UphoneW` varchar(10),
-	`Uemail` varchar(10) NOT NULL,
+	`UphoneH` varchar(15) NOT NULL,
+	`UphoneC` varchar(15),
+	`UphoneW` varchar(15),
+	`Uemail` varchar(100) NOT NULL,
 	`Password` varchar(100) NOT NULL,
 PRIMARY KEY (`UID`)
 );
@@ -30,7 +30,7 @@ CREATE TABLE `Address` (
 	`Province` varchar(50),
 	`Country` varchar(3) NOT NULL,
 	`State` varchar(50),
-	`PostalCode` char(6),
+	`PostalCode` char(10),
 	`ZipCode` char(5),
 PRIMARY KEY (`AddID`),
 FOREIGN KEY (`UID`) REFERENCES `User`(`UID`) ON DELETE CASCADE ON UPDATE CASCADE,
