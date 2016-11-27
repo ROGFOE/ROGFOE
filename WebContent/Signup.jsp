@@ -59,7 +59,7 @@
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Country</label>
-								<select class="form-control" name="country">
+								<select class="form-control" name="country" required>
         							<option value="cad">Canada</option>
         							<option value="us">United States of America</option>
         							<option value="uk">United Kingdom</option>
