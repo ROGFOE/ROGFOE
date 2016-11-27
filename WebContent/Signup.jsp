@@ -49,8 +49,8 @@
 							</div>
 						</div>					
 						<div class="form-group">
-							<label>Address</label>
-							<input type="text" name="address" placeholder="1161 W Georgia St." class="form-control">
+							<label>Street</label>
+							<input type="text" name="street" placeholder="1161 W Georgia St." class="form-control">
 						</div>	
 						<div class="row">
 							<div class="col-sm-6 form-group">
@@ -59,7 +59,14 @@
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Country</label>
-								<input type="text" name="country" placeholder="Canada" class="form-control">
+								<select class="form-control" name="country">
+        							<option value="cad">Canada</option>
+        							<option value="us">United States of America</option>
+        							<option value="uk">United Kingdom</option>
+        							<option value="irn">Iran</option>
+        							<option value="ind">India</option>
+        							<option value="phl">The Philippines</option>
+      							</select>
 							</div>	
 							</div>
 						<div class="row">

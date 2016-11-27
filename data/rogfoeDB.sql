@@ -30,7 +30,7 @@ CREATE TABLE `Address` (
 	`Province` varchar(50),
 	`Country` varchar(3) NOT NULL,
 	`State` varchar(50),
-	`PostalCode` char(6),
+	`PostalCode` char(10),
 	`ZipCode` char(5),
 PRIMARY KEY (`AddID`),
 FOREIGN KEY (`UID`) REFERENCES `User`(`UID`) ON DELETE CASCADE ON UPDATE CASCADE,

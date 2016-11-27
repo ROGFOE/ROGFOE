@@ -44,7 +44,7 @@
 			String fname = request.getParameter("fname");
 			String mname = request.getParameter("mname");
 			String lname = request.getParameter("lname");
-			String address = request.getParameter("address");
+			String street = request.getParameter("street");
 			String city = request.getParameter("city");
 			String country = request.getParameter("country");
 			String state = request.getParameter("state");
@@ -60,9 +60,9 @@
 			try{
 				con = DriverManager.getConnection(url,uid,pass);
 				
-				//Prepared statements
+				//Prepared statements to insert into User table
 				String insertUserSQL = ("INSERT INTO User (AccType, fName, mName, lName, UphoneH, UphoneC, UphoneW, Uemail, Password) VALUES ('Customer', ?, ?, ?, ?, ?, ?, ?, ?);");
-				PreparedStatement pst = con.prepareStatement(insertUserSQL);
+				PreparedStatement pst = con.prepareStatement(insertUserSQL, Statement.RETURN_GENERATED_KEYS);
 				pst.setString(1, fname);
 				pst.setString(2, mname);
 				pst.setString(3, lname);
@@ -71,15 +71,28 @@
 				pst.setString(6, wphone);
 				pst.setString(7, email);
 				pst.setString(8, pw);
-				
-				out.println(pst.toString());
 			
-				
 				//Execute Query
 				pst.executeUpdate();
 				
-				//Redirect to homepage with a "Profile Saved!" message 
-									   
+				//Get UID of user that was just inserted to be used in Address insert
+				ResultSet keys = pst.getGeneratedKeys();
+				keys.next();
+				int createdUID = keys.getInt(1);
+				
+				//Prepared statements to insert into Address table
+				String insertAddressSQL = ("INSERT INTO Address (UID, AddressType, Street, City, State, Country, PostalCode) VALUES (?, 'Home', ?, ?, ?, ?, ?);");
+				PreparedStatement psta = con.prepareStatement(insertAddressSQL);
+				psta.setInt(1, createdUID);
+				psta.setString(2, street);
+				psta.setString(3, city);
+				psta.setString(4, state);
+				psta.setString(5, country);
+				psta.setString(6, postal);
+				
+				//Execute
+				psta.executeUpdate();
+
 			} catch (SQLException ex){
 				System.out.println(ex);
 			}
