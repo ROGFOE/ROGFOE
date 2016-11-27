@@ -27,11 +27,17 @@
 				<img src="images/homelogo.png" width=40% height=40% alt="Image"
 					class="img-responsive"
 					style="margin-left: auto; margin-right: auto; display: block; margin-top: -30px;">
+				
+				<%
+				// Print prior error login message if present
+				if (session.getAttribute("loginMessage") != null)
+				out.println("<p>"+
+				session.getAttribute("loginMessage").toString()+"</p>");
+				%>
+				
 				<fieldset>
-				
-				
-<!--Form that goes to validateLogin.jsp-->
-				
+
+				<!--Form that goes to validateLogin.jsp-->
 				<form name="login" method="post" action="validateLogin.jsp">
 					<div class="form-group">
 						<label>Email Address</label> 

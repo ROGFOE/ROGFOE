@@ -66,35 +66,45 @@ div.content {
 		String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
 		String uid = "jrogers";
 		String pass = "40520158";
+		
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rst = null;
-
+		
+		
 		try {
 			// Make database connection
 			con = DriverManager.getConnection(url,uid,pass);
 
-			String sql = "SELECT Password FROM User WHERE Uemail = BINARY '?' AND Password = BINARY '?'";
+			System.out.println("Made it past making a connection");
+
+			String sql = "SELECT Password FROM User WHERE Uemail = ? AND Password = ?";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, username);
 			stmt.setString(2, password);
+			System.out.println(stmt.toString());
 			
 			rst = stmt.executeQuery();
+			
+			System.out.println(rst.next());
 
-		if (!rst.next())
+			if (!rst.next())
 				retStr = "";
 
 		}
-		catch(SQLException e)
-		{	out.println(e);}
+		catch(SQLException e){	
+			out.println(e);
+		}
 		finally {
 			if (con != null) 
 				try { con.close(); } 
 				catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
 		}
-
-		if(retStr != null)
+		
+		
+		if(rst != null)
 		{	session.removeAttribute("loginMessage");
+			System.out.println("Result string is not null, username: " + username + " should be authenticated");
 			session.setAttribute("authenticatedUser",username);
 		}
 		else

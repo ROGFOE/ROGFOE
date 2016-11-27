@@ -24,8 +24,6 @@
 <!--This is a protected page, must include auth.jsp-->
 <%@include file="auth.jsp" %>
 
-
-
 <div class="container text-center">
   <div class="row content">
    <div class="col-sm-2">
