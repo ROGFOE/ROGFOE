@@ -14,6 +14,10 @@
 <body>
 
 <%@include file="navbar.jsp" %>
+
+<div id="wrap" style="min-height: 100%;">
+  <div id="main" class="container clear-top" style="padding-bottom:200px;">
+  
 <h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; text-align: center;">Shopping Cart</h1><p>&nbsp;</p>
 <div class="container">
     <div class="row">
@@ -87,7 +91,8 @@
     </div>
 </div>
 
-
+ </div>
+</div>
 <%@include file="footer.jsp" %>
 
 </body>

@@ -65,7 +65,7 @@
         							<option value="uk">United Kingdom</option>
         							<option value="irn">Iran</option>
         							<option value="ind">India</option>
-        							<option value="phl">The Philippines</option>
+        							<option value="phl">Philippines</option>
       							</select>
 							</div>	
 							</div>
