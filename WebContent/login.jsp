@@ -51,9 +51,6 @@
 						value="Login">
 				</form>
 
-
-
-
 					<div class="form-group">
 						<div class="col-md-12 control">
 							<div style="padding-top: 15px;">

@@ -55,7 +55,6 @@ div.content {
 	{
 		String username = request.getParameter("username");
 		String password = request.getParameter("pw");
-		String retStr = null;
 
 		if(username == null || password == null)
 				return null;
@@ -70,26 +69,27 @@ div.content {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rst = null;
+		String retStr = null;
 		
 		
 		try {
 			// Make database connection
 			con = DriverManager.getConnection(url,uid,pass);
 
-			System.out.println("Made it past making a connection");
-
+			//Make query string
 			String sql = "SELECT Password FROM User WHERE Uemail = ? AND Password = ?";
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, username);
 			stmt.setString(2, password);
 			System.out.println(stmt.toString());
 			
+			//Execute query
 			rst = stmt.executeQuery();
-			
-			System.out.println(rst.next());
 
-			if (!rst.next())
-				retStr = "";
+			//If such a record exists, retStr null -> ""
+			if(rst.next()){
+				retStr = ("");
+			}
 
 		}
 		catch(SQLException e){	
@@ -102,8 +102,8 @@ div.content {
 		}
 		
 		
-		if(rst != null)
-		{	session.removeAttribute("loginMessage");
+		if(retStr != null){
+			session.removeAttribute("loginMessage");
 			System.out.println("Result string is not null, username: " + username + " should be authenticated");
 			session.setAttribute("authenticatedUser",username);
 		}
