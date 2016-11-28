@@ -78,10 +78,10 @@ div.content {
 
 <% 
 Connection con = null; 
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_jrogers;";
-String uid = "jrogers";
-String pw = "40520158";
+//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+String url = "jdbc:mysql://localhost/ROGFOE";
+String uid = "root";
+String pw = "";
 
 try 
 {	
