@@ -27,7 +27,7 @@ div.content {
 }
 </style>
 
-<title>James & Emerson's Fine Grocers CheckOut Line</title>
+<title>Validate</title>
 
 </head>
 <body>
@@ -81,7 +81,6 @@ div.content {
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, username);
 			stmt.setString(2, password);
-			System.out.println(stmt.toString());
 			
 			//Execute query
 			rst = stmt.executeQuery();
@@ -104,7 +103,6 @@ div.content {
 		
 		if(retStr != null){
 			session.removeAttribute("loginMessage");
-			System.out.println("Result string is not null, username: " + username + " should be authenticated");
 			session.setAttribute("authenticatedUser",username);
 		}
 		else
