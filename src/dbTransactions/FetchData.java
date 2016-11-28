@@ -65,7 +65,7 @@ public class FetchData extends DBconnect{
 			break;
 		case 4:
 			pst.setInt(1, 100000);
-			pst.setInt(1, 1000);
+			pst.setInt(2, 1000);
 			break;
 		default:
 			break;
