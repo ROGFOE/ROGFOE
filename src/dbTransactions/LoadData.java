@@ -18,9 +18,13 @@ public class LoadData
 	public static void loadData() throws Exception
 	{		
 
-		String url = "jdbc:mysql://localhost/ROGFOE";
-	    String uid = "root";
-	    String pw = ""; 
+//		String url = "jdbc:mysql://localhost/ROGFOE";
+//	    String uid = "root";
+//	    String pw = ""; 
+		
+		String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
+	    String uid = "jrogers";
+	    String pw = "40520158";
 		
 		System.out.println("Connecting to database.");
 
