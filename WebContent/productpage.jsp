@@ -1,17 +1,23 @@
+<%@page import="dbTransactions.FetchData"%> 
+<%@ page import="java.sql.PreparedStatement"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.text.NumberFormat" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.List" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<title>Product Page</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<title>Product Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
@@ -124,7 +130,7 @@
 		  $('.spinner .btn:last-of-type').on('click', function() {
 		    $('.spinner input').val( parseInt($('.spinner input').val(), 10) - 1); 
 		  });
-		  window.alert(x); 
+		  window.alert("Penis on special!"); 
 		})(jQuery);
 	</script>
 </body>
