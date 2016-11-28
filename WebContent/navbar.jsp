@@ -25,5 +25,6 @@
     </div>
   </div>
 </nav>
-<div class="page-wrap">
+
+<div class="page-wrap"><!-- (for global sticky footer) -->
 

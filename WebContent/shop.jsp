@@ -21,29 +21,29 @@
 		
 <style>
 
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {
-	height: 450px;
-}
+/* /* Set height of the grid so .sidenav can be 100% (adjust as needed) */ */
+/* .row.content { */
+/* 	height: 450px; */
+/* } */
 
 /* Set gray background color and 100% height */
-.sidenav {
-  	padding-top: 20px;
-  	background-color: white;
-  	height: 100%;
-}
+/* .sidenav { */
+/*   	padding-top: 20px; */
+/*   	background-color: white; */
+/*   	height: 100%; */
+/* } */
 
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) { */
 
-	.sidenav {
-		height: auto;
-		padding: 15px;
-	}
-	.row.content {
-  		height:auto;
-	} 
+/* 	.sidenav { */
+/* 		height: auto; */
+/* 		padding: 15px; */
+/* 	} */
+/* 	.row.content { */
+/*   		height:auto; */
+/* 	}  */
 	
-}
+/* } */
 
 /* for js search functionality */
 .organ-list tr[visible='false'],
@@ -109,6 +109,7 @@ ResultSet rst;
  			<input type="text" class="search form-control" placeholder="Search by Organ">
  		</div>
  		
+		
 	    <!-- Navbar -->
 	    <div class="row form-group filter-list">	    
 			<ul class="nav nav-pills">				
