@@ -222,7 +222,6 @@ out.print("<br><table class=\"table table-hover organ-list\">"+
 // filter dropdown values
 rst = data.listOrganDetails();
 String def = data.getOrganTable(rst);
-System.out.println(def);
 	       	
 ArrayList<String> resp = new ArrayList<String>();
 resp.add(request.getParameter("organ"));
