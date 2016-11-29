@@ -46,6 +46,8 @@ if (productList == null){
     out.println("<th class=\"text-center\">Price</th><th class=\"text-center\">Total</th><th></th></tr></thead><tbody>");
 	
     /*each table row is a product*/
+    
+    //If want to add image, will have to pass that info in the product list OR query db based on product id
     double total =0;
 	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 	while (iterator.hasNext()) 
@@ -63,10 +65,23 @@ if (productList == null){
 		out.print("<td><a href=\"removecart.jsp?id="+product.get(0)+"\"><span class=\"glyphicon glyphicon-remove\"></span></a> </td>");
 		out.println("</tr>");
 		total = total +pr*qty;
+						
 	}
+	out.print("<tfoot><tr><td> </td><td> </td><td> </td><td><h5>Subtotal</h5><h3>Grand Total: </h3></td>");
+    out.print("<td class=\"text-right\"><h5><strong>"+currFormat.format(total)+"</strong></h5><h3>"+currFormat.format(total)+"</h3></td></tr>");
+	out.print("<tr><td> </td><td> </td><td></td><td>");
+	out.print("<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='shop.jsp'\"><span class=\"glyphicon glyphicon-shopping-cart\"></span>Continue Shopping</button>");
+	out.print("</td>");
+	out.print("<td>");
+	out.print("<button type=\"button\" class=\"btn btn-success\">Checkout <span class=\"glyphicon glyphicon-play\"></span></button>");
+	out.print("</td></tr>");
+	out.print("</tfoot>");
+	out.print("</table>");
 }
 
 %>
+
+<!--Left these here so that nino can work his styling magic and re-implement some of these things should he feel so inclined-->
 					<!-- 	<tr>
 							<td class="col-sm-8 col-md-6">
 								<div class="media">
@@ -94,50 +109,7 @@ if (productList == null){
 							</td>
 						</tr> -->
 
-						</tbody>
-
-						<tfoot>
-							<tr>
-								<td> </td>
-								<td> </td>
-								<td> </td>
-
-								<td><h5>
-										Subtotal<br>Shipping
-									</h5>
-									<h3>Total</h3></td>
-								<td class="text-right"><h5>
-										<strong>$24.59<br>$6.94
-										</strong>
-									</h5>
-									<h3>$31.53</h3></td>
-
-							</tr>
-							<tr>
-								<td> </td>
-								<td> </td>
-								<td>
-									<button type="button" class="btn btn-default"
-										onclick="window.location.href='shop.jsp'">
-										<span class="glyphicon glyphicon-shopping-cart"></span>
-										Continue Shopping
-									</button>
-								</td>
-
-								<td>
-									<button type="button" class="btn btn-default">Update
-										Cart</button>
-								</td>
-
-								<td>
-									<button type="button" class="btn btn-success">
-										Checkout <span class="glyphicon glyphicon-play"></span>
-									</button>
-								</td>
-							</tr>
-						</tfoot>
-						</table>
-					</div>
+		</div>
     </div>
 </div>
 
