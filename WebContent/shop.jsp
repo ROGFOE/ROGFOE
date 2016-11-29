@@ -216,6 +216,7 @@ out.print("<br><table class=\"table table-hover organ-list\">"+
 				"<th>Doctor</th>"+
 				"<th>Hospital</th>"+
 				"<th>Category</th>"+
+				"<th>Add to Cart</th>"+
 			"</tr></thead><tbody>");
 
 // filter dropdown values
