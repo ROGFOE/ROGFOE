@@ -1,3 +1,9 @@
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Map" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,72 +28,116 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-10 col-md-offset-1">
-            <table class="table table-hover">
-                
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th class="text-center">Price</th>
-                        <th class="text-center">Total</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                	<!--  each table row is a product -->
-                    <tr>
-                        <td class="col-sm-8 col-md-6">
-                        <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="images/eyeball2.jpg" style="width: 72px; height: 72px;"> </a>
-                            <div class="media-body">
-                                <h4 class="media-heading" style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; padding-top:20px; padding-left:10px;"><a href="#"> Product name</a></h4>
-                            </div>
-                        </div></td>
-                        <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input type="email" class="form-control" id="exampleInputEmail1" value="3">
-                        </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
-                        <td class="col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </button></td>
-                    </tr>
-                    
-                </tbody>
-                
-                <tfoot>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        
-                        <td><h5>Subtotal<br>Shipping</h5><h3>Total</h3></td>
-                        <td class="text-right"><h5><strong>$24.59<br>$6.94</strong></h5><h3>$31.53</h3></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>
-                        <button type="button" class="btn btn-default" onclick="window.location.href='shop.jsp'">
-                            <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                        </button></td>
-                        
-                         <td>
-                        <button type="button" class="btn btn-default">
-                            Update Cart
-                        </button></td>
-                        
-                        <td>
-                        <button type="button" class="btn btn-success">
-                            Checkout <span class="glyphicon glyphicon-play"></span>
-                        </button></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+
+<% 
+//Get current list of products
+@SuppressWarnings({"unchecked"})
+HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+
+if (productList == null){
+	out.println("<h2>Your shopping cart is empty!</h2>");
+	productList = new HashMap<String, ArrayList<Object>>();
+} else {
+	
+	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
+
+	out.println("<table class=\"table table-hover\">");
+    out.println("<thead><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+    out.println("<th class=\"text-center\">Price</th><th class=\"text-center\">Total</th><th></th></tr></thead><tbody>");
+	
+    /*each table row is a product*/
+    double total =0;
+	Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+	while (iterator.hasNext()) 
+	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+		ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
+		out.print("<tr><td class=\"pid\">"+product.get(0)+"</td>");
+		out.print("<td class=\"pName\">"+product.get(1)+"</td>");
+
+		out.print("<td class=\"qty\">"+product.get(3)+"</td>");
+		double pr = Double.parseDouble( (String) product.get(2));
+		int qty = ( (Integer)product.get(3)).intValue();
+
+		out.print("<td class=\"currency\">"+currFormat.format(pr)+"</td>");
+		out.print("<td class=\"currency\">"+currFormat.format(pr*qty)+"</td>");
+		out.print("<td><a href=\"removecart.jsp?id="+product.get(0)+"\"><span class=\"glyphicon glyphicon-remove\"></span></a> </td>");
+		out.println("</tr>");
+		total = total +pr*qty;
+	}
+}
+
+%>
+					<!-- 	<tr>
+							<td class="col-sm-8 col-md-6">
+								<div class="media">
+									<a class="thumbnail pull-left" href="#"> <img
+										class="media-object" src="images/eyeball2.jpg"
+										style="width: 72px; height: 72px;">
+									</a>
+									<div class="media-body">
+										<h4 class="media-heading"
+											style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; padding-top: 20px; padding-left: 10px;">
+											<a href="#"> Product name</a>
+										</h4>
+									</div>
+								</div>
+							</td>
+							<td class="col-sm-1 col-md-1" style="text-align: center"><input
+								type="email" class="form-control" id="exampleInputEmail1"
+								value="3"></td>
+							<td class="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
+							<td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
+							<td class="col-sm-1 col-md-1">
+								<button type="button" class="btn btn-danger">
+									<span class="glyphicon glyphicon-remove"></span> Remove
+								</button>
+							</td>
+						</tr> -->
+
+						</tbody>
+
+						<tfoot>
+							<tr>
+								<td>Â </td>
+								<td>Â </td>
+								<td>Â </td>
+
+								<td><h5>
+										Subtotal<br>Shipping
+									</h5>
+									<h3>Total</h3></td>
+								<td class="text-right"><h5>
+										<strong>$24.59<br>$6.94
+										</strong>
+									</h5>
+									<h3>$31.53</h3></td>
+
+							</tr>
+							<tr>
+								<td>Â </td>
+								<td>Â </td>
+								<td>
+									<button type="button" class="btn btn-default"
+										onclick="window.location.href='shop.jsp'">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+										Continue Shopping
+									</button>
+								</td>
+
+								<td>
+									<button type="button" class="btn btn-default">Update
+										Cart</button>
+								</td>
+
+								<td>
+									<button type="button" class="btn btn-success">
+										Checkout <span class="glyphicon glyphicon-play"></span>
+									</button>
+								</td>
+							</tr>
+						</tfoot>
+						</table>
+					</div>
     </div>
 </div>
 
