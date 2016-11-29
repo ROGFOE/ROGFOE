@@ -1,5 +1,6 @@
 package dbTransactions;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -170,6 +171,7 @@ public class FetchData extends DBconnect{
     {
         StringBuilder output = new StringBuilder();
         while(rst.next()){
+        	int orgID = rst.getInt(1);
 			String name = rst.getString(6);
 			Double price = rst.getDouble(7);
 			int size = rst.getInt(8);
@@ -185,6 +187,16 @@ public class FetchData extends DBconnect{
 			//Format Currency
 			NumberFormat currFormat = NumberFormat.getCurrencyInstance();	
 
+			//Create add to cart link
+			String nameEncoded=("null");
+			try {
+				nameEncoded = java.net.URLEncoder.encode(name,"UTF-8").replace("+","%20");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String cartLink = "addcart.jsp?id="+orgID+"&name="+nameEncoded+"&price="+price;
+			
 			//The actual printing.
 			String out = 
 						"<tr class=\"list-row\">"+
@@ -198,8 +210,11 @@ public class FetchData extends DBconnect{
 							"<td>"+doc+"</td>"+
 							"<td>"+hosp+"</td>"+
 							"<td>"+Cat+"</td>"+
+							"<td><a href="+cartLink+">Add to cart</a></td>"+
 						"</tr>";
 			output.append(out);
+			
+			System.out.println(output.toString());
 			
 		}   
         
