@@ -1,3 +1,4 @@
+<%@page import="com.sun.xml.internal.bind.v2.TODO"%>
 <%@page import="dbTransactions.FetchData"%> 
 <%@ page import="java.sql.PreparedStatement"%>
 <%@ page import="java.sql.ResultSet"%>
@@ -21,30 +22,6 @@
 		
 <style>
 
-/* /* Set height of the grid so .sidenav can be 100% (adjust as needed) */ */
-/* .row.content { */
-/* 	height: 450px; */
-/* } */
-
-/* Set gray background color and 100% height */
-/* .sidenav { */
-/*   	padding-top: 20px; */
-/*   	background-color: white; */
-/*   	height: 100%; */
-/* } */
-
-/* @media screen and (max-width: 767px) { */
-
-/* 	.sidenav { */
-/* 		height: auto; */
-/* 		padding: 15px; */
-/* 	} */
-/* 	.row.content { */
-/*   		height:auto; */
-/* 	}  */
-	
-/* } */
-
 /* for js search functionality */
 .organ-list tr[visible='false'],
 .no-result{
@@ -54,18 +31,17 @@
 	display:table-row;
 }
 
+div.form-group.organ-search {
+	width: 25%;
+}
+
 .container.shop {
-	width: 100%;
+/* 	width: 100%; */
 	margin: 0 auto;
 	text-align: center;
 }
-
 .content {
 	width: 83.3333333%;
-}
-
-div.form-group.organ-search {
-	width: 25%;
 }
 
 input.search.form-control {
@@ -77,145 +53,137 @@ input.search.form-control {
 
 table.organ-list th,td {
 	text-align: center;
-}
-
-body > div > div > div.row.form-group.filter-list > ul.nav.nav-pills {
-	margin: 0 auto;
-	text-align: center;
-	width: 50%;
+	vertical-align: middle;
 }
 </style>
 
 </head>
-
 <body>
 
 <%@include file="navbar.jsp" %>
 
-<%  
-// Set up the db connection and ability to grab data
+<div class="container shop">
+	<h1 style="text-align:center">Shop</h1><br />
+
+		<!-- js search -->
+		<div class="form-group organ-search">
+			<span class="counter text-center"></span>
+			<input type="text" class="search form-control" placeholder="Search by Organ">
+		</div>
+		
+ 	
+    <!-- Filters -->
+    <div class="col-md-2"></div>
+    <div class="row form-group filter-list col-md-8">   
+		<ul class="nav nav-pills">				
+			<li class="dropdown organs">
+				<form action="shop.jsp" method="get" id="organ">
+		    	<select class="form-control" onchange="this.form.submit()" name="organ" form="organ">
+		    		<option value="" disabled selected>Organ</option>
+				<!-- Getting list of organs for dropdown menu -->
+				
+<%
+
+//Set up the db connection and ability to grab data
 FetchData data = new FetchData();
 data.connect();
 ResultSet rst;
-%>
+rst = data.listOrganNames();
 
-<div class="container shop">
-  
-	<h1 style="text-align:center">Shop</h1><br />
-	
-		<!-- js search -->
- 		<div class="form-group organ-search">
- 			<span class="counter text-center"></span>
- 			<input type="text" class="search form-control" placeholder="Search by Organ">
- 		</div>
- 		
-		
-	    <!-- Navbar -->
-	    <div class="row form-group filter-list">	    
-			<ul class="nav nav-pills">				
-				<li class="dropdown organs">
-					<form action="shop.jsp" method="get" id="organ">
-			    	<select class="form-control" onchange="this.form.submit()" name="organ" form="organ">
-			    		<option value="" disabled selected>Organ</option>
-					<!-- Getting list of organs for dropdown menu -->
-					
-<% 					rst = data.listOrganNames();
-					while(rst.next())
-					{	
-						String organ = rst.getString(1);
-						out.print(				
-						"<option value=\""+organ+"\">"
-							+organ+
-						"</option>");			
-					}
+				while(rst.next())
+				{	
+					String organ = rst.getString(1);
+					out.print(				
+					"<option value=\""+organ+"\">"
+						+organ+
+					"</option>");			
+				}
 %>			
-   					</select>
-   					</form>
-   					
- 				</li><!-- dropdown organs -->
- 					
-				<li class="dropdown categories">
-					<form action="shop.jsp" method="get" id="cat">
-			    	<select class="form-control" onchange="this.form.submit()" name="cat" form="cat">
-			    		<option value="" disabled selected>Category</option>
-					<!-- Getting list of organ categories for dropdown menu -->
-<% 					rst = data.listUniqueCategories();
-					while(rst.next())
-					{	
-						String cat = rst.getString(1);
-						String Cat = cat.substring(0, 1).toUpperCase() + cat.substring(1); //make first char. upper case
-						out.print(				
-						"<option value=\""+Cat+"\">"
-							+Cat+
-						"</option>");			
-					}
-%>
-   					</select>
-   					</form>
-   					
- 				</li><!-- dropdown categories --> 	
-	
-				<li class="dropdown blood-type">
-					<form action="shop.jsp" method="get" id="blood">
-				    <select class="form-control" onchange="this.form.submit()" name="blood" form="blood">
-				    	<option value="" disabled selected>Blood Type</option>
-				    	<option value="A">A</option>
-						<option value="AB">AB</option>
-						<option value="B">B</option>
-						<option value="O">O</option>
-				    </select>
-				    </form>
-				    
-			  	</li><!-- dropdown blood-type -->
- 
-				<li class="dropdown price-ranges">
-					<form action="shop.jsp" method="get" id="price">
-					<select class="form-control" onchange="this.form.submit()" name="price" form="price">
-						<option value="" disabled selected>Price Range</option>
-				    	<option value="<500">Less than $500</option>
-						<option value="BETWEEN 500 AND 1000">$500 - $1000</option>
-						<option value="BETWEEN 1000 AND 10000">$1000 - $10,000</option>
-						<option value=">10000">More than $10,000</option>
-				    </select>
-				    </form>
-				    
-				</li><!-- dropdown price-ranges -->
- 
-				<li class="dropdown sizes">
-					<form action="shop.jsp" method="get" id="size">
-					<select class="form-control" onchange="this.form.submit()" name="size" form="size">	
-						<option value="" disabled selected>Size (grams)</option>												
-				    	<option value="1">Under 5g</option>
-						<option value="2">5g - 100g</option>
-						<option value="3">100g - 1000g</option>
-						<option value="4">Over 1000g</option>
-					</select>
-					</form>
+  					</select>
+  					</form>
+  					
+				</li><!-- dropdown organs -->
 					
-				</li><!-- dropdown sizes -->
-			</ul><!-- nav nav-pills -->
-   		</div><!-- row filter-list -->
+			<li class="dropdown categories">
+				<form action="shop.jsp" method="get" id="cat">
+		    	<select class="form-control" onchange="this.form.submit()" name="cat" form="cat">
+		    		<option value="" disabled selected>Category</option>
+				<!-- Getting list of organ categories for dropdown menu -->
+<% 					rst = data.listUniqueCategories();
+				while(rst.next())
+				{	
+					String cat = rst.getString(1);
+					String Cat = cat.substring(0, 1).toUpperCase() + cat.substring(1); //make first char. upper case
+					out.print(				
+					"<option value=\""+Cat+"\">"
+						+Cat+
+					"</option>");			
+				}
+%>
+  					</select>
+  					</form>
+  					
+				</li><!-- dropdown categories --> 	
 
-		
-	<div class="content">
-   
-	    <div class="col-sm-12 text-left"> 
-	
+				<li class="dropdown blood-type">
+				<form action="shop.jsp" method="get" id="blood">
+			    <select class="form-control" onchange="this.form.submit()" name="blood" form="blood">
+			    	<option value="" disabled selected>Blood Type</option>
+			    	<option value="A">A</option>
+					<option value="AB">AB</option>
+					<option value="B">B</option>
+					<option value="O">O</option>
+			    </select>
+			    </form>
+			    
+		  	</li><!-- dropdown blood-type -->
+
+			<li class="dropdown price-ranges">
+				<form action="shop.jsp" method="get" id="price">
+				<select class="form-control" onchange="this.form.submit()" name="price" form="price">
+					<option value="" disabled selected>Price Range</option>
+			    	<option value="<500">Less than $500</option>
+					<option value="BETWEEN 500 AND 1000">$500 - $1000</option>
+					<option value="BETWEEN 1000 AND 10000">$1000 - $10,000</option>
+					<option value=">10000">More than $10,000</option>
+			    </select>
+			    </form>
+			    
+			</li><!-- dropdown price-ranges -->
+
+			<li class="dropdown sizes">
+				<form action="shop.jsp" method="get" id="size">
+				<select class="form-control" onchange="this.form.submit()" name="size" form="size">	
+					<option value="" disabled selected>Size (grams)</option>												
+			    	<option value="1">Under 5g</option>
+					<option value="2">5g - 100g</option>
+					<option value="3">100g - 1000g</option>
+					<option value="4">Over 1000g</option>
+				</select>
+				</form>
+				
+			</li><!-- dropdown sizes -->
+			</ul><!-- nav nav-pills -->
+  			</div>
+  		<div class="col-sm-2"></div>
+
+	<div class="col-sm-2"></div>	
+	<div class="col-sm-8">	 
 <%	    
 /* List Products */
 /* Print out the table headers */
 out.print("<br><table class=\"table table-hover organ-list\">"+
 			"<thead><tr>"+
+				"<th></th>"+
 				"<th>Organ</th>"+
-				"<th>Price</th>"+
-				"<th>Size (grams)</th>"+
-				"<th>Removal Date</th>"+
-				"<th>Blood Type</th>"+
 				"<th>Description</th>"+
-				"<th>Picture</th>"+
-				"<th>Doctor</th>"+
-				"<th>Hospital</th>"+
+				"<th>Size (grams)</th>"+
+// 				"<th>Removal Date</th>"+
+				"<th>Blood Type</th>"+
+// 				"<th>Doctor</th>"+
+// 				"<th>Hospital</th>"+
 				"<th>Category</th>"+
+				"<th>Price</th>"+
 				"<th>Add to Cart</th>"+
 			"</tr></thead><tbody>");
 
@@ -269,18 +237,14 @@ for (int i=0; i<resp.size(); i++){
 			}
 	}
 }
-
-out.print("</tbody></table></div>");
+out.print("</tbody></table>");
 %>
-	     
-	    </div><!-- col-sm-12 text-left -->	    	
-	</div><!-- content -->
-</div><!-- container text-center -->
+		</div><!-- col-md-8 -->		
+	<div class="col-md-2"></div>	         	
+</div><!-- container shop col-sm-12 -->
 
-<%@include file="footer.jsp" %>
-
-<!-- Adds search to product list w/o querying the database -->
 <script type="text/javascript" defer="defer">
+// Adds search to product list w/o querying the database
 // adapted from: https://codepen.io/adobewordpress/pen/gbewLV
 $(document).ready(function() {
 	
@@ -319,8 +283,7 @@ $(document).ready(function() {
  
 	});
 });
-
 </script>
+<%@include file="footer.jsp" %>
 </body>
-
 </html>

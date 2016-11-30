@@ -1,7 +1,6 @@
-* {
-	margin: 0 auto;
-}
- 
+ * {
+ 	margin: 0 auto;
+ }
 html, body {
 	height: 100%;
 	margin: 0 auto;
@@ -40,9 +39,14 @@ html, body {
 	height: 60 px; 
 }
 
-.organ-pic-list {
-	max-height: 150px;
-	max-width: 300px;
+img.organ-pic-list {
+	max-height: 150 px;
+	width: 200px;
+}
+
+img.cart {
+	max-height: 150 px;
+	width: 200px;
 }
     
   .carousel-inner img {
@@ -76,4 +80,4 @@ html, body {
       }
       .row.content {height:auto;}
     }
-    
+
