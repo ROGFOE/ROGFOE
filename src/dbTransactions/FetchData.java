@@ -225,7 +225,7 @@ public String getOrganImage(String pid) throws SQLException
 			
 			//The actual printing.
 			String out = 
-						"<tr class=\"shop list-row\">"+
+						"<tr class=\"row shop list-row\">"+
 							"<td class=\"text-center\"><img class=\"organ-pic-list\" src=\"  "+pic+"  \"></td>"+
 							"<td class=\"OName\">"+name+"</td>"+
 							"<td class=\"desc\">"+desc+"</td>"+
