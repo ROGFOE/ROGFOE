@@ -11,7 +11,7 @@
 <html lang="en">
 
 <head>
-	<title>Administrator</title>
+	<title>Shop</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -216,6 +216,7 @@ out.print("<br><table class=\"table table-hover organ-list\">"+
 				"<th>Doctor</th>"+
 				"<th>Hospital</th>"+
 				"<th>Category</th>"+
+				"<th>Add to Cart</th>"+
 			"</tr></thead><tbody>");
 
 // filter dropdown values
