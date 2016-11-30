@@ -1,3 +1,5 @@
+<%@page import="dbTransactions.FetchData"%> 
+<%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.ArrayList" %>
@@ -30,6 +32,11 @@
         <div class="col-sm-12 col-md-10 col-md-offset-1">
 
 <% 
+//Set up the db connection and ability to grab data
+FetchData data = new FetchData();
+data.connect();
+ResultSet rst;
+
 //Get current list of products
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
@@ -42,7 +49,7 @@ if (productList == null){
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
 
 	out.println("<table class=\"table table-hover\">");
-    out.println("<thead><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
+    out.println("<thead><tr><th>          </th><th>Product Name</th><th>Quantity</th>");
     out.println("<th class=\"text-center\">Price</th><th class=\"text-center\">Total</th><th></th></tr></thead><tbody>");
 	
     /*each table row is a product*/
@@ -53,7 +60,11 @@ if (productList == null){
 	while (iterator.hasNext()) 
 	{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
 		ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-		out.print("<tr><td class=\"pid\">"+product.get(0)+"</td>");
+		
+		String imgUrl;
+		imgUrl = data.getOrganImage(product.get(0).toString());
+		
+		out.print("<tr><td class=\"img cart\"><img class=\"cart organ-pic-list\" src=\"" +imgUrl+ "\"></td>");
 		out.print("<td class=\"pName\">"+product.get(1)+"</td>");
 
 		out.print("<td class=\"qty\">"+product.get(3)+"</td>");

@@ -159,6 +159,28 @@ public class FetchData extends DBconnect{
         return rst;
     }
     
+  
+    /**
+	 *
+	 * @param
+	 * 		 The product id (pid)
+	 * @return
+	 *       ResultSet containing the image url.
+	 */
+public String getOrganImage(String pid) throws SQLException
+   {
+	   	System.out.println("\nExecuting getOrganImage.");
+	   	String sql = "SELECT Picture FROM Organ WHERE OrgID = ?";
+	   	PreparedStatement pst = con.prepareStatement(sql);
+	   	pst.setString(1, pid);
+	   	ResultSet rst = pst.executeQuery();
+	   	String url = null;
+	   	
+	   	while (rst.next()){
+	   		url = rst.getString(1);
+	   	}
+	   	return url;
+   }
     
     /**
 	 * Returns a String with all the organs in the database.  
@@ -203,18 +225,18 @@ public class FetchData extends DBconnect{
 			
 			//The actual printing.
 			String out = 
-						"<tr class=\"list-row\">"+
-							"<td class=\"OName\">"+name+"</td>"+
-							"<td>"+currFormat.format(price)+"</td>"+
-							"<td>"+size+"</td>"+
-							"<td>"+date+"</td>"+
-							"<td>"+blood+"</td>"+
-							"<td>"+desc+"</td>"+
+						"<tr class=\"row shop list-row\">"+
 							"<td class=\"text-center\"><img class=\"organ-pic-list\" src=\"  "+pic+"  \"></td>"+
-							"<td>"+doc+"</td>"+
-							"<td>"+hosp+"</td>"+
-							"<td>"+Cat+"</td>"+
-							"<td><a href="+cartLink+">Add to cart</a></td>"+
+							"<td class=\"OName\">"+name+"</td>"+
+							"<td class=\"desc\">"+desc+"</td>"+
+							"<td class=\"size\">"+size+"</td>"+
+//							"<td>"+date+"</td>"+
+							"<td class=\"blood\">"+blood+"</td>"+
+//							"<td>"+doc+"</td>"+
+//							"<td>"+hosp+"</td>"+
+							"<td class=\"cat\">"+Cat+"</td>"+
+							"<td class=\"price\">"+currFormat.format(price)+"</td>"+
+							"<td class=\"cartLink\"><a href="+cartLink+">Add to cart</a></td>"+
 						"</tr>";
 			output.append(out);
 		}   
