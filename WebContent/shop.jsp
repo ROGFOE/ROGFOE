@@ -31,17 +31,16 @@
 	display:table-row;
 }
 
-div.form-group.organ-search {
+div.row.form-group.organ-search {
 	width: 25%;
+	margin: 0 auto; 
+ 	text-align: center; 
 }
 
-.container.shop {
-/* 	width: 100%; */
-	margin: 0 auto;
-	text-align: center;
-}
-.content {
-	width: 83.3333333%;
+div.form-group.filter-list > ul {
+	width: 70%;
+	margin: auto; 
+ 	text-align: center; 
 }
 
 input.search.form-control {
@@ -51,10 +50,16 @@ input.search.form-control {
     padding-left: 12px;
 }
 
-table.organ-list th,td {
+table.organ-list > td, th {
 	text-align: center;
 	vertical-align: middle;
 }
+
+div.row.product-list {
+	width: 70%;
+	margin: 0 auto;
+}
+
 </style>
 
 </head>
@@ -62,21 +67,24 @@ table.organ-list th,td {
 
 <%@include file="navbar.jsp" %>
 
-<div class="container shop">
+<div class="shop container-fluid"><!-- wraps everything to footer -->
+
 	<h1 style="text-align:center">Shop</h1><br />
 
 		<!-- js search -->
-		<div class="form-group organ-search">
-			<span class="counter text-center"></span>
-			<input type="text" class="search form-control" placeholder="Search by Organ">
+		<div class="row form-group organ-search">
+			<span class="col-sm-12 counter text-center"></span>
+			<input type="text" class="col-sm-12 search form-control" placeholder="Search by Organ">
 		</div>
 		
- 	
+		<br />
+		
     <!-- Filters -->
-    <div class="col-md-2"></div>
-    <div class="row form-group filter-list col-md-8">   
-		<ul class="nav nav-pills">				
-			<li class="dropdown organs">
+
+    <div class="form-group filter-list">   
+		<ul class="row nav nav-pills">
+			<li class="col-sm-1"></li>				
+			<li class="dropdown organs col-sm-2">
 				<form action="shop.jsp" method="get" id="organ">
 		    	<select class="form-control" onchange="this.form.submit()" name="organ" form="organ">
 		    		<option value="" disabled selected>Organ</option>
@@ -104,7 +112,7 @@ rst = data.listOrganNames();
   					
 				</li><!-- dropdown organs -->
 					
-			<li class="dropdown categories">
+			<li class="dropdown categories col-sm-2">
 				<form action="shop.jsp" method="get" id="cat">
 		    	<select class="form-control" onchange="this.form.submit()" name="cat" form="cat">
 		    		<option value="" disabled selected>Category</option>
@@ -125,7 +133,7 @@ rst = data.listOrganNames();
   					
 				</li><!-- dropdown categories --> 	
 
-				<li class="dropdown blood-type">
+				<li class="dropdown blood-type col-sm-2">
 				<form action="shop.jsp" method="get" id="blood">
 			    <select class="form-control" onchange="this.form.submit()" name="blood" form="blood">
 			    	<option value="" disabled selected>Blood Type</option>
@@ -138,7 +146,7 @@ rst = data.listOrganNames();
 			    
 		  	</li><!-- dropdown blood-type -->
 
-			<li class="dropdown price-ranges">
+			<li class="dropdown price-ranges col-sm-2">
 				<form action="shop.jsp" method="get" id="price">
 				<select class="form-control" onchange="this.form.submit()" name="price" form="price">
 					<option value="" disabled selected>Price Range</option>
@@ -151,7 +159,7 @@ rst = data.listOrganNames();
 			    
 			</li><!-- dropdown price-ranges -->
 
-			<li class="dropdown sizes">
+			<li class="dropdown sizes col-sm-2">
 				<form action="shop.jsp" method="get" id="size">
 				<select class="form-control" onchange="this.form.submit()" name="size" form="size">	
 					<option value="" disabled selected>Size (grams)</option>												
@@ -163,19 +171,18 @@ rst = data.listOrganNames();
 				</form>
 				
 			</li><!-- dropdown sizes -->
-			</ul><!-- nav nav-pills -->
-  			</div>
-  		<div class="col-sm-2"></div>
+			<li class="col-sm-1"></li>
+		</ul><!-- nav nav-pills -->
+  	</div><!-- row -->
 
-	<div class="col-sm-2"></div>	
-	<div class="col-sm-8">	 
+	<div class="row product-list">	 
 <%	    
 /* List Products */
 /* Print out the table headers */
 out.print("<br><table class=\"table table-hover organ-list\">"+
 			"<thead><tr>"+
-				"<th></th>"+
-				"<th>Organ</th>"+
+				"<th></th>"+ /* picture */
+// 				"<th>Organ</th>"+
 				"<th>Description</th>"+
 				"<th>Size (grams)</th>"+
 // 				"<th>Removal Date</th>"+
@@ -184,7 +191,7 @@ out.print("<br><table class=\"table table-hover organ-list\">"+
 // 				"<th>Hospital</th>"+
 				"<th>Category</th>"+
 				"<th>Price</th>"+
-				"<th>Add to Cart</th>"+
+				"<th></th>"+ /* add to cart */
 			"</tr></thead><tbody>");
 
 // filter dropdown values
@@ -239,9 +246,9 @@ for (int i=0; i<resp.size(); i++){
 }
 out.print("</tbody></table>");
 %>
-		</div><!-- col-md-8 -->		
-	<div class="col-md-2"></div>	         	
-</div><!-- container shop col-sm-12 -->
+	</div><!-- row -->	
+	
+</div><!-- container-fluid shop -->
 
 <script type="text/javascript" defer="defer">
 // Adds search to product list w/o querying the database
