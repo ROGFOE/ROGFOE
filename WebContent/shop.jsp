@@ -21,30 +21,6 @@
 		
 <style>
 
-/* /* Set height of the grid so .sidenav can be 100% (adjust as needed) */ */
-/* .row.content { */
-/* 	height: 450px; */
-/* } */
-
-/* Set gray background color and 100% height */
-/* .sidenav { */
-/*   	padding-top: 20px; */
-/*   	background-color: white; */
-/*   	height: 100%; */
-/* } */
-
-/* @media screen and (max-width: 767px) { */
-
-/* 	.sidenav { */
-/* 		height: auto; */
-/* 		padding: 15px; */
-/* 	} */
-/* 	.row.content { */
-/*   		height:auto; */
-/* 	}  */
-	
-/* } */
-
 /* for js search functionality */
 .organ-list tr[visible='false'],
 .no-result{
@@ -276,8 +252,6 @@ out.print("</tbody></table></div>");
 	</div><!-- content -->
 </div><!-- container text-center -->
 
-<%@include file="footer.jsp" %>
-
 <!-- Adds search to product list w/o querying the database -->
 <script type="text/javascript" defer="defer">
 // adapted from: https://codepen.io/adobewordpress/pen/gbewLV
@@ -320,6 +294,9 @@ $(document).ready(function() {
 });
 
 </script>
+
+<%@include file="footer.jsp" %>
+
 </body>
 
 </html>
