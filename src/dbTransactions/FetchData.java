@@ -28,6 +28,87 @@ public class FetchData extends DBconnect{
     /**
 	 * 
 	 * @return
+	 *       Returns Visa information on user, based on UID
+	 */
+    public ResultSet getVisa(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM Visa WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns PayPal information on user, based on UID
+	 */
+    public ResultSet getPayPal(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM PayPal WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns bank information on user, based on UID
+	 */
+    public ResultSet getBank(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM BankTransfer WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns shipping and home addresses of user, based on UID
+	 */
+    public ResultSet getShippingAddresses(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT Street, City, State, PostalCode, Country, AddID FROM Address WHERE UID = ? AND (AddressType = 'Home' OR AddressType = 'Shipping');";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns UID and password
+	 */
+    public ResultSet validateLogin(String un, String pw) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT UID, Password FROM User WHERE Uemail = ? AND Password = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setString(1, un);
+		stmt.setString(2, pw);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
 	 *       ResultSet of unique organ categories sorted ascending from the rogfoe database.
 	 */
     public ResultSet listUniqueCategories() throws SQLException

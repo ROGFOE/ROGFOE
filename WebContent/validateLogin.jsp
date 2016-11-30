@@ -1,3 +1,4 @@
+<%@page import="dbTransactions.FetchData"%> 
 <%@ page language="java" import="java.io.*"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.text.NumberFormat" %>
@@ -61,43 +62,32 @@ div.content {
 		if((username.length() == 0) || (password.length() == 0))
 				return null;
 
-		//Connect to DB
-		String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-		String uid = "jrogers";
-		String pass = "40520158";
-		
-		Connection con = null;
-		PreparedStatement stmt = null;
-		ResultSet rst = null;
+		// Set up the db connection and ability to grab data
+		FetchData data = new FetchData();
+		ResultSet rst;
 		String retStr = null;
 		
 		
 		try {
-			// Make database connection
-			con = DriverManager.getConnection(url,uid,pass);
-
-			//Make query string
-			String sql = "SELECT Password FROM User WHERE Uemail = ? AND Password = ?";
-			stmt = con.prepareStatement(sql);
-			stmt.setString(1, username);
-			stmt.setString(2, password);
 			
-			//Execute query
-			rst = stmt.executeQuery();
-
-			//If such a record exists, retStr null -> ""
-			if(rst.next()){
+			data.connect();
+			rst = data.validateLogin(username, password);
+			while(rst.next()){
+				//If such a record exists, retStr null -> ""
 				retStr = ("");
+				
+				//Set UID in session var
+				int uid = rst.getInt(1);
+				session.setAttribute("uid", uid);
+				
+			}
+
+			if(rst.next()){
 			}
 
 		}
 		catch(SQLException e){	
 			out.println(e);
-		}
-		finally {
-			if (con != null) 
-				try { con.close(); } 
-				catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
 		}
 		
 		
