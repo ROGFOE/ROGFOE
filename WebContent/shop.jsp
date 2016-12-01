@@ -208,7 +208,7 @@ rst = data.listOrganNames();
 <%	    
 /* List Products */
 /* Print out the table headers */
-out.print("<br><table class=\"table table-hover organ-list\">"+
+out.print("<table class=\"table table-hover organ-list\">"+
 			"<thead><tr>"+
 // 				"<th></th>"+ /* picture */
 // // 				"<th>Organ</th>"+
