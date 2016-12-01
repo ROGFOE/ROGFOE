@@ -226,17 +226,13 @@ public String getOrganImage(String pid) throws SQLException
 			//The actual printing.
 			String out = 
 						"<tr class=\"row shop list-row\">"+
-							"<td class=\"text-center\"><img class=\"organ-pic-list\" src=\"  "+pic+"  \"></td>"+
-							"<td class=\"OName\">"+name+"</td>"+
-							"<td class=\"desc\">"+desc+"</td>"+
-							"<td class=\"size\">"+size+"</td>"+
-//							"<td>"+date+"</td>"+
-							"<td class=\"blood\">"+blood+"</td>"+
-//							"<td>"+doc+"</td>"+
-//							"<td>"+hosp+"</td>"+
-							"<td class=\"cat\">"+Cat+"</td>"+
-							"<td class=\"price\">"+currFormat.format(price)+"</td>"+
-							"<td class=\"cartLink\"><a href="+cartLink+">Add to cart</a></td>"+
+							"<td class=\"col-sm-3 text-center pic\"><img class=\"organ-pic-list\" src=\"  "+pic+"  \"></td>"+
+							"<td class=\"col-sm-6 OName\"><span class=\"OName\">"+name+"</span><br />"+
+							"<span class=\"size\">Weight: "+size+" grams <b>|</b> </span><span class=\"blood\">Blood Type: "+blood+"</span><br /><br />"+
+							"<span class=\"desc\">"+desc+"</span></td>"+
+							"<td class=\"price col-sm-3\"><span class=\"price\"><br/><br/>"+currFormat.format(price)+"</span><br />"+
+							"<span class=\"cat\">"+Cat+": </span>"+"<br />"+
+							"<span class=\"buy\"><br/><a href="+cartLink+">Buy <span class=\"glyphicon glyphicon-shopping-cart\"></span></a></span></td>"+
 						"</tr>";
 			output.append(out);
 		}   
