@@ -28,7 +28,71 @@ public class FetchData extends DBconnect{
     /**
 	 * 
 	 * @return
-	 *       Returns Visa information on user, based on UID
+	 *       Inserts Visa information on user, based on UID
+	 */
+    public int insertBankTransfer(String accountNum, String bankName, int branchNum, int uid) throws SQLException
+    {
+     	String insertBankTransferSQL = ("INSERT BankTransfer VALUES (?, ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertBankTransferSQL);
+    	psta.setString(1, accountNum);
+    	psta.setString(2, bankName);
+    	psta.setInt(3, branchNum);
+    	psta.setInt(4, uid);
+    	
+    	System.out.println("Query is " + psta.toString());
+    	
+    	//Execute
+    	int rst = psta.executeUpdate();
+    	
+        return rst;
+    }
+    
+    /**
+   	 * 
+   	 * @return
+   	 *       Inserts Paypal information on user, based on UID
+   	 */
+       public int insertPayPal(int uid, int accountNum) throws SQLException
+       {
+        String insertPayPalSQL = ("INSERT PayPal VALUES (?, ?);");
+       	PreparedStatement psta = con.prepareStatement(insertPayPalSQL);
+       	psta.setInt(1, accountNum);
+       	psta.setInt(2, uid);
+       	
+       	System.out.println("Query is " + psta.toString());
+       	
+       	//Execute
+       	int rst = psta.executeUpdate();
+       	
+           return rst;
+       }
+    
+    /**
+	 * 
+	 * @return
+	 *       Inserts Visa information on user, based on UID
+	 */
+    public int insertVisa(String cardNum, String expiry, int cvv, int uid) throws SQLException
+    {
+     	String insertVisaSQL = ("INSERT Visa VALUES (?, ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertVisaSQL);
+    	psta.setString(1, cardNum);
+    	psta.setString(2, expiry);
+    	psta.setInt(3, cvv);
+    	psta.setInt(4, uid);
+    	
+    	System.out.println("Query is " + psta.toString());
+    	
+    	//Execute
+    	int rst = psta.executeUpdate();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Inserts shippingAddress on user, based on UID
 	 */
     public int insertShippingAddress(int uid, String street, String city, String state, String country, String postal) throws SQLException
     {

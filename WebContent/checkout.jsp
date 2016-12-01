@@ -127,9 +127,6 @@ out.println("</tbody></table>");
 					<button class="btn btn-lg btn-primary btn-block" id="submit" data-dismiss="modal">Submit</button>
 					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
 					</div>
-					
-         		
-
 			</form>
 	</div>
   </div>
@@ -185,21 +182,168 @@ while(rst.next()){
 rst = data.getBank(uid);
 while(rst.next()){
 	String accountNum = rst.getString(1);
-	String col1 = String.format("<tr><td>Visa</td><td>Account Number%s</td>", accountNum);
+	String col1 = String.format("<tr><td>Bank Transfer</td><td>Account Number: %s</td>", accountNum);
 	String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='bank_"+accountNum+"'></td></tr>");
 	String row = col1.concat(col2);
 	out.print(row); 
 }
 out.println("</tbody></table>");
+%>
 
 
+<!--Add new Visa button-->
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myVisa">Enter new VISA &nbsp <span class="glyphicon glyphicon-credit-card"></span></button>
+<div id="myVisa" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-//@TODO Print "Enter new payment info " form
-out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Enter new payment info &nbsp <span class=\"glyphicon glyphicon-credit-card\"></span></button></a>");
-out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Enter new payment info &nbsp <span class=\"glyphicon glyphicon-credit-card\"></span></button></a>");
-out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Enter new payment info &nbsp <span class=\"glyphicon glyphicon-credit-card\"></span></button></a>");
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enter new Visa</h4>
+      </div>
+
+			<form class="addVisa">
+					<div class="form-group">
+						<label>Card Number</label> <input type="text" name="cardNum"
+							placeholder="1111222233334444" class="form-control" required>
+					</div>
+					<div class="row">
+						<label>Expiry</label> <input type="text" name="expiry"
+							placeholder="2012-01-01" class="form-control" required>
+					</div>
+					<div class="row">
+						<label>CVV</label> <input type="number" name="cvv"
+							placeholder="123" class="form-control" required>
+					</div>
+					<div class="modal-footer">
+					<button class="btn btn-lg btn-primary btn-block" id="submitVisa" data-dismiss="modal">Submit</button>
+					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
+					</div>
+			</form>
+	</div>
+  </div>
+</div>
+<script>
+$(function() {
+ $("button#submitVisa").click(function(){
+         $.ajax({
+     		type: "POST",
+ 			url: "addVisa.jsp",
+ 			data: $('form.addVisa').serialize(),
+         	success: function(msg){
+                console.log($('form.addVisa').serialize());
+                location.reload();
+         	},
+ 		error: function(){
+ 				console.log("Error");
+ 				location.reload();
+ 		}
+     });
+ });
+});
+</script>
+
+<!--Add new PayPal button-->
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myPayPal">Enter New PayPal Account &nbsp <span class="glyphicon glyphicon-credit-card"></span></button>
+<div id="myPayPal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enter New PayPal</h4>
+      </div>
+
+			<form class="addPayPal">
+					<div class="form-group">
+						<label>Account Number</label> <input type="text" name="accountNum"
+							placeholder="1111222233334444" class="form-control" required>
+					</div>
+					<div class="modal-footer">
+					<button class="btn btn-lg btn-primary btn-block" id="submitPayPal" data-dismiss="modal">Submit</button>
+					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
+					</div>
+			</form>
+	</div>
+  </div>
+</div>
+<script>
+$(function() {
+ $("button#submitPayPal").click(function(){
+         $.ajax({
+     		type: "POST",
+ 			url: "addPayPal.jsp",
+ 			data: $('form.addPayPal').serialize(),
+         	success: function(msg){
+                console.log($('form.addPayPal').serialize());
+                location.reload();
+         	},
+ 		error: function(){
+ 				console.log("Error");
+ 				location.reload();
+ 		}
+     });
+ });
+});
+</script>
+
+<!--Add new Bank Transfer button-->
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myBT">Enter new Bank Transfer &nbsp <span class="glyphicon glyphicon-credit-card"></span></button>
+<div id="myBT" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enter new Bank Transfer</h4>
+      </div>
+
+			<form class="addBT">
+					<div class="form-group">
+						<label>Account Number</label> <input type="number" name="accountNum"
+							placeholder="1111222233334444" class="form-control" required>
+					</div>
+					<div class="row">
+						<label>Bank Name</label> <input type="text" name="bankName"
+							placeholder="TD, RBC..." class="form-control" required>
+					</div>
+					<div class="row">
+						<label>Branch Number</label> <input type="number" name="branchNum"
+							placeholder="123" class="form-control" required>
+					</div>
+					<div class="modal-footer">
+					<button class="btn btn-lg btn-primary btn-block" id="submitBT" data-dismiss="modal">Submit</button>
+					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
+					</div>
+			</form>
+	</div>
+  </div>
+</div>
+<script>
+$(function() {
+ $("button#submitBT").click(function(){
+         $.ajax({
+     		type: "POST",
+ 			url: "addBT.jsp",
+ 			data: $('form.addBT').serialize(),
+         	success: function(msg){
+                console.log($('form.addBT').serialize());
+                location.reload();
+         	},
+ 		error: function(){
+ 				console.log("Error");
+ 				location.reload();
+ 		}
+     });
+ });
+});
+</script>
 
 
+<%
 out.print("<br><br><br><h2>Purchases</h2><br>");
 //Print order again for double confirmation. If they don't like it, back to cart to remove items.
 @SuppressWarnings({"unchecked"})
