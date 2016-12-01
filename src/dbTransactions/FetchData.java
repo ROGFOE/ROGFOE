@@ -28,6 +28,174 @@ public class FetchData extends DBconnect{
     /**
 	 * 
 	 * @return
+	 *       Inserts Visa information on user, based on UID
+	 */
+    public int insertBankTransfer(String accountNum, String bankName, int branchNum, int uid) throws SQLException
+    {
+     	String insertBankTransferSQL = ("INSERT BankTransfer VALUES (?, ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertBankTransferSQL);
+    	psta.setString(1, accountNum);
+    	psta.setString(2, bankName);
+    	psta.setInt(3, branchNum);
+    	psta.setInt(4, uid);
+    	
+    	System.out.println("Query is " + psta.toString());
+    	
+    	//Execute
+    	int rst = psta.executeUpdate();
+    	
+        return rst;
+    }
+    
+    /**
+   	 * 
+   	 * @return
+   	 *       Inserts Paypal information on user, based on UID
+   	 */
+       public int insertPayPal(int uid, int accountNum) throws SQLException
+       {
+        String insertPayPalSQL = ("INSERT PayPal VALUES (?, ?);");
+       	PreparedStatement psta = con.prepareStatement(insertPayPalSQL);
+       	psta.setInt(1, accountNum);
+       	psta.setInt(2, uid);
+       	
+       	System.out.println("Query is " + psta.toString());
+       	
+       	//Execute
+       	int rst = psta.executeUpdate();
+       	
+           return rst;
+       }
+    
+    /**
+	 * 
+	 * @return
+	 *       Inserts Visa information on user, based on UID
+	 */
+    public int insertVisa(String cardNum, String expiry, int cvv, int uid) throws SQLException
+    {
+     	String insertVisaSQL = ("INSERT Visa VALUES (?, ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertVisaSQL);
+    	psta.setString(1, cardNum);
+    	psta.setString(2, expiry);
+    	psta.setInt(3, cvv);
+    	psta.setInt(4, uid);
+    	
+    	System.out.println("Query is " + psta.toString());
+    	
+    	//Execute
+    	int rst = psta.executeUpdate();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Inserts shippingAddress on user, based on UID
+	 */
+    public int insertShippingAddress(int uid, String street, String city, String state, String country, String postal) throws SQLException
+    {
+     	String insertAddressSQL = ("INSERT INTO Address (UID, AddressType, Street, City, State, Country, PostalCode) VALUES (?, 'Shipping', ?, ?, ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertAddressSQL);
+    	psta.setInt(1, uid);
+    	psta.setString(2, street);
+    	psta.setString(3, city);
+    	psta.setString(4, state);
+    	psta.setString(5, country);
+    	psta.setString(6, postal);
+    	
+    	//Execute
+    	int rst = psta.executeUpdate();
+
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns Visa information on user, based on UID
+	 */
+    public ResultSet getVisa(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM Visa WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns PayPal information on user, based on UID
+	 */
+    public ResultSet getPayPal(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM PayPal WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns bank information on user, based on UID
+	 */
+    public ResultSet getBank(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM BankTransfer WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns shipping and home addresses of user, based on UID
+	 */
+    public ResultSet getShippingAddresses(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT Street, City, State, PostalCode, Country, AddID FROM Address WHERE UID = ? AND (AddressType = 'Home' OR AddressType = 'Shipping');";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns UID and password
+	 */
+    public ResultSet validateLogin(String un, String pw) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT UID, Password FROM User WHERE Uemail = ? AND Password = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setString(1, un);
+		stmt.setString(2, pw);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
 	 *       ResultSet of unique organ categories sorted ascending from the rogfoe database.
 	 */
     public ResultSet listUniqueCategories() throws SQLException
