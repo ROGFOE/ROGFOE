@@ -69,18 +69,93 @@ while(rst.next()){
 	String col1 = String.format("<tr><td>%s, %s, %s, %s, %s</td>",street, city, state, postal, country);
 	String col2 = ("<td><input type=\"radio\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
 	String row = col1.concat(col2);
-	System.out.println(row);
 	out.print(row);
 	
 }
 out.println("</tbody></table>");
+%>
 
 
-//@TODO Print "Enter new address" form
+<!-- New address button and form which will lead to addAddress. addAddress page inserts info and returns to here-->
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Enter new address &nbsp <span class="glyphicon glyphicon-tent"></span></button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enter new address</h4>
+      </div>
+
+			<form class="addAddress">
+					<div class="form-group">
+						<label>Street</label> <input type="text" name="street"
+							placeholder="1161 W Georgia St." class="form-control" required>
+					</div>
+					<div class="row">
+							<div class="col-sm-6 form-group">
+									<label>City</label> <input type="text" name="city"
+										placeholder="Vancouver" class="form-control" required>
+							</div>
+							<div class="col-sm-6 form-group">
+								<label>Country</label> 
+								<select class="form-control" name="country" required>
+									<option value="cad">Canada</option>
+									<option value="us">United States of America</option>
+									<option value="uk">United Kingdom</option>
+									<option value="irn">Iran</option>
+									<option value="ind">India</option>
+									<option value="phl">Philippines</option>
+								</select>
+							</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 form-group">
+								<label>Province/State</label> <input type="text" name="state"
+									placeholder="BC" class="form-control" required>
+						</div>
+						<div class="col-sm-6 form-group">
+								<label>Postal Code/Zip Code</label> <input type="text"
+											name="postal" placeholder="V6E 0C6" class="form-control"
+											required>
+						</div>
+					</div>
+					<div class="modal-footer">
+					<button class="btn btn-lg btn-primary btn-block" id="submit" data-dismiss="modal">Submit</button>
+					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
+					</div>
+					
+         		
+
+			</form>
+	</div>
+  </div>
+</div>
+<script>
+$(function() {
+ $("button#submit").click(function(){
+         $.ajax({
+     		type: "POST",
+ 			url: "addAddress.jsp",
+ 			data: $('form.addAddress').serialize(),
+         	success: function(msg){
+                console.log($('form.addAddress').serialize());
+                location.reload();
+         	},
+ 		error: function(){
+ 				console.log("Error");
+ 				location.reload();
+ 		}
+     });
+ });
+});
+</script>
 
 
-
-
+<%
 //Gather Billing information in almost the same manner. Would like 
 out.print("<br><br><br><h2>Payment Information</h2><br>");
 out.println("<table class=\"table table-hover\">");
@@ -95,7 +170,6 @@ while(rst.next()){
 	String col1 = String.format("<tr><td>Visa</td><td>Card Number: %s</td>", cardNum);
 	String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='visa_"+cardNum+"'></td></tr>");
 	String row = col1.concat(col2);
-	System.out.println(row);
 	out.print(row); 
 }
 
@@ -105,7 +179,6 @@ while(rst.next()){
 	String col1 = String.format("<tr><td>Pay Pal</td><td>Account Number: %s</td>", accountNum);
 	String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='pp_"+accountNum+"'></td></tr>");
 	String row = col1.concat(col2);
-	System.out.println(row);
 	out.print(row); 
 }
 
@@ -115,15 +188,16 @@ while(rst.next()){
 	String col1 = String.format("<tr><td>Visa</td><td>Account Number%s</td>", accountNum);
 	String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='bank_"+accountNum+"'></td></tr>");
 	String row = col1.concat(col2);
-	System.out.println(row);
 	out.print(row); 
 }
 out.println("</tbody></table>");
 
 
 
-//@TODO Print "Enter new address" form
-
+//@TODO Print "Enter new payment info " form
+out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Enter new payment info &nbsp <span class=\"glyphicon glyphicon-credit-card\"></span></button></a>");
+out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Enter new payment info &nbsp <span class=\"glyphicon glyphicon-credit-card\"></span></button></a>");
+out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Enter new payment info &nbsp <span class=\"glyphicon glyphicon-credit-card\"></span></button></a>");
 
 
 out.print("<br><br><br><h2>Purchases</h2><br>");
@@ -165,7 +239,7 @@ if (productList == null){
 	out.print("<tfoot><tr><td> </td><td> </td><td> </td><td><h5>Subtotal</h5><h3>Grand Total: </h3></td>");
     out.print("<td class=\"text-right\"><h5><strong>"+currFormat.format(total)+"</strong></h5><h3>"+currFormat.format(total)+"</h3></td></tr>");
 	out.print("<tr><td> </td><td> </td><td></td><td>");
-	out.print("<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='cart.jsp'\"><span class=\"glyphicon glyphicon-shopping-cart\"></span>Back to Cart</button>");
+	out.print("<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='cart.jsp'\"><span class=\"glyphicon glyphicon-shopping-cart\"></span> Back to Cart</button>");
 	out.print("</td>");
 	out.print("<td>");
 	out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Confirm Order <span class=\"glyphicon glyphicon-play\"></span></button></a>");

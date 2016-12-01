@@ -30,6 +30,29 @@ public class FetchData extends DBconnect{
 	 * @return
 	 *       Returns Visa information on user, based on UID
 	 */
+    public int insertShippingAddress(int uid, String street, String city, String state, String country, String postal) throws SQLException
+    {
+     	String insertAddressSQL = ("INSERT INTO Address (UID, AddressType, Street, City, State, Country, PostalCode) VALUES (?, 'Shipping', ?, ?, ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertAddressSQL);
+    	psta.setInt(1, uid);
+    	psta.setString(2, street);
+    	psta.setString(3, city);
+    	psta.setString(4, state);
+    	psta.setString(5, country);
+    	psta.setString(6, postal);
+    	
+    	//Execute
+    	int rst = psta.executeUpdate();
+
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns Visa information on user, based on UID
+	 */
     public ResultSet getVisa(int uid) throws SQLException
     {
     	PreparedStatement stmt = null;
