@@ -50,12 +50,12 @@
 						</div>					
 						<div class="form-group">
 							<label>Street</label>
-							<input type="text" name="street" placeholder="1161 W Georgia St." class="form-control">
+							<input type="text" name="street" placeholder="1161 W Georgia St." class="form-control" required>
 						</div>	
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>City</label>
-								<input type="text" name="city" placeholder="Vancouver" class="form-control">
+								<input type="text" name="city" placeholder="Vancouver" class="form-control" required>
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Country</label>
@@ -72,11 +72,11 @@
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Province/State</label>
-								<input type="text" name="state" placeholder="BC" class="form-control">
+								<input type="text" name="state" placeholder="BC" class="form-control" required>
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Postal Code/Zip Code</label>
-								<input type="text" name="postal" placeholder="V6E 0C6" class="form-control">
+								<input type="text" name="postal" placeholder="V6E 0C6" class="form-control" required>
 							</div>		
 						</div>
 						

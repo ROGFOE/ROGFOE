@@ -84,7 +84,7 @@ if (productList == null){
 	out.print("<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='shop.jsp'\"><span class=\"glyphicon glyphicon-shopping-cart\"></span>Continue Shopping</button>");
 	out.print("</td>");
 	out.print("<td>");
-	out.print("<button type=\"button\" class=\"btn btn-success\">Checkout <span class=\"glyphicon glyphicon-play\"></span></button>");
+	out.print("<a href=\"checkout.jsp\"><button type=\"button\" class=\"btn btn-success\" >Checkout <span class=\"glyphicon glyphicon-play\"></span></button></a>");
 	out.print("</td></tr>");
 	out.print("</tfoot>");
 	out.print("</table>");

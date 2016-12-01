@@ -31,35 +31,64 @@
 	display:table-row;
 }
 
+/* main page styling */
 div.row.form-group.organ-search {
 	width: 25%;
 	margin: 0 auto; 
  	text-align: center; 
 }
-
 div.form-group.filter-list > ul {
-	width: 70%;
+	width: 50%;
 	margin: auto; 
  	text-align: center; 
 }
-
 input.search.form-control {
 	padding-top: 6px;
     padding-right: 12px;
     padding-bottom: 0px;
     padding-left: 12px;
 }
-
-table.organ-list > td, th {
-	text-align: center;
-	vertical-align: middle;
+div.row.form-group.organ-search > input {
+	height: 40px;
 }
-
 div.row.product-list {
-	width: 70%;
+	width: 60%;
 	margin: 0 auto;
 }
 
+/* table styling */
+tbody > tr.row.shop.list-row > td.pic > * { 
+ 	margin-top: 20px; 
+ 	margin-bottom: 30px; 
+} 
+td.OName {
+	text-align: left;
+}
+td.price {
+	text-align: center;
+}
+span.OName {
+	font-size: 1.6em;
+	color: #0066c0;
+}
+span.desc {
+	font-size: 1.2em;
+}
+span.price {
+	font-weight: bold;
+	font-size: 1.1em;
+	color: #b12704;
+}
+span.cat {
+	font-weight: bold;
+	color: #0066c0;
+}
+span.buy > a {
+	color: #0066c0;
+}
+span.size, span.blood {
+	color: #949494;
+}
 </style>
 
 </head>
@@ -179,19 +208,19 @@ rst = data.listOrganNames();
 <%	    
 /* List Products */
 /* Print out the table headers */
-out.print("<br><table class=\"table table-hover organ-list\">"+
+out.print("<table class=\"table table-hover organ-list\">"+
 			"<thead><tr>"+
-				"<th></th>"+ /* picture */
-// 				"<th>Organ</th>"+
-				"<th>Description</th>"+
-				"<th>Size (grams)</th>"+
-// 				"<th>Removal Date</th>"+
-				"<th>Blood Type</th>"+
-// 				"<th>Doctor</th>"+
-// 				"<th>Hospital</th>"+
-				"<th>Category</th>"+
-				"<th>Price</th>"+
-				"<th></th>"+ /* add to cart */
+// 				"<th></th>"+ /* picture */
+// // 				"<th>Organ</th>"+
+// 				"<th>Description</th>"+
+// 				"<th>Size (grams)</th>"+
+// // 				"<th>Removal Date</th>"+
+// 				"<th>Blood Type</th>"+
+// // 				"<th>Doctor</th>"+
+// // 				"<th>Hospital</th>"+
+// 				"<th>Category</th>"+
+// 				"<th>Price</th>"+
+// 				"<th></th>"+ /* add to cart */
 			"</tr></thead><tbody>");
 
 // filter dropdown values
