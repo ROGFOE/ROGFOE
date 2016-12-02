@@ -21,6 +21,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
+<%@include file="auth.jsp" %>
 <h1>Your warehouse has been added!</h1>
 <h3>Click <a href="addremovewarehouse.jsp">here</a> to go back.</h3>
 

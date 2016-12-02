@@ -21,6 +21,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
+<%@include file="auth.jsp" %>
 <h1>Edit Organ</h1>
 
 
@@ -38,7 +39,7 @@
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(url,uid,pass);
 
-				String sql = ("SELECT * FROM Organ");
+				String sql = ("SELECT * FROM Organ WHERE OrdID=?");
 				PreparedStatement pst = con.prepareStatement(sql);
 				pst.setInt(1, id2);
 				ResultSet rst = pst.executeQuery(sql);
