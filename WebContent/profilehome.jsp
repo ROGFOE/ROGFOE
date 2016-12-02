@@ -85,7 +85,7 @@
 		out.print("<h3 style=\"text-align: left\">Profile Information:</h3>");
 		ResultSet userRST = data.getUserDetails(uid);
 		out.println("<table class=\"table table-hover\">");
-		out.println("<thead><tr><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Home Phone</th><th>Cell Phone</th><th>Work Phone</th><th>Email</th></tr></thead>");		
+		out.println("<thead><tr><th>First Name</th><th>Middle Name</th><th>Last Name</th><th>Home Phone</th><th>Cell Phone</th><th>Work Phone</th><th>Email</th><th></th></tr></thead>");		
 		out.println("<tbody>");
 		out.println("<tr>");
 		while(userRST.next()){
@@ -96,7 +96,7 @@
 			String cphone = userRST.getString(7);
 			String wphone = userRST.getString(8);
 			String email = userRST.getString(9);
-			out.println("<td>"+fname+"</td><td>"+mname+"</td><td>"+lname+"</td><td>"+hphone+"</td><td>"+cphone+"</td><td>"+wphone+"</td><td>"+email+"</td>");
+			out.println("<td>"+fname+"</td><td>"+mname+"</td><td>"+lname+"</td><td>"+hphone+"</td><td>"+cphone+"</td><td>"+wphone+"</td><td>"+email+"</td><td><a href=\"editprofile.jsp\">edit</a></td>");
 		}
 		out.println("</tr>");
 		out.println("</tbody></table><br><br><br>");
