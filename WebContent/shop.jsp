@@ -20,7 +20,6 @@
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 		
 <style>
-
 /* for js search functionality */
 .organ-list tr[visible='false'],
 .no-result{
@@ -89,11 +88,15 @@ span.size, span.blood {
 	color: #949494;
 }
 
-button.apply-filter {
+button {
 	margin-top: 5px;	
 }
-</style>
 
+.alert.alert-danger {
+	margin-top: 40px;
+}
+</style>
+	
 </head>
 <body>
 
@@ -112,16 +115,13 @@ button.apply-filter {
 		<br />
 		
     <!-- Filters -->
-<form action="shop.jsp" method="get" id="filter">
+<form action="shop.jsp" method="get" id="filter" onsubmit="filter();">
     <div class="form-group filter-list">   
 		<ul class="row nav nav-pills">
-			<li class="col-sm-1"></li>			
 			<li class="dropdown organs col-sm-3">
-				
 		    	<select class="form-control" name="organ" form="filter">
 		    		<option value="" disabled selected>Organ</option>
-				<!-- Getting list of organs for dropdown menu -->
-				
+				<!-- Getting list of organs for dropdown menu -->				
 <%
 
 //Set up the db connection and ability to grab data
@@ -140,8 +140,7 @@ rst = data.listUniqueOrgans();
 				}
 %>			
   					</select>
-  					
-  					
+  					 					
 				</li><!-- dropdown organs -->
 					
 			<li class="dropdown categories col-sm-3">
@@ -181,6 +180,9 @@ rst = data.listUniqueOrgans();
 			<li class="col-sm-1">
 				<button type="submit" class="btn btn-primary btn-xs apply-filter">Apply Filters</button>
 			</li>
+			<li class="col-sm-1">
+				<button type="submit" class="btn btn-danger btn-xs remove-filter">Clear Filters</button>
+			</li>
 		</ul><!-- nav nav-pills -->
   	</div><!-- row -->
 </form>
@@ -202,8 +204,6 @@ HashMap<String,String> filters = new HashMap<String,String>();
 filters.put("OName", request.getParameter("organ"));
 filters.put("Category", request.getParameter("cat"));
 filters.put("OBloodType", request.getParameter("blood"));
-// filters.put("UnitPrice", request.getParameter("price"));
-// filters.put("Size", request.getParameter("size"));
 
 // clean the null queries out of the list
 while (filters.values().remove(null));
@@ -214,8 +214,16 @@ if(filters.isEmpty()){
 }
 else{
 	rst = data.applyShopFilters(filters);
-	String table = data.getOrganTable(rst);
-	out.print(table);
+	if (!rst.isBeforeFirst() ) {    
+		out.print("<div class=\"alert alert-danger\">");
+    	out.print("<strong>Sorry, we don't have anything that matches that query.</strong>");
+    	out.print("</div>");
+	}
+	else {
+		String table = data.getOrganTable(rst);
+		out.print(table);
+	}
+	
 }
 
 out.print("</tbody></table>");
@@ -248,10 +256,10 @@ $(document).ready(function() {
     		$(this).attr('visible','false');
   		});
   		
- 		var jobCount = $('.organ-list tbody tr.list-row[visible="true"]').length;
-  		$('.counter').text(jobCount + ' product(s)');
+ 		var organCount = $('.organ-list tbody tr.list-row[visible="true"]').length;
+  		$('.counter').text(organCount + ' product(s)');
 
-		if(jobCount == '0') {$('.no-result').show();}
+		if(organCount == '0') {$('.no-result').show();}
 		else {$('.no-result').hide();}    	
 	}
 	else{
@@ -264,7 +272,9 @@ $(document).ready(function() {
  
 	});
 });
+
 </script>
+
 <%@include file="footer.jsp" %>
 </body>
 </html>
