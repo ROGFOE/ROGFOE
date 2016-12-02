@@ -4,8 +4,7 @@
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.text.NumberFormat" %>
-<%@page import="java.util.ArrayList" %>
-<%@page import="java.util.List" %>
+<%@page import="java.util.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 
 <!DOCTYPE html>
@@ -38,7 +37,7 @@ div.row.form-group.organ-search {
  	text-align: center; 
 }
 div.form-group.filter-list > ul {
-	width: 50%;
+	width: 55%;
 	margin: auto; 
  	text-align: center; 
 }
@@ -52,7 +51,7 @@ div.row.form-group.organ-search > input {
 	height: 40px;
 }
 div.row.product-list {
-	width: 60%;
+	width: 75%;
 	margin: 0 auto;
 }
 
@@ -89,6 +88,10 @@ span.buy > a {
 span.size, span.blood {
 	color: #949494;
 }
+
+button.apply-filter {
+	margin-top: 5px;	
+}
 </style>
 
 </head>
@@ -109,13 +112,13 @@ span.size, span.blood {
 		<br />
 		
     <!-- Filters -->
-
+<form action="shop.jsp" method="get" id="filter">
     <div class="form-group filter-list">   
 		<ul class="row nav nav-pills">
-			<li class="col-sm-1"></li>				
-			<li class="dropdown organs col-sm-2">
-				<form action="shop.jsp" method="get" id="organ">
-		    	<select class="form-control" onchange="this.form.submit()" name="organ" form="organ">
+			<li class="col-sm-1"></li>			
+			<li class="dropdown organs col-sm-3">
+				
+		    	<select class="form-control" name="organ" form="filter">
 		    		<option value="" disabled selected>Organ</option>
 				<!-- Getting list of organs for dropdown menu -->
 				
@@ -125,7 +128,7 @@ span.size, span.blood {
 FetchData data = new FetchData();
 data.connect();
 ResultSet rst;
-rst = data.listOrganNames();
+rst = data.listUniqueOrgans();
 
 				while(rst.next())
 				{	
@@ -137,13 +140,13 @@ rst = data.listOrganNames();
 				}
 %>			
   					</select>
-  					</form>
+  					
   					
 				</li><!-- dropdown organs -->
 					
-			<li class="dropdown categories col-sm-2">
-				<form action="shop.jsp" method="get" id="cat">
-		    	<select class="form-control" onchange="this.form.submit()" name="cat" form="cat">
+			<li class="dropdown categories col-sm-3">
+				
+		    	<select class="form-control" name="cat" form="filter">
 		    		<option value="" disabled selected>Category</option>
 				<!-- Getting list of organ categories for dropdown menu -->
 <% 					rst = data.listUniqueCategories();
@@ -158,51 +161,29 @@ rst = data.listOrganNames();
 				}
 %>
   					</select>
-  					</form>
+  					
   					
 				</li><!-- dropdown categories --> 	
 
-				<li class="dropdown blood-type col-sm-2">
-				<form action="shop.jsp" method="get" id="blood">
-			    <select class="form-control" onchange="this.form.submit()" name="blood" form="blood">
+				<li class="dropdown blood-type col-sm-3">
+				
+			    <select class="form-control" name="blood" form="filter">
 			    	<option value="" disabled selected>Blood Type</option>
 			    	<option value="A">A</option>
 					<option value="AB">AB</option>
 					<option value="B">B</option>
 					<option value="O">O</option>
 			    </select>
-			    </form>
+			    
 			    
 		  	</li><!-- dropdown blood-type -->
-
-			<li class="dropdown price-ranges col-sm-2">
-				<form action="shop.jsp" method="get" id="price">
-				<select class="form-control" onchange="this.form.submit()" name="price" form="price">
-					<option value="" disabled selected>Price Range</option>
-			    	<option value="<500">Less than $500</option>
-					<option value="BETWEEN 500 AND 1000">$500 - $1000</option>
-					<option value="BETWEEN 1000 AND 10000">$1000 - $10,000</option>
-					<option value=">10000">More than $10,000</option>
-			    </select>
-			    </form>
-			    
-			</li><!-- dropdown price-ranges -->
-
-			<li class="dropdown sizes col-sm-2">
-				<form action="shop.jsp" method="get" id="size">
-				<select class="form-control" onchange="this.form.submit()" name="size" form="size">	
-					<option value="" disabled selected>Size (grams)</option>												
-			    	<option value="1">Under 5g</option>
-					<option value="2">5g - 100g</option>
-					<option value="3">100g - 1000g</option>
-					<option value="4">Over 1000g</option>
-				</select>
-				</form>
-				
-			</li><!-- dropdown sizes -->
-			<li class="col-sm-1"></li>
+			
+			<li class="col-sm-1">
+				<button type="submit" class="btn btn-primary btn-xs apply-filter">Apply Filters</button>
+			</li>
 		</ul><!-- nav nav-pills -->
   	</div><!-- row -->
+</form>
 
 	<div class="row product-list">	 
 <%	    
@@ -210,69 +191,33 @@ rst = data.listOrganNames();
 /* Print out the table headers */
 out.print("<table class=\"table table-hover organ-list\">"+
 			"<thead><tr>"+
-// 				"<th></th>"+ /* picture */
-// // 				"<th>Organ</th>"+
-// 				"<th>Description</th>"+
-// 				"<th>Size (grams)</th>"+
-// // 				"<th>Removal Date</th>"+
-// 				"<th>Blood Type</th>"+
-// // 				"<th>Doctor</th>"+
-// // 				"<th>Hospital</th>"+
-// 				"<th>Category</th>"+
-// 				"<th>Price</th>"+
-// 				"<th></th>"+ /* add to cart */
 			"</tr></thead><tbody>");
 
-// filter dropdown values
-rst = data.listOrganDetails();
-String def = data.getOrganTable(rst);
-	       	
-ArrayList<String> resp = new ArrayList<String>();
-resp.add(request.getParameter("organ"));
-resp.add(request.getParameter("cat"));
-resp.add(request.getParameter("blood"));
-resp.add(request.getParameter("price"));
-resp.add(request.getParameter("size"));
-resp.add(def);
+// get all products as default printout
+rst = data.listAllOrgans();
+String allProduct = data.getOrganTable(rst);
 
-// decide what to show based on the set filter values
-for (int i=0; i<resp.size(); i++){
-	String table;
-	if (resp.get(i)!=null) {
-		switch (i) {
-			case 0: /* organ */
-				rst = data.filterOrganName(resp.get(i));
-				table = data.getOrganTable(rst);
-				out.print(table);
-				break;
-			case 1: /* cat */
-				rst = data.filterOrganCat(resp.get(i));
-				table = data.getOrganTable(rst);
-				out.print(table);
-				break;
-			case 2: /* blood */
-				rst = data.filterBloodType(resp.get(i));
-				table = data.getOrganTable(rst);
-				out.print(table);
-				break;
-			case 3: /* price */
-				rst = data.filterOrganName(resp.get(i));
-				table = data.getOrganTable(rst);
-				out.print(table);
-				break;
-			case 4: /* size*/
-				rst = data.listSizeRange(resp.get(i));
-				table = data.getOrganTable(rst);
-				out.print(table);
-				break;
-			case 5: /* everything */
-				table = resp.get(i);
-				out.print(table);
-			default:
-				break;				
-			}
-	}
+// bunch the queries together
+HashMap<String,String> filters = new HashMap<String,String>();
+filters.put("OName", request.getParameter("organ"));
+filters.put("Category", request.getParameter("cat"));
+filters.put("OBloodType", request.getParameter("blood"));
+// filters.put("UnitPrice", request.getParameter("price"));
+// filters.put("Size", request.getParameter("size"));
+
+// clean the null queries out of the list
+while (filters.values().remove(null));
+
+// decide what to show based on the filter query values
+if(filters.isEmpty()){
+	out.print(allProduct);
 }
+else{
+	rst = data.applyShopFilters(filters);
+	String table = data.getOrganTable(rst);
+	out.print(table);
+}
+
 out.print("</tbody></table>");
 %>
 	</div><!-- row -->	
