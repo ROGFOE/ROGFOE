@@ -18,6 +18,7 @@
         <li><a href="shop.jsp">Shop</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+      <li><a href="profilehome.jsp">Profile</a></li>
         <li><a href="Signup.jsp">Sign Up</a></li>
         <li><a href="login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         <li><a href="cart.jsp"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
