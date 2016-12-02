@@ -36,7 +36,7 @@ div.row.form-group.organ-search {
  	text-align: center; 
 }
 div.form-group.filter-list > ul {
-	width: 55%;
+	width: 70%;
 	margin: auto; 
  	text-align: center; 
 }
@@ -159,23 +159,18 @@ rst = data.listUniqueOrgans();
 					"</option>");			
 				}
 %>
-  					</select>
-  					
-  					
+  					</select> 										
 				</li><!-- dropdown categories --> 	
 
-				<li class="dropdown blood-type col-sm-3">
-				
+				<li class="dropdown blood-type col-sm-3">				
 			    <select class="form-control" name="blood" form="filter">
 			    	<option value="" disabled selected>Blood Type</option>
 			    	<option value="A">A</option>
 					<option value="AB">AB</option>
 					<option value="B">B</option>
 					<option value="O">O</option>
-			    </select>
-			    
-			    
-		  	</li><!-- dropdown blood-type -->
+			    </select>	    
+		  		</li><!-- dropdown blood-type -->
 			
 			<li class="col-sm-1">
 				<button type="submit" class="btn btn-primary btn-xs apply-filter">Apply Filters</button>
