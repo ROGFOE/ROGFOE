@@ -1,37 +1,30 @@
 package dbTransactions;
 import java.io.File;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Loads the order database using code.
  */
-public class LoadData
-{
-	public static void main(String[] argv) throws Exception
-	{
-		loadData();
-	}
-	
-	public static void loadData() throws Exception
-	{		
-		
-		String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-	    String uid = "jrogers";
-	    String pw = "40520158";
-		
-		System.out.println("Connecting to database.");
+public class LoadData extends DBconnect
+{	
 
-		Connection con = DriverManager.getConnection(url, uid, pw);
-				
-		String fileName = "data/rogfoeDB.sql";
-		
+	
+	public void loadData() throws Exception
+	{	
+//		Change this to your own file path
+		System.out.println("CHANGE THIS TO YOUR OWN FILE PATH.");
+		String fileName = "C:/users/cjbro/workspace/rogfoe/data/rogfoeDB.sql";
+		DBconnect con = new DBconnect();
+		Connection cnx = con.connect();
 	    try
 	    {
 	        // Create statement
-	        Statement stmt = con.createStatement();
+	        Statement stmt = cnx.createStatement();
 	        
 	        Scanner scanner = new Scanner(new File(fileName));
 	        // Read commands separated by ;
@@ -41,7 +34,7 @@ public class LoadData
 	            String command = scanner.next();
 	            if (command.trim().equals(""))
 	                continue;
-	            System.out.println(command);        // Uncomment if want to see commands executed
+	            System.out.println(command);        // Uncomment if want to see commands executed            
 	            try
 	            {
 	            	stmt.execute(command);
@@ -56,6 +49,8 @@ public class LoadData
 	    catch (Exception e)
 	    {
 	        System.out.println(e);
-	    }   
+	    }  
+	    
 	}
+	
 }

@@ -29,9 +29,7 @@
     <div class="col-sm-8 text-left" style="text-align:center">
       <h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Profile Saved!</h1><p>&nbsp;</p>
       <p>&nbsp;</p>
-      
-      
-      
+          
 			<%//Java time TODO: Connect to DB. Insert row into User table, insert row into Address table
 			Connection con = null; 
 			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";

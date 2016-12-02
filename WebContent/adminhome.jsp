@@ -11,21 +11,37 @@
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 
+<style>
+.title {
+	margin-top: 40px;
+}
+
+button.restore {
+	margin-bottom: 5px;
+}
+</style>
+
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 
 <%@include file="navbar.jsp" %>
 <%@include file="auth.jsp" %>
 
 <div class="container text-center">
+<div class="col-sm-12 text-center title">
+	<h1>Administrator's Portal</h1>
+</div>
+<div class="col-sm-12 text-right restore">
+	<form action="restoreDB.jsp" method="get" id="restore">
+		<button type="button" class="btn btn-primary btn-sm restore" onclick="this.form.submit()">Restore DB</button>
+	</form>
+</div>
   <div class="row content">
-  <p>&nbsp;</p><h1>Administrator's Portal</h1><p>&nbsp;</p>
-  
    <a href="orderhistory.jsp">
-   <div class="col-sm-3" style="border: solid black 1px;">
-   <p>&nbsp;</p>
-   <img src="images/orderhistory.png" class="img-responsive" alt="orderhistory" style="height: 200px;">
-   <h3>Order Histories</h3>
-   </div>
+	   <div class="col-sm-3" style="border: solid black 1px;">
+		   <p>&nbsp;</p>
+		   <img src="images/orderhistory.png" class="img-responsive" alt="orderhistory" style="height: 200px;">
+		   <h3>Order Histories</h3>
+	   </div>
    </a>
    
     <a href="addorgan.jsp">
