@@ -13,9 +13,19 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<!-- Latest compiled Flipclock JS minified -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
+	
+<style type="text/css">
+.clock {
+    display: inline-block;
+    width: auto;
+}
+</style>	
 </head>
 
 <body>
@@ -33,16 +43,28 @@
       <p>&nbsp;</p>
       
       <p>Congratulations you've successfully logged in!</p>
-      
+      <br/>
+      <br/>
+      <div class="alert alert-warning">You will be redirected in:</div>
+		<div class="clock"></div>
     </div>
 	<div class="col-sm-2">
    </div>
   </div>
 </div>
 
+<%@include file="footer.jsp"%>
 
-<%@include file="footer.jsp" %>
+<% 
+response.setHeader("Refresh", "5;url=shop.jsp");
+%>
+
+<script type="text/javascript">
+var clock = $('.clock').FlipClock(5,{
+	countdown: true,
+	clockFace: 'MinuteCounter'
+});
+</script>
 
 </body>
-
 </html>

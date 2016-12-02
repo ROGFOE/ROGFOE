@@ -318,7 +318,7 @@ public class FetchData extends DBconnect{
 	 *
 	 * TODO - drink more coffee
 	 * @return
-	 *       ResultSet filtered according to organ price from the rogfoe database.
+	 *       ResultSet filtered according to user provided filters from the rogfoe database.
 	 */
    public ResultSet applyShopFilters(HashMap<String,String> filters) throws SQLException
    {
