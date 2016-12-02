@@ -23,7 +23,10 @@
 <%@include file="navbar.jsp" %>
 <%@include file="auth.jsp" %>
 <h1>Edit Organ</h1>
-
+<div class="row content">
+   <div class="col-sm-3">
+   </div>
+    <div class="col-sm-6">
 
 <%
 			Connection con = null; 
@@ -39,18 +42,18 @@
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(url,uid,pass);
 
-				String sql = ("SELECT * FROM Organ WHERE OrdID=?");
+				String sql = ("SELECT * FROM Organ WHERE OrgID = ?");	
 				PreparedStatement pst = con.prepareStatement(sql);
 				pst.setInt(1, id2);
-				ResultSet rst = pst.executeQuery(sql);
+				ResultSet rst = pst.executeQuery();
 
 				while (rst.next()) {
 %>
-			<form method="get" action="addorgansuccess.jsp">	
+			<form method="get" action="editorgansuccess.jsp">	
 			<div class="row">
 			<div class="col-sm-12 form-group">
 			<label>Organ Name</label>
-			<input type="text" name="organname" value="<% out.print(rst.getInt("OrgID")); %>" class="form-control" required>
+			<input type="text" name="organname" value="<% out.print(rst.getString("OName")); %>" class="form-control" required>
 			</div>
 			</div>
 			
@@ -65,13 +68,13 @@
 						
 			<div class="col-sm-4 form-group">
 			<label>Size (Grams)</label>
-			<input type="text" name="size" placeholder="100" class="form-control" required>
+			<input type="text" name="size" value="<% out.print(rst.getInt("Size")); %>" class="form-control" required>
 			</div>
 						
 			<div class="col-sm-4 form-group">
   			<label>Blood Type</label>
   			<select class="form-control" name="blood" required>
-  			<option value="" disabled selected>Blood Type</option>
+  			<option value="<% out.print(rst.getString("OBloodType")); %>" selected><% out.print(rst.getString("OBloodType")); %></option>
    			 <option value="A">A</option>
   			  <option value="AB">AB</option>
     		<option value="B">B</option>
@@ -85,7 +88,7 @@
 			<div class="col-sm-6 form-group">
   			<label>Category</label>
   			<select class="form-control" name="category" required>
-  			<option value="" disabled selected>Category</option>
+  			<option value="<% out.print(rst.getString("Category")); %>" selected><% out.print(rst.getString("Category")); %></option>
    			 <option value="body">Body</option>
   			  <option value="gland">Gland</option>
     		<option value="lower middle body">Lower Middle Body</option>
@@ -98,7 +101,7 @@
 			
 			<div class='col-sm-6'>
             <label>Removal Date</label>
-			<input type="text" name="date" placeholder="yyyy-mm-dd" class="form-control" required>	
+			<input type="text" name="date" value="<% out.print(rst.getString("RemovalDate")); %>" class="form-control" required>	
 			</div>
 			
 			</div>
@@ -106,30 +109,31 @@
 			<div class="row">
 			<div class="col-sm-6 form-group">
 			<label>Doctor</label>
-			<input type="text" name="doctor" placeholder="Dr. Phil" class="form-control" required>
+			<input type="text" name="doctor" value="<% out.print(rst.getString("CertDoctor")); %>" class="form-control" required>
 			</div>
 			
 			<div class="col-sm-6 form-group">
 			<label>Hospital</label>
-			<input type="text" name="hospital" placeholder="Queen Elizabeth General Hospital" class="form-control" required>
+			<input type="text" name="hospital" value="<% out.print(rst.getString("CertHospital")); %>" class="form-control" required>
 			</div>
 			</div>
 			
 			<div class="row">
 			<div class="col-sm-12 form-group">
 			<label>Image URL</label>
-			<input type="text" name="image" placeholder="https://www.wired.com/wp-content/uploads/2014/07/brain1.jpg" class="form-control" required>
+			<input type="text" name="image" value="<% out.print(rst.getString("Picture")); %>" class="form-control" required>
 			</div>
 			</div>
 			
 			<div class="row">
 			<div class="col-sm-12 form-group">
 			<label>Description</label>
-  			<textarea class="form-control" rows="5" id="description" name="description"></textarea>
+  			<input type="text" name="desc" value="<% out.print(rst.getString("Desc")); %>" class="form-control" required>
 			</div>
 			</div>
-			
-			<input class="btn btn-lg btn-primary btn-block" type="submit" value="Add Organ">
+			<p>&nbsp;</p>
+			<input type="hidden" name="organid" value="<% out.print(rst.getInt("OrgID")); %>">
+			<input class="btn btn-lg btn-primary btn-block" type="submit" value="Save Changes">
       </form>	
 
 
@@ -145,6 +149,10 @@
 					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
 			}
 %>
+</div>
+ <div class="col-sm-3">
+   </div>
+   </div>
 <%@include file="footer.jsp" %>
 
 </body>
