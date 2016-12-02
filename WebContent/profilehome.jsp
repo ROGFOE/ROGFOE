@@ -109,9 +109,6 @@
 			
 		}
 		out.println("</tbody></table>");
-		
-		
-		
 	%>	
       
     </div>
