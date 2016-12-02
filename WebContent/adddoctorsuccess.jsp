@@ -54,7 +54,7 @@
 				con = DriverManager.getConnection(url,uid,pass);
 				
 				//Prepared statements to insert into User table
-				String insertUserSQL = ("INSERT INTO User (AccType, fName, mName, lName, UphoneH, UphoneC, UphoneW, Uemail, Password) VALUES ('Customer', ?, ?, ?, ?, ?, ?, ?, ?);");
+				String insertUserSQL = ("INSERT INTO User (AccType, fName, mName, lName, UphoneH, UphoneC, UphoneW, Uemail, Password) VALUES ('Doctor', ?, ?, ?, ?, ?, ?, ?, ?);");
 				PreparedStatement pst = con.prepareStatement(insertUserSQL, Statement.RETURN_GENERATED_KEYS);
 				pst.setString(1, fname);
 				pst.setString(2, mname);
