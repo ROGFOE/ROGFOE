@@ -27,7 +27,7 @@
    </div>
    </a>
    
-    <a href="/">
+    <a href="addorgan.jsp">
    <div class="col-sm-4" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/add.png" class="img-responsive" alt="addorgan" style="height: 200px;">
@@ -48,7 +48,7 @@
   <div class="row content" style="margin-top:-38px;">
   
    
-   <a href="/">
+   <a href="viewinventory.jsp">
    <div class="col-sm-4" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/inventory.png" class="img-responsive" alt="viewwarehouseinventory" style="height: 200px;">
