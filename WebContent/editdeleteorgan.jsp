@@ -11,7 +11,7 @@
 <html lang="en">
 
 <head>
-<title>View Inventory</title>
+<title>Edit/Delete Organ</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -21,6 +21,11 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="stylesheet.css">
+<style>
+th{
+	text-align: center;
+	}
+</style>
 </head>
 
 <body>
@@ -30,8 +35,8 @@
 	<div id="wrap" style="min-height: 100%;">
 		<div id="main" class="container clear-top" style="padding-bottom: 200px;">
 
-			<h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; text-align: center;">View
-				Inventory</h1>
+			<h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; text-align: center;">
+				Edit/Delete Organ</h1>
 			<p>&nbsp;</p>
 			<div class="container">
 				<div class="row">
@@ -48,10 +53,10 @@
 									<th>Size</th>
 									<th>Removal Date</th>
 									<th>Blood Type</th>
-									<th>Description</th>
 									<th>Doctor</th>
-									<th>Hospital</th>
 									<th>Category</th>
+									<th>Edit</th>
+									<th>Delete</th>
 
 								</tr>
 							</thead>
@@ -106,23 +111,27 @@
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("Desc"));
-									%>
-								</td>
-								<td>
-									<%
 										out.print(rst.getString("CertDoctor"));
 									%>
 								</td>
-								<td>
-									<%
-										out.print(rst.getString("CertHospital"));
-									%>
-								</td>
+
 								<td>
 									<%
 										out.print(rst.getString("Category"));
 									%>
+								</td>
+								<td>
+								<form method="get" action="editorgan.jsp">
+								<input type="hidden" name="idfromedit" value="<% out.print(rst.getInt("OrgID")); %>">
+								<input type="submit" class="btn btn-success" name="edit" value="Edit" />
+								</form>							
+								</td>
+								
+								<td>
+								<form method="get" action="deleteorgan.jsp">
+								<input type="hidden" name="idfromdelete" value="<% out.print(rst.getInt("OrgID")); %>">
+								<input type="submit" class="btn btn-danger" name="delete" value="Delete" />
+								</form>
 								</td>
 							</tr>
 							<%
