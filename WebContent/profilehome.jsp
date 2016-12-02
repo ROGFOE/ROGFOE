@@ -1,3 +1,4 @@
+<%@page import="dbTransactions.FetchData"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.HashMap" %>
@@ -32,7 +33,28 @@
       <h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Profile</h1><p>&nbsp;</p>
       <p>&nbsp;</p>
       
+      <!--Current Orders-->
+    <%
+      	//UID
+		session = request.getSession(true);
+		int uid = (int)session.getAttribute("uid");
+
+		FetchData data = new FetchData();
+		data.connect();
+		ResultSet rst;
+		rst = data.getShippingAddresses(uid);
+		
+		out.println("<table class=\"table table-hover\">");
+		out.println("<thead><tr><th>Address</th><th>Select</th></tr></thead>");		
+		out.println("<tbody>");
+		while(rst.next()){
+			
+		}
+	%>	
+      <!--Previous Orders-->
+      <!--Account info-->
       <p>Congratulations you've successfully logged in!</p>
+      
       
     </div>
 	<div class="col-sm-2">

@@ -44,17 +44,20 @@ div.content {
 	catch(IOException e)
 	{	System.err.println(e); }
 
+	
 	if (authenticatedUser != null) {
 		if (authenticatedUser.equals("Doctor")) {
 			response.sendRedirect("doctorhome.jsp");
 		} else if (authenticatedUser.equals("Admin")) {
 			response.sendRedirect("adminhome.jsp");
 		} else if (authenticatedUser.equals("Customer")) {
-			response.sendRedirect("profilehome.jsp");
+			//Figure out redirect to send back to checkout
+				response.sendRedirect("profilehome.jsp");
 		}
 	} else {
 		response.sendRedirect("login.jsp");
 	}
+	
 %>
 
 
@@ -76,7 +79,6 @@ div.content {
 
 		try {
 			data.connect();
-			System.out.println("Username = " + username + " and pw = " + password);
 			rst = data.validateLogin(username, password);
 			while(rst.next()){
 				retStr = rst.getString(3);
