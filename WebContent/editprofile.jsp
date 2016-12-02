@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*" %>
+ <%@ page import="java.sql.*" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Iterator" %>
@@ -42,21 +42,18 @@
  			try{
  				session = request.getSession(true);
  				int UID = (int)session.getAttribute("uid");
+ 				System.out.println(UID);
  				
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(url,uid,pass);
-				String SQL = "SELECT* FROM User, Address WHERE User.UID=Address.UID AND User.UID ='?' LIMIT 1";
+				String SQL = "SELECT * FROM User, Address WHERE User.UID=Address.UID AND User.UID = ? LIMIT 1";
 				
 				PreparedStatement stmt = con.prepareStatement(SQL);
-				stmt.setInt(1,UID);
-				ResultSet rst = stmt.executeQuery(SQL);
+				stmt.setInt(1, UID);
+				ResultSet rst = stmt.executeQuery();
 				while(rst.next()){
-				%>	
-					
-		
-				
+%>	
 		  <div class="row">
-				
 				<form method="get" action="editprofilesuccess.jsp">
 					<div class="col-sm-12">
 						<div class="row">
@@ -155,7 +152,7 @@
       </div>
       <%
  			} catch (SQLException ex){
-				System.out.println(ex);
+				ex.printStackTrace();
 			}
 			
 			finally{
