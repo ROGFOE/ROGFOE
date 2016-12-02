@@ -307,7 +307,6 @@ public class FetchData extends DBconnect{
     	System.out.println("\nExecuting listAllOrgans.");
     	String sql = "SELECT * FROM Organ WHERE OID IS NULL ORDER BY RAND()";
 
-
     	PreparedStatement pst = con.prepareStatement(sql);
     	ResultSet rst = pst.executeQuery();
     	
