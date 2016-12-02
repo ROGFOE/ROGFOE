@@ -1,12 +1,17 @@
 package dbTransactions;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class FetchData extends DBconnect{
 	
@@ -213,9 +218,9 @@ public class FetchData extends DBconnect{
 	 * @return
 	 *       ResultSet of organs in given size range sorted ascending by size from the rogfoe database.
 	 */
-    public ResultSet listSizeRange(String range) throws SQLException
+    public ResultSet filterSizeRange(String range) throws SQLException
     {
-    	System.out.println("\nExecuting listSizeRange.");
+    	System.out.println("\nExecuting filterSizeRange.");
     	System.out.println("Input range: "+range);
     	String sql = "SELECT * FROM Organ WHERE size < ? AND size > ? ORDER BY Size ASC";
     	PreparedStatement pst = con.prepareStatement(sql);
@@ -251,9 +256,9 @@ public class FetchData extends DBconnect{
 	 * @return
 	 *       ResultSet of all organ details randomly sorted from the rogfoe database.
 	 */
-    public ResultSet listOrganDetails() throws SQLException
+    public ResultSet listAllOrgans() throws SQLException
     {
-    	System.out.println("\nExecuting listOrganDetails.");
+    	System.out.println("\nExecuting listAllOrgans.");
     	String sql = "SELECT * FROM Organ ORDER BY RAND()";
     	PreparedStatement pst = con.prepareStatement(sql);
     	ResultSet rst = pst.executeQuery();
@@ -268,7 +273,7 @@ public class FetchData extends DBconnect{
 	 */
     public ResultSet filterBloodType(String type) throws SQLException
     {
-    	System.out.println("\nExecuting listBloodType.");
+    	System.out.println("\nExecuting filterBloodType.");
     	String sql = "SELECT * FROM Organ WHERE OBloodType = ?";
     	PreparedStatement pst = con.prepareStatement(sql);
     	pst.setString(1, type);
@@ -327,6 +332,42 @@ public class FetchData extends DBconnect{
         return rst;
     }
     
+    /**
+	 *
+	 * TODO - drink more coffee
+	 * @return
+	 *       ResultSet filtered according to organ price from the rogfoe database.
+	 */
+   public ResultSet applyShopFilters(HashMap<String,String> filters) throws SQLException
+   {
+		System.out.println("\nExecuting applyShopFilters.");
+		Iterator<Map.Entry<String, String>> entries = filters.entrySet().iterator();
+		String sql = "SELECT * FROM Organ WHERE ";
+		List<Integer> counted = new ArrayList<Integer>();
+		int count = 1;
+		while (entries.hasNext()){
+			counted.add(count);
+			count++;
+			Map.Entry<String, String> entry = entries.next();
+			sql +=  entry.getKey()+" = ? ";
+			if (entries.hasNext()){
+				sql += "AND ";
+			}
+		}
+		Iterator<Map.Entry<String, String>> values = filters.entrySet().iterator();
+		Iterator<Integer> countitr = counted.iterator(); 
+		PreparedStatement pst = con.prepareStatement(sql);
+		while (values.hasNext()){
+			Map.Entry<String, String> val = values.next();
+			if (countitr.hasNext()){
+				int num = countitr.next();
+				String x = val.getValue();
+				pst.setString(num, x);
+			}
+		}
+	   ResultSet rst = pst.executeQuery();
+       return rst;
+   }
   
     /**
 	 *
@@ -335,7 +376,7 @@ public class FetchData extends DBconnect{
 	 * @return
 	 *       ResultSet containing the image url.
 	 */
-public String getOrganImage(String pid) throws SQLException
+   public String getOrganImage(String pid) throws SQLException
    {
 	   	System.out.println("\nExecuting getOrganImage.");
 	   	String sql = "SELECT Picture FROM Organ WHERE OrgID = ?";
