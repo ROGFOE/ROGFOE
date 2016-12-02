@@ -182,6 +182,55 @@ public class FetchData extends DBconnect{
     /**
 	 * 
 	 * @return
+	 *       Returns details of provided user.
+	 */
+    public ResultSet getUserDetails(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM User WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns order history
+	 */
+    public ResultSet getOrderHistory(int uid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "SELECT * FROM `Order` WHERE UID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, uid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Returns Organs that were in a specified Order
+	 */
+    public ResultSet getOrgansInOrder(int oid) throws SQLException
+    {
+    	PreparedStatement stmt = null;
+		String sql = "select * from Organ where OID = ?";
+		stmt = con.prepareStatement(sql);
+		stmt.setInt(1, oid);
+		ResultSet rst = stmt.executeQuery();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
 	 *       Returns PayPal information on user, based on UID
 	 */
     public ResultSet getPayPal(int uid) throws SQLException
