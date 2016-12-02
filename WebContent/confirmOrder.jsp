@@ -1,4 +1,11 @@
 <%@page import="dbTransactions.FetchData"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Map" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html>
 <%@include file="auth.jsp" %>
@@ -32,67 +39,37 @@
 	//total
 	double total = Double.parseDouble(request.getParameter("total"));
 	
-	//Create and make order
+	//Create and insert order
  	FetchData data = new FetchData();
  	data.connect();
- 	int rst;
- 	rst = data.insertOrder(aid, aid, total, 0.00, total, payType, uid);
- 
-	
-	//Remove specified products from stock.
-	
+ 	int key = data.insertOrder(aid, aid, total, 0.00, total, payType, uid);
+ 	
+ 	
 	//Update every organ's OID to contain this OID GET GENERATED KEYS
-	
-	
-	
-	/* @SuppressWarnings({"unchecked"})
+	@SuppressWarnings({"unchecked"})
 	HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
-
 	if (productList == null){
 		out.println("<h2>Your shopping cart is empty!</h2>");
 		productList = new HashMap<String, ArrayList<Object>>();
 	} else {
-		
-		NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-
-		out.println("<table class=\"table table-hover\">");
-	    out.println("<thead><tr><th>Product Id</th><th>Product Name</th><th>Quantity</th>");
-	    out.println("<th class=\"text-center\">Price</th><th class=\"text-center\">Total</th><th></th></tr></thead><tbody>");
-		
-	    
-	    //If want to add image, will have to pass that info in the product list OR query db based on product id
-	    double total =0;
 		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
 		while (iterator.hasNext()) 
 		{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
 			ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-			out.print("<tr><td class=\"pid\">"+product.get(0)+"</td>");
-			out.print("<td class=\"pName\">"+product.get(1)+"</td>");
-
-			out.print("<td class=\"qty\">"+product.get(3)+"</td>");
-			double pr = Double.parseDouble( (String) product.get(2));
-			int qty = ( (Integer)product.get(3)).intValue();
-
-			out.print("<td class=\"currency\">"+currFormat.format(pr)+"</td>");
-			out.print("<td class=\"currency\">"+currFormat.format(pr*qty)+"</td>");
-			out.println("</tr>");
-			total = total +pr*qty;
+			
+			String id = (String) product.get(0);
+			int OrganID = Integer.parseInt(id);
+			//Update organ OID to contain this orders id
+			System.out.println("Organ id is " + product.get(0));
+			data.updateOrganOID(key, OrganID);
 		}
-		out.print("<tfoot><tr><td> </td><td> </td><td> </td><td><h5>Subtotal</h5><h3>Grand Total: </h3></td>");
-	    out.print("<td class=\"text-right\"><h5><strong>"+currFormat.format(total)+"</strong></h5><h3>"+currFormat.format(total)+"</h3></td></tr>");
-		out.print("<tr><td> </td><td> </td><td></td><td>");
-		out.print("<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='cart.jsp'\"><span class=\"glyphicon glyphicon-shopping-cart\"></span> Back to Cart</button>");
-		out.print("</td>");
-		out.print("<td>");
-		
-		//On submit of this button, info is passed on to confirmOrder.jsp
-		out.print("<button id=\"confirmOrder\" type=\"button\" class=\"btn btn-success\" >Confirm Order <span class=\"glyphicon glyphicon-play\"></span></button>");
-		out.print("</td></tr>");
-		out.print("</tfoot>");
-		out.print("</table>");
 	}
- */	
+			//Empty cart
+			session.setAttribute("productList", null);
+ 
 	
+	//Remove specified products from stock.
+
 	//Empty cart
 
 %>
