@@ -29,6 +29,32 @@ public class FetchData extends DBconnect{
 	 * 
 	 * @return
 	 *       Inserts Visa information on user, based on UID
+	 *       
+	 */
+    public int insertOrder(int shipAddID, int billAddID, double orderTotal, double shippingFee, double grandTotal, String payBy, int uid) throws SQLException
+    {
+     	String insertOrderSQL = ("INSERT `Order` (ShipAddID, BillAddID, Date, OrderTotal, ShippingFee, Status, GrandTotal, PayBy, UID) VALUES (?, ?, NOW(), ?, ?, 'Ordered', ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertOrderSQL);
+    	psta.setInt(1, shipAddID);
+    	psta.setInt(2, billAddID);
+    	psta.setDouble(3, orderTotal);
+    	psta.setDouble(4, shippingFee);
+    	psta.setDouble(5, grandTotal);
+    	psta.setString(6, payBy);
+    	psta.setInt(7, uid);
+    	
+    	System.out.println("Query is " + psta.toString());
+    	
+    	//Execute
+    	int rst = psta.executeUpdate();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Inserts Visa information on user, based on UID
 	 */
     public int insertBankTransfer(String accountNum, String bankName, int branchNum, int uid) throws SQLException
     {
@@ -335,7 +361,8 @@ public class FetchData extends DBconnect{
 	 * @return
 	 *       ResultSet containing the image url.
 	 */
-public String getOrganImage(String pid) throws SQLException
+
+    public String getOrganImage(String pid) throws SQLException
    {
 	   	System.out.println("\nExecuting getOrganImage.");
 	   	String sql = "SELECT Picture FROM Organ WHERE OrgID = ?";
