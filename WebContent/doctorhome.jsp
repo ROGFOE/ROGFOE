@@ -19,7 +19,7 @@
   <div class="row content">
   <p>&nbsp;</p><h1>Doctor's Portal</h1><p>&nbsp;</p>
   
-   <a href="/">
+   <a href="orderhistory.jsp">
    <div class="col-sm-4" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/orderhistory.png" class="img-responsive" alt="orderhistory" style="height: 200px;">
@@ -35,7 +35,7 @@
    </div>
    </a>
 	
-	<a href="/">
+	<a href="editdeleteorgan.jsp">
    <div class="col-sm-4" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/delete.png" class="img-responsive" alt="updatedeleteorgan" style="height: 200px;">
@@ -56,7 +56,7 @@
    </div>
    </a>
    
-   <a href="/">
+   <a href="salesreport.jsp">
    <div class="col-sm-4" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/salesreport.png" class="img-responsive" alt="viewsalesreports" style="height: 200px;">
@@ -64,7 +64,7 @@
    </div>
    </a>
    
-    <a href="/">
+    <a href="editprofile.jsp">
    <div class="col-sm-4" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/editprofile.png" class="img-responsive" alt="editprofile" style="height: 200px;">
