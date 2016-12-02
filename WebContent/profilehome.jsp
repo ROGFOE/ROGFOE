@@ -130,7 +130,5 @@
 <%@include file="footer.jsp"%>
 
 
-</script>
-
 </body>
 </html>
