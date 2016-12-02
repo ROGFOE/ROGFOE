@@ -26,13 +26,6 @@
 <!--This is a protected page, must include auth.jsp-->
 <%@include file="auth.jsp" %>
 
-<!-- 
-must point set session variable that points back to cart after logging in (normal login vs purchase login)(in auth file?)
-Confirm shipping address and billing info
-Insert into order table
-Remove from organ table
-Link to cart page
- -->
 <div class="container text-center">
   <div class="row content">
    <div class="col-sm-2">
@@ -40,41 +33,42 @@ Link to cart page
     <div class="col-sm-8 text-left" style="text-align:center">
       <h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Checkout</h1><p>&nbsp;</p>
       <p>&nbsp;</p>
-      
-<% 
-//UID is stored as session variable when user logs-in on validateLogin.jsp. Use UID to find shipping addresses, billing info
-session = request.getSession(true);
-int uid = (int)session.getAttribute("uid");
+		
+	  <br><br><br><h2>Shipping Information</h2><br>
 
-//Print shipping addresses table. Queries and lists home and shipping address
+	<form id="selectAddress">
+		<% 
+		//Print shipping addresses table. Queries and lists home and shipping address
 
-/*Needs to be a form that submits to a place order file!*/
-FetchData data = new FetchData();
-data.connect();
-ResultSet rst;
-rst = data.getShippingAddresses(uid);
+		//UID is stored as session variable when user logs-in on validateLogin.jsp. Use UID to find shipping addresses, billing info
+		session = request.getSession(true);
+		int uid = (int)session.getAttribute("uid");
 
-out.print("<br><br><br><h2>Shipping Information</h2><br>");
-out.println("<table class=\"table table-hover\">");
-out.println("<thead><tr><th>Address</th><th>Select</th></tr></thead>");
-out.println("<tbody>");
-while(rst.next()){
-	String street = rst.getString(1);
-	String city = rst.getString(2);
-	String state = rst.getString(3);
-	String postal = rst.getString(4);
-	String country = rst.getString(5);
-	int aid = rst.getInt(6);
-	
-	String col1 = String.format("<tr><td>%s, %s, %s, %s, %s</td>",street, city, state, postal, country);
-	String col2 = ("<td><input type=\"radio\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
-	String row = col1.concat(col2);
-	out.print(row);
-	
-}
-out.println("</tbody></table>");
-%>
-
+		FetchData data = new FetchData();
+		data.connect();
+		ResultSet rst;
+		rst = data.getShippingAddresses(uid);
+		
+		out.println("<table class=\"table table-hover\">");
+		out.println("<thead><tr><th>Address</th><th>Select</th></tr></thead>");		
+		out.println("<tbody>");
+		while(rst.next()){
+			String street = rst.getString(1);
+			String city = rst.getString(2);
+			String state = rst.getString(3);
+			String postal = rst.getString(4);
+			String country = rst.getString(5);
+			int aid = rst.getInt(6);
+			
+			String col1 = String.format("<tr><td>%s, %s, %s, %s, %s</td>",street, city, state, postal, country);
+			String col2 = ("<td><input type=\"radio\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
+			String row = col1.concat(col2);
+			out.print(row);
+			
+		}
+		out.println("</tbody></table>");
+		%>
+	</form>
 
 <!-- New address button and form which will lead to addAddress. addAddress page inserts info and returns to here-->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Enter new address &nbsp <span class="glyphicon glyphicon-tent"></span></button>
@@ -151,45 +145,45 @@ $(function() {
 });
 </script>
 
-
-<%
-//Gather Billing information in almost the same manner. Would like 
-out.print("<br><br><br><h2>Payment Information</h2><br>");
-out.println("<table class=\"table table-hover\">");
-out.println("<thead><tr><th>Payment Method</th><th>Payment Details</th><th>Select</th></tr></thead>");
-out.println("<tbody>");
-
-//three while methods & queries, one for each payment type; Visa, Paypal, Bank Transfer. 
-//@TODO Would eventually like to make this a bit prettier, ie have different table for each PayType
-rst = data.getVisa(uid);
-while(rst.next()){
-	String cardNum = rst.getString(1);
-	String col1 = String.format("<tr><td>Visa</td><td>Card Number: %s</td>", cardNum);
-	String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='visa_"+cardNum+"'></td></tr>");
-	String row = col1.concat(col2);
-	out.print(row); 
-}
-
-rst = data.getPayPal(uid);
-while(rst.next()){
-	String accountNum = rst.getString(1);
-	String col1 = String.format("<tr><td>Pay Pal</td><td>Account Number: %s</td>", accountNum);
-	String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='pp_"+accountNum+"'></td></tr>");
-	String row = col1.concat(col2);
-	out.print(row); 
-}
-
-rst = data.getBank(uid);
-while(rst.next()){
-	String accountNum = rst.getString(1);
-	String col1 = String.format("<tr><td>Bank Transfer</td><td>Account Number: %s</td>", accountNum);
-	String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='bank_"+accountNum+"'></td></tr>");
-	String row = col1.concat(col2);
-	out.print(row); 
-}
-out.println("</tbody></table>");
-%>
-
+	<br><br><br><h2>Payment Information</h2><br>
+	<form id="selectPay">
+		<%
+		//Gather Billing information in almost the same manner. Would like 
+		out.println("<table class=\"table table-hover\">");
+		out.println("<thead><tr><th>Payment Method</th><th>Payment Details</th><th>Select</th></tr></thead>");
+		out.println("<tbody>");
+		
+		//three while methods & queries, one for each payment type; Visa, Paypal, Bank Transfer. 
+		//@TODO Would eventually like to make this a bit prettier, ie have different table for each PayType
+		rst = data.getVisa(uid);
+		while(rst.next()){
+			String cardNum = rst.getString(1);
+			String col1 = String.format("<tr><td>Visa</td><td>Card Number: %s</td>", cardNum);
+			String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='visa_"+cardNum+"'></td></tr>");
+			String row = col1.concat(col2);
+			out.print(row); 
+		}
+		
+		rst = data.getPayPal(uid);
+		while(rst.next()){
+			String accountNum = rst.getString(1);
+			String col1 = String.format("<tr><td>Pay Pal</td><td>Account Number: %s</td>", accountNum);
+			String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='pp_"+accountNum+"'></td></tr>");
+			String row = col1.concat(col2);
+			out.print(row); 
+		}
+		
+		rst = data.getBank(uid);
+		while(rst.next()){
+			String accountNum = rst.getString(1);
+			String col1 = String.format("<tr><td>Bank Transfer</td><td>Account Number: %s</td>", accountNum);
+			String col2 = ("<td><input type=\"radio\" name=\"radPay\" value='bank_"+accountNum+"'></td></tr>");
+			String row = col1.concat(col2);
+			out.print(row); 
+		}
+		out.println("</tbody></table>");
+		%>
+	</form>
 
 <!--Add new Visa button-->
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myVisa">Enter new VISA &nbsp <span class="glyphicon glyphicon-credit-card"></span></button>
@@ -343,8 +337,8 @@ $(function() {
 </script>
 
 
+<br><br><br><h2>Purchases</h2><br>
 <%
-out.print("<br><br><br><h2>Purchases</h2><br>");
 //Print order again for double confirmation. If they don't like it, back to cart to remove items.
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
@@ -386,12 +380,43 @@ if (productList == null){
 	out.print("<button type=\"button\" class=\"btn btn-default\" onclick=\"window.location.href='cart.jsp'\"><span class=\"glyphicon glyphicon-shopping-cart\"></span> Back to Cart</button>");
 	out.print("</td>");
 	out.print("<td>");
-	out.print("<a href=\"profilehome.jsp\"><button type=\"button\" class=\"btn btn-success\" >Confirm Order <span class=\"glyphicon glyphicon-play\"></span></button></a>");
+	
+	//On submit of this button, info is passed on to confirmOrder.jsp
+	out.print("<button id=\"confirmOrder\" type=\"button\" class=\"btn btn-success\" >Confirm Order <span class=\"glyphicon glyphicon-play\"></span></button>");
 	out.print("</td></tr>");
 	out.print("</tfoot>");
 	out.print("</table>");
+	
+	//Hidden field to pass the total
+	out.print("<input id=\"hiddenTotal\" type=\"hidden\" name=\"total\" value='"+total+"'>");
 }
 %>
+
+
+<!--confirm order button click-->  
+<script>
+$(function() {
+ $("button#confirmOrder").click(function(){
+        var add = $('form#selectAddress').serialize();
+        var pay = $('form#selectPay').serialize();
+        var total = $('#hiddenTotal').serialize();
+        var submitString = add+"&"+pay+"&"+total;
+        console.log(submitString);
+	 	$.ajax({
+     		type: "POST",
+ 			url: "confirmOrder.jsp",
+ 			data: submitString,
+         	success: function(msg){
+				console.log("Success");
+				window.location.replace("profilehome.jsp");
+         	},
+ 		error: function(){
+ 				console.log("Error");
+ 			}
+    	 });
+ 	});
+});
+</script>
   
     </div>
 	<div class="col-sm-2">

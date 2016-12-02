@@ -92,33 +92,6 @@ if (productList == null){
 
 %>
 
-<!--Left these here so that nino can work his styling magic and re-implement some of these things should he feel so inclined-->
-					<!-- 	<tr>
-							<td class="col-sm-8 col-md-6">
-								<div class="media">
-									<a class="thumbnail pull-left" href="#"> <img
-										class="media-object" src="images/eyeball2.jpg"
-										style="width: 72px; height: 72px;">
-									</a>
-									<div class="media-body">
-										<h4 class="media-heading"
-											style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; padding-top: 20px; padding-left: 10px;">
-											<a href="#"> Product name</a>
-										</h4>
-									</div>
-								</div>
-							</td>
-							<td class="col-sm-1 col-md-1" style="text-align: center"><input
-								type="email" class="form-control" id="exampleInputEmail1"
-								value="3"></td>
-							<td class="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
-							<td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
-							<td class="col-sm-1 col-md-1">
-								<button type="button" class="btn btn-danger">
-									<span class="glyphicon glyphicon-remove"></span> Remove
-								</button>
-							</td>
-						</tr> -->
 
 		</div>
     </div>
