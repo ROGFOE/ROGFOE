@@ -20,6 +20,7 @@
 </head>
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
+<%@include file="auth.jsp" %>
 <%@include file="navbar.jsp" %>
 <h1>The new doctor has been added!</h1>
 <h3>Click <a href="addremovedoctor.jsp">here</a> to go back.</h3>

@@ -21,6 +21,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
+<%@include file="auth.jsp" %>
 <h1>Your organ has been added!</h1>
 
 <%
