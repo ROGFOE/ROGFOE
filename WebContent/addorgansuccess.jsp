@@ -23,6 +23,7 @@
 <%@include file="navbar.jsp" %>
 <%@include file="auth.jsp" %>
 <h1>Your organ has been added!</h1>
+<h3>Click <a href="doctorhome.jsp">here</a> to go back.</h3>
 
 <%
 			Connection con = null; 
