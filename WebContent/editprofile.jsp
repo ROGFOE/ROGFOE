@@ -40,10 +40,15 @@
       <h1>Edit Profile</h1><p>&nbsp;</p>
 <%      	
  			try{
+ 				session = request.getSession(true);
+ 				int UID = (int)session.getAttribute("uid");
+ 				
 				Class.forName("com.mysql.jdbc.Driver");
 				con = DriverManager.getConnection(url,uid,pass);
-				String SQL = "SELECT* FROM User, Address WHERE User.UID=Address.UID AND User.UID ='1' LIMIT 1";
-				Statement stmt = con.createStatement();
+				String SQL = "SELECT* FROM User, Address WHERE User.UID=Address.UID AND User.UID ='?' LIMIT 1";
+				
+				PreparedStatement stmt = con.prepareStatement(SQL);
+				stmt.setInt(1,UID);
 				ResultSet rst = stmt.executeQuery(SQL);
 				while(rst.next()){
 				%>	
