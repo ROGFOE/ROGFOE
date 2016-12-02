@@ -89,7 +89,6 @@ if (productList == null){
 	out.print("</tfoot>");
 	out.print("</table>");
 }
-
 %>
 
 
