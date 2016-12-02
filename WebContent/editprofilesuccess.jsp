@@ -23,7 +23,7 @@
 <%@include file="navbar.jsp" %>
 <%@include file="auth.jsp" %>
 <h1>Profile Updated</h1>
-<h3>Click <a href="editprofile.jsp">here</a> to go back.</h3>
+<h3>Click <a href="profilehome.jsp">here</a> to go back.</h3>
 
 <%
 			Connection con = null; 
@@ -32,6 +32,7 @@
 			String pass = "40520158";
 
 			//Gather User information from request
+			int UID = (int)session.getAttribute("uid");
 			
 			String fname = request.getParameter("fname");
 			String mname = request.getParameter("mname");
@@ -46,15 +47,13 @@
 			String cphone = request.getParameter("cphone");
 			String email = request.getParameter("email");
 			String pw = request.getParameter("pw");
-		
-			
 			
 			//Try to connect to db
 			try{
 				con = DriverManager.getConnection(url,uid,pass);
 				
 				//Prepared statements to insert into User table
-				String insertUserSQL = ("UPDATE User SET fname =?, mname=?, lname=?, UphoneH=?, UphoneC =?, UphoneC=?, Uemail =?, Password =? WHERE User.UID = '1'");
+				String insertUserSQL = ("UPDATE User SET fName = ?, mName = ?, lName = ?, UphoneH = ?, UphoneC = ?, UphoneW = ?, Uemail = ?, Password = ? WHERE User.UID = ?");
 				PreparedStatement pst = con.prepareStatement(insertUserSQL, Statement.RETURN_GENERATED_KEYS);
 				pst.setString(1, fname);
 				pst.setString(2, mname);
@@ -64,23 +63,25 @@
 				pst.setString(6, wphone);
 				pst.setString(7, email);
 				pst.setString(8, pw);
+				pst.setInt(9, UID);
 			
 				//Execute Query
 				pst.executeUpdate();
 				
 				//Get UID of user that was just inserted to be used in Address insert
-				ResultSet keys = pst.getGeneratedKeys();
-				keys.next();
-				int createdUID = keys.getInt(1);
-				
+	/* 				ResultSet keys = pst.getGeneratedKeys();
+					keys.next();
+					int createdUID = keys.getInt(1);
+					 */
 				//Prepared statements to insert into Address table
-				String insertAddressSQL = ("UPDATE Address SET Street =?, City=?, State=?, Country=?, PostalCode =? WHERE UID = '1'");
+				String insertAddressSQL = ("UPDATE Address SET Street =?, City=?, State=?, Country=?, PostalCode =? WHERE UID = ?");
 				PreparedStatement psta = con.prepareStatement(insertAddressSQL);
 				psta.setString(1, street);
 				psta.setString(2, city);
 				psta.setString(3, state);
 				psta.setString(4, country);
 				psta.setString(5, postal);
+				psta.setInt(6, UID);
 				
 				//Execute
 				psta.executeUpdate();
