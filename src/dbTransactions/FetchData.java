@@ -230,7 +230,7 @@ public class FetchData extends DBconnect{
     public ResultSet validateLogin(String un, String pw) throws SQLException
     {
     	PreparedStatement stmt = null;
-		String sql = "SELECT UID, Password FROM User WHERE Uemail = ? AND Password = ?";
+		String sql = "SELECT UID, Password, AccType FROM User WHERE Uemail = ? AND Password = ?";
 		stmt = con.prepareStatement(sql);
 		stmt.setString(1, un);
 		stmt.setString(2, pw);
