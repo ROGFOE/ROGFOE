@@ -11,7 +11,7 @@
 <html lang="en">
 
 <head>
-<title>View Inventory</title>
+<title>Order History</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -32,8 +32,8 @@
 			style="padding-bottom: 200px;">
 
 			<h1
-				style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; text-align: center;">View
-				Inventory</h1>
+				style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif; text-align: center;">
+				Order History</h1>
 			<p>&nbsp;</p>
 			<div class="container">
 				<div class="row">
@@ -44,16 +44,20 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th>Organ ID</th>
-									<th>Organ Name</th>
-									<th>Unit Price</th>
-									<th>Size</th>
-									<th>Removal Date</th>
-									<th>Blood Type</th>
-									<th>Description</th>
-									<th>Doctor</th>
-									<th>Hospital</th>
-									<th>Category</th>
+									<th>First Name</th>
+									<th>Last Name</th>
+									<th>User ID</th>
+									<th>Order ID</th>
+									<th>Ship Address ID</th>
+									<th>Bill Address ID</th>
+									<th>Date </th>
+									<th>Order Total</th>
+									<th>Shipping Fee</th>
+									<th>Status</th>
+									<th>Grand Total</th>
+									<th>Payment Method</th>
+									
+									
 
 								</tr>
 							</thead>
@@ -68,7 +72,7 @@
 
 								try {
 									Class.forName("com.mysql.jdbc.Driver");
-									String sql = "SELECT * FROM Organ";
+									String sql = "SELECT * FROM `Order`, User WHERE User.UID = `Order`.UID ORDER BY Order.UID ASC";
 									con = DriverManager.getConnection(url, uid, pass);
 									Statement stmt = con.createStatement();
 									ResultSet rst = stmt.executeQuery(sql);
@@ -76,56 +80,67 @@
 									while (rst.next()) {
 							%>
 							<tr>
-								<td>
+							<td>
 									<%
-										out.print(rst.getInt("OrgID"));
+										out.print(rst.getString("fname"));
+									%>
+								</td>
+							<td>
+									<%
+										out.print(rst.getString("lname"));
+									%>
+								</td>
+							<td>
+									<%
+										out.print(rst.getString("UID"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("OName"));
+										out.print(rst.getString("OID"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("UnitPrice"));
+										out.print(rst.getString("ShipAddID"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("Size"));
+										out.print(rst.getString("BillAddID"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("RemovalDate"));
+										out.print(rst.getString("Date"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("OBloodType"));
+										out.print(rst.getString("OrderTotal"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("Desc"));
+										out.print(rst.getString("ShippingFee"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("CertDoctor"));
+										out.print(rst.getString("Status"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("CertHospital"));
+										out.print(rst.getString("GrandTotal"));
 									%>
 								</td>
 								<td>
 									<%
-										out.print(rst.getString("Category"));
+										out.print(rst.getString("PayBy"));
 									%>
 								</td>
+								
 							</tr>
 							<%
 								}
