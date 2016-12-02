@@ -59,29 +59,29 @@
 						<div class="row">
 							<div class="col-sm-4 form-group">
 								<label>First Name</label>
-								<input type="text" name="fname"  class="form-control" value =" <% out.print(rst.getString("fName")); %> " required>
+								<input type="text" name="fname"  class="form-control" value ="<% out.print(rst.getString("fName")); %>" required>
 							</div>
 							<div class="col-sm-4 form-group">
 								<label>Middle Name</label>
-								<input type="text" name="mname"  class="form-control" value =" <% out.print(rst.getString("mName")); %> ">
+								<input type="text" name="mname"  class="form-control" value ="<% out.print(rst.getString("mName")); %>" >
 							</div>
 							<div class="col-sm-4 form-group">
 								<label>Last Name</label>
-								<input type="text" name="lname"  class="form-control" value =" <% out.print(rst.getString("lName")); %> "required>
+								<input type="text" name="lname"  class="form-control" value ="<% out.print(rst.getString("lName")); %>" required>
 							</div>
 						</div>					
 						<div class="form-group">
 							<label>Street</label>
-							<input type="text" name="street"  class="form-control" value =" <% out.print(rst.getString("Street")); %>" required>
+							<input type="text" name="street"  class="form-control" value ="<% out.print(rst.getString("Street")); %>" required>
 						</div>	
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>City</label>
-								<input type="text" name="city" class="form-control"  value =" <% out.print(rst.getString("City")); %>" required>
+								<input type="text" name="city" class="form-control"  value ="<% out.print(rst.getString("City")); %>" required>
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Country</label>
-								<select class="form-control" name="country" value =" <% out.print(rst.getString("Country")); %>" required>
+								<select class="form-control" name="country" value ="<% out.print(rst.getString("Country")); %>" required>
         							<option value="cad">Canada</option>
         							<option value="us">United States of America</option>
         							<option value="uk">United Kingdom</option>
@@ -94,11 +94,11 @@
 						<div class="row">
 							<div class="col-sm-6 form-group">
 								<label>Province/State</label>
-								<input type="text" name="state"  class="form-control" value =" <% out.print(rst.getString("State")); %>" required>
+								<input type="text" name="state"  class="form-control" value ="<% out.print(rst.getString("State")); %>" required>
 							</div>	
 							<div class="col-sm-6 form-group">
 								<label>Postal Code/Zip Code</label>
-								<input type="text" name="postal"  class="form-control" value =" <% out.print(rst.getString("PostalCode")); %>" required>
+								<input type="text" name="postal"  class="form-control" value ="<% out.print(rst.getString("PostalCode")); %>" required>
 							</div>		
 						</div>
 						
@@ -107,23 +107,23 @@
 					<div class="row">						
 					<div class="col-sm-4 form-group">
 						<label>Home Phone</label>
-						<input type="text" name="hphone"  class="form-control" value =" <% out.print(rst.getString("UphoneH")); %>" required>
+						<input type="text" name="hphone"  class="form-control" value ="<% out.print(rst.getString("UphoneH")); %>" required>
 					</div>
 					
 					<div class="col-sm-4 form-group">
 						<label>Work Phone</label>
-						<input type="text" name="wphone"  class="form-control" value =" <% out.print(rst.getString("UphoneW")); %>">
+						<input type="text" name="wphone"  class="form-control" value ="<% out.print(rst.getString("UphoneW")); %>">
 					</div>		
 					
 					<div class="col-sm-4 form-group">
 						<label>Cell Phone</label>
-						<input type="text" name="cphone"  class="form-control" value =" <% out.print(rst.getString("UphoneW")); %>">
+						<input type="text" name="cphone"  class="form-control" value ="<% out.print(rst.getString("UphoneW")); %>">
 					</div>		
 					</div>		
 					<div class="row">
 					<div class="col-sm-12 form-group">
 						<label>Email Address</label>
-						<input type="text" name="email"  class="form-control" value =" <% out.print(rst.getString("Uemail")); %>" required>
+						<input type="text" name="email"  class="form-control" value ="<% out.print(rst.getString("Uemail")); %>" required>
 					</div>	
 					
 					</div>
@@ -132,11 +132,11 @@
 					<div class="row">
 					 <div class="col-sm-6 form-group">
 								<label>Password</label>
-								<input type="password" name="pw"  class="form-control" value =" <% out.print(rst.getString("Password")); %>"  required>
+								<input type="password" name="pw"  class="form-control" value ="<% out.print(rst.getString("Password")); %>"  required>
 							</div>
 							<div class="col-sm-6 form-group">
 								<label>Password Confirmation</label>
-								<input type="password"  class="form-control" value =" <% out.print(rst.getString("Password")); %>">
+								<input type="password"  class="form-control" value ="<% out.print(rst.getString("Password")); %>">
 							</div>
 							
 							</div>	
