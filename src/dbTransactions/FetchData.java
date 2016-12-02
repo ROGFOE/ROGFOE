@@ -24,7 +24,7 @@ public class FetchData extends DBconnect{
     public ResultSet listUniqueOrgans() throws SQLException
     {
     	System.out.println("\nExecuting listUniqueOrgans.");
-    	String sql = "SELECT DISTINCT OName FROM Organ WHERE OID IS NULL ORDER BY RAND()";
+    	String sql = "SELECT DISTINCT OName FROM Organ WHERE OID IS NULL ORDER BY OName ASC";
 
     	PreparedStatement pst = con.prepareStatement(sql);
     	ResultSet rst = pst.executeQuery();
