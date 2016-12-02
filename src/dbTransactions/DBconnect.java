@@ -18,13 +18,13 @@ public class DBconnect{
 	 */
 	public Connection connect() throws SQLException
 	{
-		String url = "jdbc:mysql://localhost/rogfoe";
-	    String uid = "root";
-	    String pw = "";
+//		String url = "jdbc:mysql://localhost/rogfoe";
+//	    String uid = "root";
+//	    String pw = "";
 	    
-//	    String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-//	    String uid = "jrogers";
-//	    String pw = "40520158";
+	    String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
+	    String uid = "jrogers";
+	    String pw = "40520158";
 	    
 	    try {
 			Class.forName("com.mysql.jdbc.Driver");
