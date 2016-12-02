@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.NumberFormat;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -23,6 +24,51 @@ public class FetchData extends DBconnect{
     	ResultSet rst = pst.executeQuery();
     	
         return rst;
+    }
+    
+	/**
+	 * 
+	 * @return
+	 *       updates the organ's Order ID.
+	 */
+    public int updateOrganOID(int oid, int orgid) throws SQLException
+    {
+    	String sql = "update Organ set OID = ? where OrgId = ?";
+    	PreparedStatement pst = con.prepareStatement(sql);
+    	pst.setInt(1, oid);
+    	pst.setInt(2, orgid);
+    	
+    	int rst = pst.executeUpdate();
+    	
+        return rst;
+    }
+    
+    /**
+	 * 
+	 * @return
+	 *       Inserts order into Order table, returns generated OID
+	 *       
+	 */
+    public int insertOrder(int shipAddID, int billAddID, double orderTotal, double shippingFee, double grandTotal, String payBy, int uid) throws SQLException
+    {
+     	String insertOrderSQL = ("INSERT `Order` (ShipAddID, BillAddID, Date, OrderTotal, ShippingFee, Status, GrandTotal, PayBy, UID) VALUES (?, ?, NOW(), ?, ?, 'Ordered', ?, ?, ?);");
+    	PreparedStatement psta = con.prepareStatement(insertOrderSQL, Statement.RETURN_GENERATED_KEYS);
+    	psta.setInt(1, shipAddID);
+    	psta.setInt(2, billAddID);
+    	psta.setDouble(3, orderTotal);
+    	psta.setDouble(4, shippingFee);
+    	psta.setDouble(5, grandTotal);
+    	psta.setString(6, payBy);
+    	psta.setInt(7, uid);
+    	
+    	//Execute
+    	psta.executeUpdate();
+    	System.out.println("Query is " + psta.toString());
+    	
+    	ResultSet keys = psta.getGeneratedKeys();
+    	keys.next();
+    	
+        return keys.getInt(1);
     }
     
     /**
@@ -184,7 +230,7 @@ public class FetchData extends DBconnect{
     public ResultSet validateLogin(String un, String pw) throws SQLException
     {
     	PreparedStatement stmt = null;
-		String sql = "SELECT UID, Password FROM User WHERE Uemail = ? AND Password = ?";
+		String sql = "SELECT UID, Password, AccType FROM User WHERE Uemail = ? AND Password = ?";
 		stmt = con.prepareStatement(sql);
 		stmt.setString(1, un);
 		stmt.setString(2, pw);
@@ -254,7 +300,7 @@ public class FetchData extends DBconnect{
     public ResultSet listOrganDetails() throws SQLException
     {
     	System.out.println("\nExecuting listOrganDetails.");
-    	String sql = "SELECT * FROM Organ ORDER BY RAND()";
+    	String sql = "SELECT * FROM Organ WHERE OID IS NULL ORDER BY RAND()";
     	PreparedStatement pst = con.prepareStatement(sql);
     	ResultSet rst = pst.executeQuery();
     	
@@ -335,7 +381,8 @@ public class FetchData extends DBconnect{
 	 * @return
 	 *       ResultSet containing the image url.
 	 */
-public String getOrganImage(String pid) throws SQLException
+
+    public String getOrganImage(String pid) throws SQLException
    {
 	   	System.out.println("\nExecuting getOrganImage.");
 	   	String sql = "SELECT Picture FROM Organ WHERE OrgID = ?";

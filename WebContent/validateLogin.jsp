@@ -44,10 +44,17 @@ div.content {
 	catch(IOException e)
 	{	System.err.println(e); }
 
-	if(authenticatedUser != null)
-		response.sendRedirect("profilehome.jsp");	// Successful login
-	else
-		response.sendRedirect("login.jsp");		// Failed login - redirect back to login page with a message 
+	if (authenticatedUser != null) {
+		if (authenticatedUser.equals("Doctor")) {
+			response.sendRedirect("doctorhome.jsp");
+		} else if (authenticatedUser.equals("Admin")) {
+			response.sendRedirect("adminhome.jsp");
+		} else if (authenticatedUser.equals("Customer")) {
+			response.sendRedirect("profilehome.jsp");
+		}
+	} else {
+		response.sendRedirect("login.jsp");
+	}
 %>
 
 
@@ -66,15 +73,13 @@ div.content {
 		FetchData data = new FetchData();
 		ResultSet rst;
 		String retStr = null;
-		
-		
+
 		try {
-			
 			data.connect();
+			System.out.println("Username = " + username + " and pw = " + password);
 			rst = data.validateLogin(username, password);
 			while(rst.next()){
-				//If such a record exists, retStr null -> ""
-				retStr = ("");
+				retStr = rst.getString(3);
 				
 				//Set UID in session var
 				int uid = rst.getInt(1);
