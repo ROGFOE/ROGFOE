@@ -20,7 +20,6 @@
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 		
 <style>
-
 /* for js search functionality */
 .organ-list tr[visible='false'],
 .no-result{
@@ -93,7 +92,7 @@ button.apply-filter {
 	margin-top: 5px;	
 }
 </style>
-
+	
 </head>
 <body>
 
@@ -112,7 +111,7 @@ button.apply-filter {
 		<br />
 		
     <!-- Filters -->
-<form action="shop.jsp" method="get" id="filter">
+<form action="shop.jsp" method="get" id="filter" onsubmit="filter();">
     <div class="form-group filter-list">   
 		<ul class="row nav nav-pills">
 			<li class="col-sm-1"></li>			
@@ -128,7 +127,7 @@ button.apply-filter {
 FetchData data = new FetchData();
 data.connect();
 ResultSet rst;
-rst = data.listOrganNames();
+rst = data.listUniqueOrgans();
 
 				while(rst.next())
 				{	
@@ -140,8 +139,7 @@ rst = data.listOrganNames();
 				}
 %>			
   					</select>
-  					
-  					
+  					 					
 				</li><!-- dropdown organs -->
 					
 			<li class="dropdown categories col-sm-3">
@@ -179,7 +177,7 @@ rst = data.listOrganNames();
 		  	</li><!-- dropdown blood-type -->
 			
 			<li class="col-sm-1">
-				<button type="submit" class="btn btn-primary btn-xs apply-filter">Apply Filters</button>
+				<button type="submit" class="btn btn-primary btn-xs apply-filter" onclick="filter()">Apply Filters</button>
 			</li>
 		</ul><!-- nav nav-pills -->
   	</div><!-- row -->
@@ -202,8 +200,6 @@ HashMap<String,String> filters = new HashMap<String,String>();
 filters.put("OName", request.getParameter("organ"));
 filters.put("Category", request.getParameter("cat"));
 filters.put("OBloodType", request.getParameter("blood"));
-// filters.put("UnitPrice", request.getParameter("price"));
-// filters.put("Size", request.getParameter("size"));
 
 // clean the null queries out of the list
 while (filters.values().remove(null));
@@ -264,7 +260,9 @@ $(document).ready(function() {
  
 	});
 });
+
 </script>
+
 <%@include file="footer.jsp" %>
 </body>
 </html>
