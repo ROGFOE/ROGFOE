@@ -27,7 +27,7 @@
    </div>
    </a>
    
-    <a href="/">
+    <a href="addorgan.jsp">
    <div class="col-sm-3" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/add.png" class="img-responsive" alt="addorgan" style="height: 200px;">
@@ -43,7 +43,7 @@
    </div>
    </a>
    
-   <a href="/">
+   <a href="viewinventory.jsp">
    <div class="col-sm-3" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/inventory.png" class="img-responsive" alt="viewwarehouseinventory" style="height: 200px;">
@@ -65,7 +65,7 @@
    </div>
    </a>
    
-    <a href="/">
+    <a href="addremovedoctor.jsp">
    <div class="col-sm-3" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/doctor.png" class="img-responsive" alt="addremovedoctor" style="height: 200px;">
@@ -73,7 +73,7 @@
    </div>
    </a>
    
-   <a href="/">
+   <a href="addremovewarehouse.jsp">
    <div class="col-sm-3" style="border: solid black 1px;">
    <p>&nbsp;</p>
    <img src="images/addremovewarehouse.png" class="img-responsive" alt="addremovewarehouse" style="height: 200px;">
