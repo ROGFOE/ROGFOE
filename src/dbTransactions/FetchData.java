@@ -16,15 +16,16 @@ import java.util.Map;
 
 public class FetchData extends DBconnect{
 	
-	/**
+    /**
 	 * 
 	 * @return
-	 *       ResultSet of all organ names in the rogfoe database.
+	 *       ResultSet of all unique organ names randomly sorted from the rogfoe database.
 	 */
-    public ResultSet listOrganNames() throws SQLException
+    public ResultSet listUniqueOrgans() throws SQLException
     {
-    	System.out.println("\nExecuting listOrganNames.");
-    	String sql = "SELECT OName FROM Organ";
+    	System.out.println("\nExecuting listUniqueOrgans.");
+    	String sql = "SELECT DISTINCT OName FROM Organ WHERE OID IS NULL ORDER BY RAND()";
+
     	PreparedStatement pst = con.prepareStatement(sql);
     	ResultSet rst = pst.executeQuery();
     	
@@ -308,72 +309,6 @@ public class FetchData extends DBconnect{
     	String sql = "SELECT * FROM Organ WHERE OID IS NULL ORDER BY RAND()";
 
     	PreparedStatement pst = con.prepareStatement(sql);
-    	ResultSet rst = pst.executeQuery();
-    	
-        return rst;
-    }
-    
-    /**
-	 * 
-	 * @return
-	 *       ResultSet filtered according to blood type from the rogfoe database.
-	 */
-    public ResultSet filterBloodType(String type) throws SQLException
-    {
-    	System.out.println("\nExecuting filterBloodType.");
-    	String sql = "SELECT * FROM Organ WHERE OBloodType = ?";
-    	PreparedStatement pst = con.prepareStatement(sql);
-    	pst.setString(1, type);
-    	ResultSet rst = pst.executeQuery();
-    	
-        return rst;
-    }
-    
-    /**
-	 * 
-	 * @return
-	 *       ResultSet filtered according to organ name from the rogfoe database.
-	 */
-    public ResultSet filterOrganName(String type) throws SQLException
-    {
-    	System.out.println("\nExecuting filterOrganName.");
-    	String sql = "SELECT * FROM Organ WHERE OName = ?";
-    	PreparedStatement pst = con.prepareStatement(sql);
-    	pst.setString(1, type);
-    	ResultSet rst = pst.executeQuery();
-    	
-        return rst;
-    }
-    
-    /**
-	 * 
-	 * @return
-	 *       ResultSet filtered according to organ category from the rogfoe database.
-	 */
-    public ResultSet filterOrganCat(String type) throws SQLException
-    {
-    	System.out.println("\nExecuting filterOrganCat.");
-    	String sql = "SELECT * FROM Organ WHERE Category = ?";
-    	PreparedStatement pst = con.prepareStatement(sql);
-    	pst.setString(1, type);
-    	ResultSet rst = pst.executeQuery();
-    	
-        return rst;
-    }
-    
-   
-    /**
-	 *
-	 * TODO - build it
-	 * @return
-	 *       ResultSet filtered according to organ price from the rogfoe database.
-	 */
-    public ResultSet filterOrganPrice(String type) throws SQLException
-    {
-    	System.out.println("\nExecuting I DON'T WORK YET.");
-    	String sql = "SELECT * FROM Organ WHERE Category = ?";
-    	PreparedStatement pst = con.prepareStatement(sql);
-    	pst.setString(1, type);
     	ResultSet rst = pst.executeQuery();
     	
         return rst;

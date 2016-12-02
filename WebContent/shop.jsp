@@ -128,7 +128,7 @@ button.apply-filter {
 FetchData data = new FetchData();
 data.connect();
 ResultSet rst;
-rst = data.listOrganNames();
+rst = data.listUniqueOrgans();
 
 				while(rst.next())
 				{	
