@@ -99,7 +99,7 @@ button {
 	
 </head>
 <body>
-
+    
 <%@include file="navbar.jsp" %>
 
 <div class="shop container-fluid"><!-- wraps everything to footer -->

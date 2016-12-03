@@ -1,11 +1,8 @@
 package dbTransactions;
-import java.io.File;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * Loads the order database using code.

@@ -48,18 +48,22 @@ div.content {
 	if (authenticatedUser != null) {
 		if (authenticatedUser.equals("Doctor")) {
 			response.sendRedirect("doctorhome.jsp");
+			session.setAttribute("userType","Doctor");
+			
 		} else if (authenticatedUser.equals("Admin")) {
 			response.sendRedirect("adminhome.jsp");
+			session.setAttribute("userType","Admin");
+			
 		} else if (authenticatedUser.equals("Customer")) {
 			//Figure out redirect to send back to checkout
-				response.sendRedirect("profilehome.jsp");
+			response.sendRedirect("profilehome.jsp");
+			session.setAttribute("userType","Customer");
 		}
 	} else {
 		response.sendRedirect("login.jsp");
 	}
 	
 %>
-
 
 <%!
 	String validateLogin(JspWriter out,HttpServletRequest request, HttpSession session) throws IOException
