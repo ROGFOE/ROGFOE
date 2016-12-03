@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBconnect{
 
-	protected Connection con;
+	public Connection con;
 	
 	/**
 	 * Makes a connection to the database and returns connection to caller.

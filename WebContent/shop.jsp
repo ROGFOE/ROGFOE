@@ -115,7 +115,7 @@ button {
 		<br />
 		
     <!-- Filters -->
-<form action="shop.jsp" method="get" id="filter" onsubmit="filter();">
+<form action="shop.jsp" method="get" id="filter">
     <div class="form-group filter-list">   
 		<ul class="row nav nav-pills">
 			<li class="dropdown organs col-sm-3">
