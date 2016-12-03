@@ -318,21 +318,22 @@ $(function() {
 </div>
 <script>
 $(function() {
+	var valid = true;
  $("button#submitBT").click(function(){
-         $.ajax({
-     		type: "POST",
- 			url: "addBT.jsp",
- 			data: $('form.addBT').serialize(),
-         	success: function(msg){
-                console.log($('form.addBT').serialize());
-                location.reload();
-         	},
- 		error: function(){
- 				console.log("Error");
- 				location.reload();
- 		}
-     });
- });
+			  $.ajax({
+					type: "POST",
+					url: "addBT.jsp",
+		 			data: $('form.addBT').serialize(),
+				    success: function(msg){
+				          console.log($('form.addBT').serialize());
+				          location.reload();
+				    },
+				 	error: function(){
+				 		   console.log("Error");
+				 	       location.reload();
+				 	}
+				});
+	});
 });
 </script>
 
