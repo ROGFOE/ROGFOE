@@ -50,7 +50,7 @@
 		rst = data.getShippingAddresses(uid);
 		
 		out.println("<table class=\"table table-hover\">");
-		out.println("<thead><tr><th>Address</th><th>Select</th></tr></thead>");		
+		out.println("<thead><tr><th>Street</th><th>City</th><th>State</th><th>Postal</th><th>Country</th><th>Select</th></tr></thead>");		
 		out.println("<tbody>");
 		while(rst.next()){
 			String street = rst.getString(1);
@@ -60,8 +60,8 @@
 			String country = rst.getString(5);
 			int aid = rst.getInt(6);
 			
-			String col1 = String.format("<tr><td>%s, %s, %s, %s, %s</td>",street, city, state, postal, country);
-			String col2 = ("<td><input type=\"radio\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
+			String col1 = String.format("<tr><td>"+street+"</td><td>"+city+"</td><td>"+state+"</td><td>"+postal+"</td><td>"+country+"</td>");
+			String col2 = ("<td><input type=\"radio\" id=\"amk\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
 			String row = col1.concat(col2);
 			out.print(row);
 			
@@ -318,21 +318,22 @@ $(function() {
 </div>
 <script>
 $(function() {
+	var valid = true;
  $("button#submitBT").click(function(){
-         $.ajax({
-     		type: "POST",
- 			url: "addBT.jsp",
- 			data: $('form.addBT').serialize(),
-         	success: function(msg){
-                console.log($('form.addBT').serialize());
-                location.reload();
-         	},
- 		error: function(){
- 				console.log("Error");
- 				location.reload();
- 		}
-     });
- });
+			  $.ajax({
+					type: "POST",
+					url: "addBT.jsp",
+		 			data: $('form.addBT').serialize(),
+				    success: function(msg){
+				          console.log($('form.addBT').serialize());
+				          location.reload();
+				    },
+				 	error: function(){
+				 		   console.log("Error");
+				 	       location.reload();
+				 	}
+				});
+	});
 });
 </script>
 
@@ -395,26 +396,32 @@ if (productList == null){
 
 <!--confirm order button click-->  
 <script>
-$(function() {
- $("button#confirmOrder").click(function(){
-        var add = $('form#selectAddress').serialize();
-        var pay = $('form#selectPay').serialize();
-        var total = $('#hiddenTotal').serialize();
-        var submitString = add+"&"+pay+"&"+total;
-        console.log(submitString);
-	 	$.ajax({
-     		type: "POST",
- 			url: "confirmOrder.jsp",
- 			data: submitString,
-         	success: function(msg){
-				console.log("Success");
-				window.location.replace("profilehome.jsp");
-         	},
- 		error: function(){
- 				console.log("Error");
- 			}
-    	 });
- 	});
+	$(function() {
+	 $("button#confirmOrder").click(function(){
+		 if (!$("input[name='radAdd']:checked").val()) {
+			 	alert('Please select a shipping address');
+			} else if(!$("input[name='radPay']:checked").val()){
+				alert('Please select a payment method');
+			} else {
+		        var add = $('form#selectAddress').serialize();
+		        var pay = $('form#selectPay').serialize();
+		        var total = $('#hiddenTotal').serialize();
+		        var submitString = add+"&"+pay+"&"+total;
+		        console.log(submitString);
+			 	$.ajax({
+		     		type: "POST",
+		 			url: "confirmOrder.jsp",
+		 			data: submitString,
+		         	success: function(msg){
+						console.log("Success");
+						window.location.replace("profilehome.jsp");
+		         	},
+		 			error: function(){
+		 				console.log("Error");
+		 			}
+			 });
+	 	}
+	});
 });
 </script>
   
