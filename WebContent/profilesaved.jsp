@@ -4,6 +4,7 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
+<%@page import="dbTransactions.FetchData"%> 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,78 +31,63 @@
       <h1 style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Profile Saved!</h1><p>&nbsp;</p>
       <p>&nbsp;</p>
           
-			<%//Java time TODO: Connect to DB. Insert row into User table, insert row into Address table
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158";
-			
-			
-			//Gather User information from request
-			
-			String fname = request.getParameter("fname");
-			String mname = request.getParameter("mname");
-			String lname = request.getParameter("lname");
-			String street = request.getParameter("street");
-			String city = request.getParameter("city");
-			String country = request.getParameter("country");
-			String state = request.getParameter("state");
-			String postal = request.getParameter("postal");
-			String hphone = request.getParameter("hphone");
-			String wphone = request.getParameter("wphone");
-			String cphone = request.getParameter("cphone");
-			String email = request.getParameter("email");
-			String pw = request.getParameter("pw");
-			
-			
-			//Try to connect to db
-			try{
-				con = DriverManager.getConnection(url,uid,pass);
-				
-				//Prepared statements to insert into User table
-				String insertUserSQL = ("INSERT INTO User (AccType, fName, mName, lName, UphoneH, UphoneC, UphoneW, Uemail, Password) VALUES ('Customer', ?, ?, ?, ?, ?, ?, ?, ?);");
-				PreparedStatement pst = con.prepareStatement(insertUserSQL, Statement.RETURN_GENERATED_KEYS);
-				pst.setString(1, fname);
-				pst.setString(2, mname);
-				pst.setString(3, lname);
-				pst.setString(4, hphone);
-				pst.setString(5, cphone);
-				pst.setString(6, wphone);
-				pst.setString(7, email);
-				pst.setString(8, pw);
-			
-				//Execute Query
-				pst.executeUpdate();
-				
-				//Get UID of user that was just inserted to be used in Address insert
-				ResultSet keys = pst.getGeneratedKeys();
-				keys.next();
-				int createdUID = keys.getInt(1);
-				
-				//Prepared statements to insert into Address table
-				String insertAddressSQL = ("INSERT INTO Address (UID, AddressType, Street, City, State, Country, PostalCode) VALUES (?, 'Home', ?, ?, ?, ?, ?);");
-				PreparedStatement psta = con.prepareStatement(insertAddressSQL);
-				psta.setInt(1, createdUID);
-				psta.setString(2, street);
-				psta.setString(3, city);
-				psta.setString(4, state);
-				psta.setString(5, country);
-				psta.setString(6, postal);
-				
-				//Execute
-				psta.executeUpdate();
-
-			} catch (SQLException ex){
-				System.out.println(ex);
-			}
-			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
-			%>
+<% 
 	
+	// Make database connection
+	FetchData data = new FetchData();
+	Connection con = data.connect(); 
+	PreparedStatement pst;
+		
+	//Gather User information from request	
+	String fname = request.getParameter("fname");
+	String mname = request.getParameter("mname");
+	String lname = request.getParameter("lname");
+	String street = request.getParameter("street");
+	String city = request.getParameter("city");
+	String country = request.getParameter("country");
+	String state = request.getParameter("state");
+	String postal = request.getParameter("postal");
+	String hphone = request.getParameter("hphone");
+	String wphone = request.getParameter("wphone");
+	String cphone = request.getParameter("cphone");
+	String email = request.getParameter("email");
+	String pw = request.getParameter("pw");
+
+	//Try to connect to db
+	//Prepared statements to insert into User table
+	String insertUserSQL = ("INSERT INTO User (AccType, fName, mName, lName, UphoneH, UphoneC, UphoneW, Uemail, Password) VALUES ('Customer', ?, ?, ?, ?, ?, ?, ?, ?);");
+	pst = con.prepareStatement(insertUserSQL,Statement.RETURN_GENERATED_KEYS);
+	pst.setString(1, fname);
+	pst.setString(2, mname);
+	pst.setString(3, lname);
+	pst.setString(4, hphone);
+	pst.setString(5, cphone);
+	pst.setString(6, wphone);
+	pst.setString(7, email);
+	pst.setString(8, pw);
+
+	//Execute Query
+	pst.executeUpdate();
+	
+	//Get UID of user that was just inserted to be used in Address insert
+	ResultSet keys = pst.getGeneratedKeys();
+	keys.next();
+	int createdUID = keys.getInt(1);
+	
+	//Prepared statements to insert into Address table
+	String insertAddressSQL = ("INSERT INTO Address (UID, AddressType, Street, City, State, Country, PostalCode) VALUES (?, 'Home', ?, ?, ?, ?, ?);");
+	pst = con.prepareStatement(insertAddressSQL);
+	pst.setInt(1, createdUID);
+	pst.setString(2, street);
+	pst.setString(3, city);
+	pst.setString(4, state);
+	pst.setString(5, country);
+	pst.setString(6, postal);
+	
+	//Execute
+	pst.executeUpdate();
+
+%>
       <hr>
       
     </div>
