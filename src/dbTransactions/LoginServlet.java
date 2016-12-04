@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
                     case "Customer":
                         session.setAttribute("userType","Customer");
                         session.setAttribute("uid", rst.getInt(1));
-                        response.sendRedirect("checkOut.jsp");
+                        response.sendRedirect("checkout.jsp");
                         break;
                     default:
                         response.sendRedirect("login.jsp");

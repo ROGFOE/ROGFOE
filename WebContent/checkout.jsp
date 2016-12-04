@@ -24,11 +24,12 @@
 <%
 	boolean loggedIn = session.getAttribute("loggedIn") != null;
 	if (!loggedIn) {
-	    String notLoggedIn = null;
+	    String notLoggedIn = "You gotsta login first. Think about it.";
 	    session.setAttribute("invalidCreds",notLoggedIn);
 		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
 		disp.forward(request,response);
 	}
+	else {
 %>
 	<%@include file="navbar.jsp" %>
 
@@ -396,6 +397,7 @@ if (productList == null){
 	//Hidden field to pass the total
 	out.print("<input id=\"hiddenTotal\" type=\"hidden\" name=\"total\" value='"+total+"'>");
 }
+	}
 %>
 
 
