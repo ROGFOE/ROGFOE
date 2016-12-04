@@ -1,10 +1,5 @@
-<%@page import="com.sun.xml.internal.bind.v2.TODO"%>
-<%@page import="dbTransactions.FetchData"%> 
-<%@ page import="java.sql.PreparedStatement"%>
-<%@ page import="java.sql.ResultSet"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="java.text.NumberFormat" %>
-<%@page import="java.util.*" %>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.util.HashMap"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 
 <!DOCTYPE html>
