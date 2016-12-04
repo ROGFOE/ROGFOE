@@ -13,7 +13,9 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="auth.jsp" %>
-<%@include file="navbar.jsp" %>
+ <%@include file="navbar.jsp" %>
+
+
 
 <div class="container text-center">
   <div class="row content">

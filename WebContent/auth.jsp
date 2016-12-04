@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <%
-	boolean authenticated = session.getAttribute("authenticatedUser") == null ? false : true;
-
-	if (!authenticated)
+	boolean loggedIn = session.getAttribute("loggedIn") != null;
+	if (!loggedIn)
 	{
-        String loginMessage = "You have not been authorized to access the URL "+request.getRequestURL().toString();
-        session.setAttribute("loginMessage",loginMessage);
+        String unauthorized = "You have not been authorized to access the URL "+request.getRequestURL().toString();
+        session.setAttribute("unauthorized",unauthorized);
         // response.sendRedirect("login.jsp");
  		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
 		disp.forward(request,response);

@@ -24,21 +24,27 @@
 			<div class="col-sm-6 text-left" style="text-align: center">
 				<h1
 					style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">Login</h1>
-				<img src="images/homelogo.png" width=40% height=40% alt="Image"
-					class="img-responsive"
-					style="margin-left: auto; margin-right: auto; display: block; margin-top: -30px;">
+
 				
-				<%
-				// Print prior error login message if present
-				if (session.getAttribute("loginMessage") != null)
-				out.println("<p>"+
-				session.getAttribute("loginMessage").toString()+"</p>");
-				%>
+<%
+// Print prior error login message if present
+if (session.getAttribute("unauthorized") != null) {
+	out.print("</p><img src=\"images/nicetry.gif\"><p>" + session.getAttribute("unauthorized").toString());
+}
+else if (session.getAttribute("invalidCreds") != null) {
+	out.print("<img src=\"images/homelogo.png\" width=40% height=40% alt=\"Image\" class=\"img-responsive\"\n"+
+			  "style=\"margin-left: auto; margin-right: auto; display: block; margin-top: -30px;\">" +
+	          session.getAttribute("invalidCreds").toString());
+}
+else
+	out.print("<img src=\"images/homelogo.png\" width=40% height=40% alt=\"Image\" class=\"img-responsive\"\n"+
+			  "style=\"margin-left: auto; margin-right: auto; display: block; margin-top: -30px;\">");
+%>
 				
 				<fieldset>
 
 				<!--Form that goes to validateLogin.jsp-->
-				<form name="login" method="post" action="validateLogin.jsp">
+				<form name="login" method="post" action="LoginServlet">
 					<div class="form-group">
 						<label>Email Address</label> 
 						<input type="text" placeholder="Email Address" name="username"class="form-control" required>

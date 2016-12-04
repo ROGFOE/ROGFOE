@@ -43,7 +43,6 @@ HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Obje
 
 if (productList == null){
 	out.println("<h2>Your shopping cart is empty!</h2>");
-	productList = new HashMap<String, ArrayList<Object>>();
 } else {
 	
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();

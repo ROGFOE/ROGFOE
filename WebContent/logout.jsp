@@ -8,9 +8,10 @@
 </head>
 <body>
 
-<% 
-session.invalidate();
-response.sendRedirect("home.jsp");
+<%
+    request.logout();
+    session.invalidate();
+    response.sendRedirect("home.jsp");
 %>
 </body>
 </html>
