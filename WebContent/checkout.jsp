@@ -20,11 +20,17 @@
 </head>
 
 
- <body>
-
-<%@include file="navbar.jsp" %>
-<!--This is a protected page, must include auth.jsp-->
-<%@include file="auth.jsp" %>
+<body>
+<%
+	boolean loggedIn = session.getAttribute("loggedIn") != null;
+	if (!loggedIn) {
+	    String notLoggedIn = null;
+	    session.setAttribute("invalidCreds",notLoggedIn);
+		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
+		disp.forward(request,response);
+	}
+%>
+	<%@include file="navbar.jsp" %>
 
 <div class="container text-center">
   <div class="row content">
