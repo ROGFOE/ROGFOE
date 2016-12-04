@@ -47,7 +47,7 @@
 		<% 
 		//Print shipping addresses table. Queries and lists home and shipping address
 
-		//UID is stored as session variable when user logs-in on validateLogin.jsp. Use UID to find shipping addresses, billing info
+		//UID is stored as session variable when user logs-in. Use UID to find shipping addresses, billing info
 		session = request.getSession(true);
 		int uid = (int)session.getAttribute("uid");
 
@@ -126,7 +126,6 @@
 					</div>
 					<div class="modal-footer">
 					<button class="btn btn-lg btn-primary btn-block" id="submit" data-dismiss="modal">Submit</button>
-					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
 					</div>
 			</form>
 	</div>
