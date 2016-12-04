@@ -36,7 +36,6 @@ div.row.form-group.organ-search {
 	text-align: center;
 }
 #filter > div > ul {
-	width: 75%;
 	margin: 0 auto;
 	text-align: center;
 }

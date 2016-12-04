@@ -58,6 +58,7 @@ public class LoginServlet extends HttpServlet {
             rst = stmt.executeQuery();
             if (rst.next()) {
                 session.setAttribute("loggedIn",username);
+                boolean invalidCreds = session.getAttribute("invalidCreds") != null;
                 switch (rst.getString(3)) {
                     case "Admin":
                         session.setAttribute("userType","Admin");
@@ -72,7 +73,10 @@ public class LoginServlet extends HttpServlet {
                     case "Customer":
                         session.setAttribute("userType","Customer");
                         session.setAttribute("uid", rst.getInt(1));
-                        response.sendRedirect("checkout.jsp");
+                        if(!invalidCreds)
+                        	response.sendRedirect("profilehome.jsp");
+                        else
+                        	response.sendRedirect("checkout.jsp");
                         break;
                     default:
                         response.sendRedirect("login.jsp");
