@@ -30,11 +30,20 @@ div.row.form-group.organ-search {
 	margin: 0 auto; 
  	text-align: center; 
 }
-div.form-group.filter-list > ul {
-	width: 70%;
-	margin: auto; 
- 	text-align: center; 
+#filter > * {
+	width: 75%;
+	margin: 0 auto;
+	text-align: center;
 }
+#filter > div > ul {
+	margin: 0 auto;
+	text-align: center;
+}
+#filter > div > ul > .col-sm-3, .col-sm-2 {
+	width: initial;
+	margin-bottom: 20px;
+}
+
 input.search.form-control {
 	padding-top: 6px;
     padding-right: 12px;
@@ -113,7 +122,7 @@ button {
 <form action="shop.jsp" method="get" id="filter">
     <div class="form-group filter-list">   
 		<ul class="row nav nav-pills">
-			<li class="dropdown organs col-sm-3">
+			<li class="dropdown organs col-sm-4">
 		    	<select class="form-control" name="organ" form="filter">
 		    		<option value="" disabled selected>Organ</option>
 				<!-- Getting list of organs for dropdown menu -->				
@@ -138,7 +147,7 @@ rst = data.listUniqueOrgans();
   					 					
 				</li><!-- dropdown organs -->
 					
-			<li class="dropdown categories col-sm-3">
+			<li class="dropdown categories col-sm-4">
 				
 		    	<select class="form-control" name="cat" form="filter">
 		    		<option value="" disabled selected>Category</option>
@@ -157,7 +166,7 @@ rst = data.listUniqueOrgans();
   					</select> 										
 				</li><!-- dropdown categories --> 	
 
-				<li class="dropdown blood-type col-sm-3">				
+				<li class="dropdown blood-type col-sm-2">				
 			    <select class="form-control" name="blood" form="filter">
 			    	<option value="" disabled selected>Blood Type</option>
 			    	<option value="A">A</option>

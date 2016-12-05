@@ -27,6 +27,7 @@ button.restore {
 <%@include file="navbar.jsp" %>
 <%@include file="authAdmin.jsp" %>
 
+
 <div class="container text-center">
 <div class="col-sm-12 text-center title">
 	<h1>Administrator's Portal</h1>
