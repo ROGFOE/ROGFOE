@@ -24,7 +24,7 @@
 </head>
 
 <body>
-<%@include file="auth.jsp" %>
+<%@include file="authBoth.jsp" %>
 	<%@include file="navbar.jsp"%>
 
 	<div id="wrap" style="min-height: 100%;">

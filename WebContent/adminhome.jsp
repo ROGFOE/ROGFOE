@@ -23,8 +23,9 @@ button.restore {
 </style>
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
-<%@include file="auth.jsp" %>
-	<%@include file="navbar.jsp" %>
+
+<%@include file="navbar.jsp" %>
+<%@include file="authAdmin.jsp" %>
 
 
 <div class="container text-center">

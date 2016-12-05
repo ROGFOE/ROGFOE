@@ -21,7 +21,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
-<%@include file="auth.jsp" %>
+<%@include file="authBoth.jsp" %>
 <h1>The organ has been deleted.</h1>
 <h3>Click <a href="editdeleteorgan.jsp">here</a> to go back.</h3>
 
