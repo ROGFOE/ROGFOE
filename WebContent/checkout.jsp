@@ -260,7 +260,7 @@ $(function() {
 			<form class="addPayPal">
 					<div class="form-group">
 						<label>Account Number</label> <input type="text" name="accountNum"
-							placeholder="1111222233334444" class="form-control" required>
+							placeholder="Enter 4 digit Account Number" class="form-control" required>
 					</div>
 					<div class="modal-footer">
 					<button class="btn btn-lg btn-primary btn-block" id="submitPayPal" data-dismiss="modal">Submit</button>

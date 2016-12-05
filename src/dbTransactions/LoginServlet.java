@@ -79,6 +79,7 @@ public class LoginServlet extends HttpServlet {
                     case "Customer":
                         session.setAttribute("userType","Customer");
                         session.setAttribute("uid", rst.getInt(1));
+
                         // basically, redirect to checkout if they have something in their cart, or their profile otherwise
                         if(!invalidCreds)
                         	response.sendRedirect("profilehome.jsp");

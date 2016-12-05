@@ -74,6 +74,7 @@
 			ResultSet organRST = data.getOrgansInOrder(oid);
 			while(organRST.next()){
 				String name = organRST.getString("OName");
+				System.out.println(name);
 				out.print("<p style=\"text-align: left\">"+name+"</p>");
 			}
 			

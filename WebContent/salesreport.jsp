@@ -26,7 +26,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
-<%@include file="auth.jsp" %>
+<%@include file="authBoth.jsp" %>
 
  <div class="row content">
  

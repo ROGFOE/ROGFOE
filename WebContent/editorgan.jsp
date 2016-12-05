@@ -21,7 +21,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
-<%@include file="auth.jsp" %>
+<%@include file="authBoth.jsp" %>
 <h1>Edit Organ</h1>
 <div class="row content">
    <div class="col-sm-3">
