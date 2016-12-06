@@ -26,11 +26,7 @@
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="authAdmin.jsp" %>
 <%@include file="navbar.jsp" %>
-<% 
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158"; %>
+
 <div class="container text-center">
   <div class="row content">
    <div class="col-sm-3">
@@ -78,9 +74,9 @@
       
       
  <%      	
- 			try{
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection(url,uid,pass);
+ FetchData data = new FetchData();
+	//Try to connect to db
+	try (Connection con = data.connect();){
 				String SQL = "SELECT WID, WName, WPhone FROM Warehouse;";
 				Statement stmt = con.createStatement();
 				ResultSet rst = stmt.executeQuery(SQL);
@@ -102,15 +98,11 @@
   	<input type="submit" value="Delete">
   	</form>
   	<%
+  	con.close();
  			} catch (SQLException ex){
 				System.out.println(ex);
 			}
 			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
   %>    
   
   	

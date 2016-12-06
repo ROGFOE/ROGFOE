@@ -11,7 +11,7 @@
 <%
     request.logout();
     session.invalidate();
-    response.sendRedirect("home.jsp");
+    response.sendRedirect("index.jsp");
 %>
 </body>
 </html>

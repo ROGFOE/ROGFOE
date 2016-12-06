@@ -1,5 +1,11 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.util.HashMap"%>
+<%@ page import="java.sql.*"%>
+<%@page import="dbTransactions.FetchData"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Iterator"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.text.NumberFormat"%>
+<%@ page import="java.util.Map"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 
 <!DOCTYPE html>
@@ -128,11 +134,11 @@ button {
 				<!-- Getting list of organs for dropdown menu -->				
 <%
 
-//Set up the db connection and ability to grab data
 FetchData data = new FetchData();
-data.connect();
-ResultSet rst;
-rst = data.listUniqueOrgans();
+//Try to connect to db
+try (Connection con = data.connect()){
+	ResultSet rst;
+	rst = data.listUniqueOrgans();
 
 				while(rst.next())
 				{	
@@ -187,7 +193,8 @@ rst = data.listUniqueOrgans();
 </form>
 
 	<div class="row product-list">	 
-<%	    
+<%
+
 /* List Products */
 /* Print out the table headers */
 out.print("<table class=\"table table-hover organ-list\">"+
@@ -226,6 +233,9 @@ else{
 }
 
 out.print("</tbody></table>");
+} catch (SQLException ex) {
+	System.out.println(ex);
+}
 %>
 	</div><!-- row -->	
 	

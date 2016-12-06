@@ -1,3 +1,4 @@
+<%@ page import="java.sql.*"%>
 <%@page import="dbTransactions.FetchData"%>
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.util.HashMap" %>
@@ -41,33 +42,36 @@
 	
 	//Create and insert order
  	FetchData data = new FetchData();
- 	data.connect();
- 	int key = data.insertOrder(aid, aid, total, 0.00, total, payType, uid);
- 	
- 	
-	//Update every organ's OID to contain this OID GET GENERATED KEYS
-	@SuppressWarnings({"unchecked"})
-	HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
-	if (productList == null){
-		out.println("<h2>Your shopping cart is empty!</h2>");
-		productList = new HashMap<String, ArrayList<Object>>();
-	} else {
-		Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
-		while (iterator.hasNext()) 
-		{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
-			ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
-			
-			String id = (String) product.get(0);
-			int OrganID = Integer.parseInt(id);
-			//Update organ OID to contain this orders id
-			System.out.println("Organ id is " + product.get(0));
-			data.updateOrganOID(key, OrganID);
+	//Try to connect to db
+	try (Connection con = data.connect();){
+	 	int key = data.insertOrder(aid, aid, total, 0.00, total, payType, uid);
+	 	
+	 	
+		//Update every organ's OID to contain this OID GET GENERATED KEYS
+		@SuppressWarnings({"unchecked"})
+		HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
+		if (productList == null){
+			out.println("<h2>Your shopping cart is empty!</h2>");
+			productList = new HashMap<String, ArrayList<Object>>();
+		} else {
+			Iterator<Map.Entry<String, ArrayList<Object>>> iterator = productList.entrySet().iterator();
+			while (iterator.hasNext()) 
+			{	Map.Entry<String, ArrayList<Object>> entry = iterator.next();
+				ArrayList<Object> product = (ArrayList<Object>) entry.getValue();
+				
+				String id = (String) product.get(0);
+				int OrganID = Integer.parseInt(id);
+				//Update organ OID to contain this orders id
+				System.out.println("Organ id is " + product.get(0));
+				data.updateOrganOID(key, OrganID);
+			}
 		}
-	}
-			//Empty cart
-			session.setAttribute("productList", null);
+				//Empty cart
+				session.setAttribute("productList", null);
  
-	
+	} catch (SQLException ex) {
+		System.out.println(ex);
+	}
 	//Remove specified products from stock.
 
 	//Empty cart

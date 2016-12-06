@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="home.jsp">
+      <a href="index.jsp">
       <img src="images/homelogo.png" alt="Image" style="width:53px; height:53px;">
       </a>
     </div>

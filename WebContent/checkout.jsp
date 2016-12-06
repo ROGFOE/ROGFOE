@@ -52,28 +52,29 @@
 		int uid = (int)session.getAttribute("uid");
 
 		FetchData data = new FetchData();
-		data.connect();
-		ResultSet rst;
-		rst = data.getShippingAddresses(uid);
-		
-		out.println("<table class=\"table table-hover\">");
-		out.println("<thead><tr><th>Street</th><th>City</th><th>State</th><th>Postal</th><th>Country</th><th>Select</th></tr></thead>");		
-		out.println("<tbody>");
-		while(rst.next()){
-			String street = rst.getString(1);
-			String city = rst.getString(2);
-			String state = rst.getString(3);
-			String postal = rst.getString(4);
-			String country = rst.getString(5);
-			int aid = rst.getInt(6);
+		//Try to connect to db
+		try (Connection con = data.connect();){
+			ResultSet rst;
+			rst = data.getShippingAddresses(uid);
 			
-			String col1 = String.format("<tr><td>"+street+"</td><td>"+city+"</td><td>"+state+"</td><td>"+postal+"</td><td>"+country+"</td>");
-			String col2 = ("<td><input type=\"radio\" id=\"amk\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
-			String row = col1.concat(col2);
-			out.print(row);
-			
-		}
-		out.println("</tbody></table>");
+			out.println("<table class=\"table table-hover\">");
+			out.println("<thead><tr><th>Street</th><th>City</th><th>State</th><th>Postal</th><th>Country</th><th>Select</th></tr></thead>");		
+			out.println("<tbody>");
+			while(rst.next()){
+				String street = rst.getString(1);
+				String city = rst.getString(2);
+				String state = rst.getString(3);
+				String postal = rst.getString(4);
+				String country = rst.getString(5);
+				int aid = rst.getInt(6);
+				
+				String col1 = String.format("<tr><td>"+street+"</td><td>"+city+"</td><td>"+state+"</td><td>"+postal+"</td><td>"+country+"</td>");
+				String col2 = ("<td><input type=\"radio\" id=\"amk\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
+				String row = col1.concat(col2);
+				out.print(row);
+				
+			}
+			out.println("</tbody></table>");
 		%>
 	</form>
 
@@ -189,6 +190,10 @@ $(function() {
 			out.print(row); 
 		}
 		out.println("</tbody></table>");
+		
+		} catch (SQLException ex) {
+			System.out.println(ex);
+		}
 		%>
 	</form>
 
@@ -399,6 +404,8 @@ if (productList == null){
 	out.print("<input id=\"hiddenTotal\" type=\"hidden\" name=\"total\" value='"+total+"'>");
 }
 	}
+		
+
 %>
 
 

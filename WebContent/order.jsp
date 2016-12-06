@@ -4,6 +4,7 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="dbTransactions.FetchData" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html>
@@ -63,16 +64,9 @@ Integer custID = Integer.valueOf(custId);
 @SuppressWarnings({"unchecked"})
 HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Object>>) session.getAttribute("productList");
 
-
-Connection con = null; 
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_jrogers;";
-String uid = "jrogers";
-String pw = "40520158";
-
-try 
-{	
-	con = DriverManager.getConnection(url, uid, pw); 
+FetchData data = new FetchData();
+//Try to connect to db
+try (Connection con = data.connect();){
 	
  // Determine if valid customer id was entered
 	String sql = "SELECT * FROM Customer WHERE customerId = ?";
@@ -176,7 +170,7 @@ try
 		// Head back to homepage after 10 seconds
 		response.setHeader("Refresh", "10;url=listprod.jsp?productName=");
     }
-
+    con.close();
 } 
 
 catch (SQLException ex) 
@@ -184,12 +178,6 @@ catch (SQLException ex)
 	out.println(ex); 
 } 
 
-finally 
-{ 
-	if (con != null) 
-		try { con.close(); } 
-		catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-} 
 
 %>
 
