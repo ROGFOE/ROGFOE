@@ -21,7 +21,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
-<%@include file="auth.jsp" %>
+<%@include file="authBoth.jsp" %>
 <h1>Edit Organ</h1>
 <div class="row content">
    <div class="col-sm-3">
@@ -29,18 +29,14 @@
     <div class="col-sm-6">
 
 <%
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158";
 
 			//Gather User information from request			
 			String id = request.getParameter("idfromedit");
 			int id2 = Integer.parseInt(id);
 
-			try{
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection(url,uid,pass);
+			FetchData data = new FetchData();
+			//Try to connect to db
+			try (Connection con = data.connect();){
 
 				String sql = ("SELECT * FROM Organ WHERE OrgID = ?");	
 				PreparedStatement pst = con.prepareStatement(sql);
@@ -138,16 +134,12 @@
 
 
 <% 			
+con.close();
 				}
 			} catch (SQLException ex){
 				System.out.println(ex);
 			}
-			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
+
 %>
 </div>
  <div class="col-sm-3">

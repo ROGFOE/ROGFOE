@@ -7,12 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.NumberFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cjbro on 12/3/2016.
  */
 public class FetchData extends DBconnect{
+	
+	
     /**
      *
      * @return
@@ -25,7 +31,7 @@ public class FetchData extends DBconnect{
 
         PreparedStatement pst = con.prepareStatement(sql);
         ResultSet rst = pst.executeQuery();
-
+        
         return rst;
     }
 
@@ -42,7 +48,7 @@ public class FetchData extends DBconnect{
         pst.setInt(2, orgid);
 
         int rst = pst.executeUpdate();
-
+        
         return rst;
     }
 
@@ -70,7 +76,7 @@ public class FetchData extends DBconnect{
 
         ResultSet keys = psta.getGeneratedKeys();
         keys.next();
-
+        
         return keys.getInt(1);
     }
 
@@ -92,7 +98,7 @@ public class FetchData extends DBconnect{
 
         //Execute
         int rst = psta.executeUpdate();
-
+        
         return rst;
     }
 
@@ -112,7 +118,7 @@ public class FetchData extends DBconnect{
 
         //Execute
         int rst = psta.executeUpdate();
-
+        
         return rst;
     }
 
@@ -134,7 +140,7 @@ public class FetchData extends DBconnect{
 
         //Execute
         int rst = psta.executeUpdate();
-
+        
         return rst;
     }
 
@@ -157,7 +163,7 @@ public class FetchData extends DBconnect{
         //Execute
         int rst = psta.executeUpdate();
 
-
+        
         return rst;
     }
 
@@ -173,7 +179,7 @@ public class FetchData extends DBconnect{
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, uid);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -189,7 +195,7 @@ public class FetchData extends DBconnect{
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, uid);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -206,7 +212,7 @@ public class FetchData extends DBconnect{
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, uid);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -222,7 +228,7 @@ public class FetchData extends DBconnect{
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, oid);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -238,7 +244,7 @@ public class FetchData extends DBconnect{
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, uid);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -254,7 +260,7 @@ public class FetchData extends DBconnect{
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, uid);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -270,7 +276,7 @@ public class FetchData extends DBconnect{
         stmt = con.prepareStatement(sql);
         stmt.setInt(1, uid);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -287,7 +293,7 @@ public class FetchData extends DBconnect{
         stmt.setString(1, un);
         stmt.setString(2, pw);
         ResultSet rst = stmt.executeQuery();
-
+        
         return rst;
     }
 
@@ -302,7 +308,7 @@ public class FetchData extends DBconnect{
         String sql = "SELECT DISTINCT Category FROM Organ ORDER BY Category ASC";
         PreparedStatement pst = con.prepareStatement(sql);
         ResultSet rst = pst.executeQuery();
-
+        
         return rst;
     }
 
@@ -319,7 +325,7 @@ public class FetchData extends DBconnect{
 
         PreparedStatement pst = con.prepareStatement(sql);
         ResultSet rst = pst.executeQuery();
-
+        
         return rst;
     }
 
@@ -357,6 +363,7 @@ public class FetchData extends DBconnect{
             }
         }
         ResultSet rst = pst.executeQuery();
+        
         return rst;
     }
 
@@ -368,7 +375,7 @@ public class FetchData extends DBconnect{
      * @return String containing the organ image url
      * @throws SQLException
      */
-    @SuppressWarnings("JavaDoc")
+    @SuppressWarnings("javadoc")
     public String getOrganImage(String pid) throws SQLException
     {
         System.out.println("\nExecuting getOrganImage.");
@@ -381,6 +388,7 @@ public class FetchData extends DBconnect{
         while (rst.next()){
             url = rst.getString(1);
         }
+        
         return url;
     }
 
@@ -400,12 +408,9 @@ public class FetchData extends DBconnect{
             String name = rst.getString(6);
             Double price = rst.getDouble(7);
             int size = rst.getInt(8);
-            Date date = rst.getDate(9);
             String blood = rst.getString(10);
             String desc = rst.getString(11);
             String pic = rst.getString(12);
-            String doc = rst.getString(13);
-            String hosp = rst.getString(14);
             String cat = rst.getString(15);
             String Cat = cat.substring(0, 1).toUpperCase() + cat.substring(1); //make first char. upper case
 
@@ -438,7 +443,7 @@ public class FetchData extends DBconnect{
                             "</tr>";
             output.append(out);
         }
-
+        
         return output.toString();
     }
 }

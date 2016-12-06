@@ -33,9 +33,9 @@
           
 <% 
 	
-	// Make database connection
-	FetchData data = new FetchData();
-	Connection con = data.connect(); 
+FetchData data = new FetchData();
+//Try to connect to db
+try (Connection con = data.connect();){
 	PreparedStatement pst;
 		
 	//Gather User information from request	
@@ -86,6 +86,9 @@
 	
 	//Execute
 	pst.executeUpdate();
+} catch (SQLException ex) {
+	System.out.println(ex);
+}
 
 %>
       <hr>

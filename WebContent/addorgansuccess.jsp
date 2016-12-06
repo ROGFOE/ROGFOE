@@ -26,12 +26,10 @@
 <h3>Click <a href="doctorhome.jsp">here</a> to go back.</h3>
 
 <%
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158";
+			
+			
 			NumberFormat currFormat = NumberFormat.getCurrencyInstance();
-			 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			
 			//Gather User information from request			
 			String oName = request.getParameter("organname");
@@ -46,10 +44,9 @@
 			String description = request.getParameter("description");
 			
 			java.util.Date date2 = sdf.parse(date);
-
-			try{
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection(url,uid,pass);
+			FetchData data = new FetchData();
+			//Try to connect to db
+			try (Connection con = data.connect();){
 				
 				//Prepared statements to insert into Organ table
 				String insertOrganSQL = ("INSERT INTO Organ (`OName`, `UnitPrice`, `Size`, `RemovalDate`," + 
@@ -68,16 +65,11 @@
 			
 				//Execute Query
 				pst.executeUpdate();
-				
+				con.close();
 			} catch (SQLException ex){
 				System.out.println(ex);
 			}
 			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
 %>
 <%@include file="footer.jsp" %>
 

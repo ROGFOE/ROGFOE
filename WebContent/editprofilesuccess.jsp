@@ -26,10 +26,6 @@
 <h3>Click <a href="profilehome.jsp">here</a> to go back.</h3>
 
 <%
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158";
 
 			//Gather User information from request
 			int UID = (int)session.getAttribute("uid");
@@ -48,9 +44,9 @@
 			String email = request.getParameter("email");
 			String pw = request.getParameter("pw");
 			
+			FetchData data = new FetchData();
 			//Try to connect to db
-			try{
-				con = DriverManager.getConnection(url,uid,pass);
+			try (Connection con = data.connect();){
 				
 				//Prepared statements to insert into User table
 				String insertUserSQL = ("UPDATE User SET fName = ?, mName = ?, lName = ?, UphoneH = ?, UphoneC = ?, UphoneW = ?, Uemail = ?, Password = ? WHERE User.UID = ?");
@@ -87,16 +83,12 @@
 				psta.executeUpdate();
 				
 				
+				con.close();
 
 			} catch (SQLException ex){
 				System.out.println(ex);
 			}
-			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
+
 			%>
 	
 	

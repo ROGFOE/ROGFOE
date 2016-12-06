@@ -26,7 +26,7 @@
 
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="navbar.jsp" %>
-<%@include file="auth.jsp" %>
+<%@include file="authBoth.jsp" %>
 
  <div class="row content">
  
@@ -48,17 +48,11 @@
       <tbody>
 
 <%
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158";
 			
-			//Try to connect to db
-			try{
+				FetchData data = new FetchData();
+				//Try to connect to db
+				try (Connection con = data.connect();){
 				out.print("<h1>&nbsp;</h1> ");
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection(url,uid,pass);
-				
 				
 				//Prepared statements to insert into User table
 				String sql = ("SELECT COUNT(OID) AS totalAmt, SUM(GrandTotal) AS totalPrice, COUNT(DISTINCT UID) AS numCustomers FROM `Order`");
@@ -81,15 +75,11 @@
 				</tbody>
 				</table>
 			<% 
+			con.close();
 			} catch (SQLException ex){
 				System.out.println(ex);
 			}
-			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
+
 			%>
 			</div>
 	 <div class="col-sm-3">
