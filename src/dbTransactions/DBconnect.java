@@ -40,6 +40,29 @@ public class DBconnect {
         System.out.println("Connected to database. Returning Connection.");
         return con;
     }
+     
+// 	public Connection connect() throws SQLException
+//    {
+////		String url = "jdbc:mysql://localhost/rogfoe";
+////	    String uid = "root";
+////	    String pw = "";
+//
+//        String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
+//        String uid = "jrogers";
+//        String pw = "40520158";
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//        } catch (ClassNotFoundException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println("Connecting to database.");
+//        // Note: Must assign connection to instance variable as well as returning it back to the caller
+//        con = DriverManager.getConnection(url, uid, pw);
+//        return con;
+//    }
 
         
 
