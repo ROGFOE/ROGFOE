@@ -47,33 +47,34 @@
 		<% 
 		//Print shipping addresses table. Queries and lists home and shipping address
 
-		//UID is stored as session variable when user logs-in on validateLogin.jsp. Use UID to find shipping addresses, billing info
+		//UID is stored as session variable when user logs-in. Use UID to find shipping addresses, billing info
 		session = request.getSession(true);
 		int uid = (int)session.getAttribute("uid");
 
 		FetchData data = new FetchData();
-		data.connect();
-		ResultSet rst;
-		rst = data.getShippingAddresses(uid);
-		
-		out.println("<table class=\"table table-hover\">");
-		out.println("<thead><tr><th>Street</th><th>City</th><th>State</th><th>Postal</th><th>Country</th><th>Select</th></tr></thead>");		
-		out.println("<tbody>");
-		while(rst.next()){
-			String street = rst.getString(1);
-			String city = rst.getString(2);
-			String state = rst.getString(3);
-			String postal = rst.getString(4);
-			String country = rst.getString(5);
-			int aid = rst.getInt(6);
+		//Try to connect to db
+		try (Connection con = data.connect();){
+			ResultSet rst;
+			rst = data.getShippingAddresses(uid);
 			
-			String col1 = String.format("<tr><td>"+street+"</td><td>"+city+"</td><td>"+state+"</td><td>"+postal+"</td><td>"+country+"</td>");
-			String col2 = ("<td><input type=\"radio\" id=\"amk\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
-			String row = col1.concat(col2);
-			out.print(row);
-			
-		}
-		out.println("</tbody></table>");
+			out.println("<table class=\"table table-hover\">");
+			out.println("<thead><tr><th>Street</th><th>City</th><th>State</th><th>Postal</th><th>Country</th><th>Select</th></tr></thead>");		
+			out.println("<tbody>");
+			while(rst.next()){
+				String street = rst.getString(1);
+				String city = rst.getString(2);
+				String state = rst.getString(3);
+				String postal = rst.getString(4);
+				String country = rst.getString(5);
+				int aid = rst.getInt(6);
+				
+				String col1 = String.format("<tr><td>"+street+"</td><td>"+city+"</td><td>"+state+"</td><td>"+postal+"</td><td>"+country+"</td>");
+				String col2 = ("<td><input type=\"radio\" id=\"amk\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
+				String row = col1.concat(col2);
+				out.print(row);
+				
+			}
+			out.println("</tbody></table>");
 		%>
 	</form>
 
@@ -126,7 +127,6 @@
 					</div>
 					<div class="modal-footer">
 					<button class="btn btn-lg btn-primary btn-block" id="submit" data-dismiss="modal">Submit</button>
-					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
 					</div>
 			</form>
 	</div>
@@ -189,6 +189,10 @@ $(function() {
 			out.print(row); 
 		}
 		out.println("</tbody></table>");
+		
+		} catch (SQLException ex) {
+			System.out.println(ex);
+		}
 		%>
 	</form>
 
@@ -399,6 +403,8 @@ if (productList == null){
 	out.print("<input id=\"hiddenTotal\" type=\"hidden\" name=\"total\" value='"+total+"'>");
 }
 	}
+		
+
 %>
 
 

@@ -26,10 +26,7 @@
 <h3>Click <a href="addremovedoctor.jsp">here</a> to go back.</h3>
 
 <%
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158";
+			
 
 			//Gather User information from request
 			
@@ -48,10 +45,10 @@
 			String pw = request.getParameter("pw");
 			String practice = request.getParameter("practice");
 			
-			
+			FetchData data = new FetchData();
 			//Try to connect to db
-			try{
-				con = DriverManager.getConnection(url,uid,pass);
+			try (Connection con = data.connect();){
+				
 				
 				//Prepared statements to insert into User table
 				String insertUserSQL = ("INSERT INTO User (AccType, fName, mName, lName, UphoneH, UphoneC, UphoneW, Uemail, Password) VALUES ('Doctor', ?, ?, ?, ?, ?, ?, ?, ?);");
@@ -94,16 +91,12 @@
 				
 				//Execute
 				pstat.executeUpdate();
+				con.close();
 
 			} catch (SQLException ex){
 				System.out.println(ex);
 			}
-			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
+
 			%>
 	
 	

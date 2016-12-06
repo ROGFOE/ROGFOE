@@ -1,5 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="dbTransactions.FetchData" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html>
@@ -49,31 +50,22 @@ String name = request.getParameter("productName");
 		
 // Variable name now contains the search string the user entered
 // Use it to build a query and print out the resultset.  Make sure to use PreparedStatement!
-
-// Make the connection
-Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-String url = "jdbc:sqlserver://sql04.ok.ubc.ca:1433;DatabaseName=db_jrogers;";
-String uid = "jrogers";
-String pw = "40520158";
-
-Connection cnx = null;
-
-try {
 	
-	//Make connection
-	cnx = DriverManager.getConnection(url, uid, pw);
-	
+FetchData data = new FetchData();
+//Try to connect to db
+try (Connection cnx = data.connect();){
+
 	//Create and prepare prepared statement
 	
 	String sql = "SELECT productName, categoryName, packageDesc, price, productId FROM Product WHERE productName LIKE ?";
 	PreparedStatement pst = cnx.prepareStatement(sql);
-
+	
 	pst.setString(1, "%" + name + "%");
 	
-
+	
 	//Execute query
 	ResultSet rst = pst.executeQuery();
-
+	
 	
 	if(rst.next()){
 		// Print out the ResultSet Table Headers
@@ -100,7 +92,7 @@ try {
 			//String cartLink = "addcart.jsp?id="+pid+"&name="+pname+"&price="+price;
 			String pnameEncoded = java.net.URLEncoder.encode(pname,"UTF-8").replace("+","%20");
 			String cartLink = "addcart.jsp?id="+pid+"&name="+pnameEncoded+"&price="+price;
-
+	
 			//The actual printing.
 			out.print("<tr>"+
 						"<td>"+pname+"</td>"+
@@ -115,19 +107,14 @@ try {
 	}
 	else {
 		out.print("<br/><div class=\"alert alert-danger\">");
-    	out.print("<strong>Due to recent changes to NAFTA we can no longer provide that product.</strong>");
-    	out.print("</div>");
+	   	out.print("<strong>Due to recent changes to NAFTA we can no longer provide that product.</strong>");
+	   	out.print("</div>");
 		out.print("</div>");
 	}
-	
-	
 
-} catch (Exception e){
+} catch (SQLException e){
     System.out.println(e);
-} finally {
-//  Close connection
-	cnx.close();
-}
+} 
 %>
 
 </body>
