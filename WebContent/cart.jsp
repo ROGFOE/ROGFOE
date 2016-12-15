@@ -1,3 +1,4 @@
+<%@ page import="java.sql.*"%>
 <%@page import="dbTransactions.FetchData"%> 
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.util.HashMap" %>
@@ -32,9 +33,10 @@
         <div class="col-sm-12 col-md-10 col-md-offset-1">
 
 <% 
-//Set up the db connection and ability to grab data
 FetchData data = new FetchData();
-data.connect();
+//Try to connect to db
+try (Connection con = data.connect();){
+
 ResultSet rst;
 
 //Get current list of products
@@ -43,7 +45,6 @@ HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Obje
 
 if (productList == null){
 	out.println("<h2>Your shopping cart is empty!</h2>");
-	productList = new HashMap<String, ArrayList<Object>>();
 } else {
 	
 	NumberFormat currFormat = NumberFormat.getCurrencyInstance();
@@ -88,6 +89,10 @@ if (productList == null){
 	out.print("</td></tr>");
 	out.print("</tfoot>");
 	out.print("</table>");
+}
+
+} catch (SQLException ex) {
+	System.out.println(ex);
 }
 %>
 

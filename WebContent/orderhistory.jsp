@@ -24,7 +24,7 @@
 </head>
 
 <body>
-
+<%@include file="authBoth.jsp" %>
 	<%@include file="navbar.jsp"%>
 
 	<div id="wrap" style="min-height: 100%;">
@@ -64,16 +64,10 @@
 
 
 							<%
-								//Set up the db connection and ability to grab data
-								Connection con = null;
-								String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-								String uid = "jrogers";
-								String pass = "40520158";
-
-								try {
-									Class.forName("com.mysql.jdbc.Driver");
+							FetchData data = new FetchData();
+							//Try to connect to db
+							try (Connection con = data.connect();){
 									String sql = "SELECT * FROM `Order`, User WHERE User.UID = `Order`.UID ORDER BY Order.UID ASC";
-									con = DriverManager.getConnection(url, uid, pass);
 									Statement stmt = con.createStatement();
 									ResultSet rst = stmt.executeQuery(sql);
 
@@ -143,20 +137,14 @@
 								
 							</tr>
 							<%
+							con.close();
 								}
 
 								} catch (SQLException ex) {
 									System.out.println(ex);
 								}
 
-								finally {
-									if (con != null)
-										try {
-											con.close();
-										} catch (SQLException ex) {
-											System.err.println("SQLException: " + ex);
-										}
-								}
+								
 							%>
 						</table>
 					</div>

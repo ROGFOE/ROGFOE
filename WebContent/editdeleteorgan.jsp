@@ -1,11 +1,4 @@
 <%@ page import="java.sql.*"%>
-<%@page import="dbTransactions.FetchData"%>
-<%@ page import="java.sql.ResultSet"%>
-<%@ page import="java.util.HashMap"%>
-<%@ page import="java.util.Iterator"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.text.NumberFormat"%>
-<%@ page import="java.util.Map"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +22,7 @@ th{
 </head>
 
 <body>
-<%@include file="auth.jsp" %>
+<%@include file="authBoth.jsp" %>
 	<%@include file="navbar.jsp"%>
 
 	<div id="wrap" style="min-height: 100%;">
@@ -63,16 +56,11 @@ th{
 
 
 							<%
-								//Set up the db connection and ability to grab data
-								Connection con = null;
-								String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-								String uid = "jrogers";
-								String pass = "40520158";
-
-								try {
-									Class.forName("com.mysql.jdbc.Driver");
+							FetchData data = new FetchData();
+							//Try to connect to db
+							try (Connection con = data.connect();){
 									String sql = "SELECT * FROM Organ";
-									con = DriverManager.getConnection(url, uid, pass);
+
 									Statement stmt = con.createStatement();
 									ResultSet rst = stmt.executeQuery(sql);
 
@@ -136,19 +124,11 @@ th{
 							</tr>
 							<%
 								}
-
+								con.close();
 								} catch (SQLException ex) {
 									System.out.println(ex);
 								}
 
-								finally {
-									if (con != null)
-										try {
-											con.close();
-										} catch (SQLException ex) {
-											System.err.println("SQLException: " + ex);
-										}
-								}
 							%>
 						</table>
 					</div>

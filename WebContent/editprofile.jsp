@@ -26,11 +26,7 @@
 <body style="font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;">
 <%@include file="auth.jsp" %>
 <%@include file="navbar.jsp" %>
-<% 
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158"; %>
+
 <div class="container text-center">
   <div class="row content">
    <div class="col-sm-2">
@@ -39,19 +35,19 @@
     <div class="col-sm-8 text-left" style="text-align:center">
       <h1>Edit Profile</h1><p>&nbsp;</p>
 <%      	
- 			try{
  				session = request.getSession(true);
  				int UID = (int)session.getAttribute("uid");
  				System.out.println(UID);
  				
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection(url,uid,pass);
-				String SQL = "SELECT * FROM User, Address WHERE User.UID=Address.UID AND User.UID = ? LIMIT 1";
-				
-				PreparedStatement stmt = con.prepareStatement(SQL);
-				stmt.setInt(1, UID);
-				ResultSet rst = stmt.executeQuery();
-				while(rst.next()){
+ 				FetchData data = new FetchData();
+ 				//Try to connect to db
+ 				try (Connection con = data.connect();){
+					String SQL = "SELECT * FROM User, Address WHERE User.UID=Address.UID AND User.UID = ? LIMIT 1";
+					
+					PreparedStatement stmt = con.prepareStatement(SQL);
+					stmt.setInt(1, UID);
+					ResultSet rst = stmt.executeQuery();
+					while(rst.next()){
 %>	
 		  <div class="row">
 				<form method="get" action="editprofilesuccess.jsp">
@@ -155,11 +151,6 @@
 				ex.printStackTrace();
 			}
 			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
   %>    
       
      

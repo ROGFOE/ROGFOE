@@ -20,11 +20,18 @@
 </head>
 
 
- <body>
-
-<%@include file="navbar.jsp" %>
-<!--This is a protected page, must include auth.jsp-->
-<%@include file="auth.jsp" %>
+<body>
+<%
+	boolean loggedIn = session.getAttribute("loggedIn") != null;
+	if (!loggedIn) {
+	    String notLoggedIn = "You gotsta login first. Think about it.";
+	    session.setAttribute("invalidCreds",notLoggedIn);
+		RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
+		disp.forward(request,response);
+	}
+	else {
+%>
+	<%@include file="navbar.jsp" %>
 
 <div class="container text-center">
   <div class="row content">
@@ -40,33 +47,34 @@
 		<% 
 		//Print shipping addresses table. Queries and lists home and shipping address
 
-		//UID is stored as session variable when user logs-in on validateLogin.jsp. Use UID to find shipping addresses, billing info
+		//UID is stored as session variable when user logs-in. Use UID to find shipping addresses, billing info
 		session = request.getSession(true);
 		int uid = (int)session.getAttribute("uid");
 
 		FetchData data = new FetchData();
-		data.connect();
-		ResultSet rst;
-		rst = data.getShippingAddresses(uid);
-		
-		out.println("<table class=\"table table-hover\">");
-		out.println("<thead><tr><th>Address</th><th>Select</th></tr></thead>");		
-		out.println("<tbody>");
-		while(rst.next()){
-			String street = rst.getString(1);
-			String city = rst.getString(2);
-			String state = rst.getString(3);
-			String postal = rst.getString(4);
-			String country = rst.getString(5);
-			int aid = rst.getInt(6);
+		//Try to connect to db
+		try (Connection con = data.connect();){
+			ResultSet rst;
+			rst = data.getShippingAddresses(uid);
 			
-			String col1 = String.format("<tr><td>%s, %s, %s, %s, %s</td>",street, city, state, postal, country);
-			String col2 = ("<td><input type=\"radio\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
-			String row = col1.concat(col2);
-			out.print(row);
-			
-		}
-		out.println("</tbody></table>");
+			out.println("<table class=\"table table-hover\">");
+			out.println("<thead><tr><th>Street</th><th>City</th><th>State</th><th>Postal</th><th>Country</th><th>Select</th></tr></thead>");		
+			out.println("<tbody>");
+			while(rst.next()){
+				String street = rst.getString(1);
+				String city = rst.getString(2);
+				String state = rst.getString(3);
+				String postal = rst.getString(4);
+				String country = rst.getString(5);
+				int aid = rst.getInt(6);
+				
+				String col1 = String.format("<tr><td>"+street+"</td><td>"+city+"</td><td>"+state+"</td><td>"+postal+"</td><td>"+country+"</td>");
+				String col2 = ("<td><input type=\"radio\" id=\"amk\" name=\"radAdd\" value='add_"+aid+"'></td></tr>");
+				String row = col1.concat(col2);
+				out.print(row);
+				
+			}
+			out.println("</tbody></table>");
 		%>
 	</form>
 
@@ -119,7 +127,6 @@
 					</div>
 					<div class="modal-footer">
 					<button class="btn btn-lg btn-primary btn-block" id="submit" data-dismiss="modal">Submit</button>
-					<!-- <input type="submit" class="btn btn-lg btn-primary btn-block" data-dismiss="modal" value="Submit Address"> -->
 					</div>
 			</form>
 	</div>
@@ -182,6 +189,10 @@ $(function() {
 			out.print(row); 
 		}
 		out.println("</tbody></table>");
+		
+		} catch (SQLException ex) {
+			System.out.println(ex);
+		}
 		%>
 	</form>
 
@@ -253,7 +264,7 @@ $(function() {
 			<form class="addPayPal">
 					<div class="form-group">
 						<label>Account Number</label> <input type="text" name="accountNum"
-							placeholder="1111222233334444" class="form-control" required>
+							placeholder="Enter 4 digit Account Number" class="form-control" required>
 					</div>
 					<div class="modal-footer">
 					<button class="btn btn-lg btn-primary btn-block" id="submitPayPal" data-dismiss="modal">Submit</button>
@@ -318,21 +329,22 @@ $(function() {
 </div>
 <script>
 $(function() {
+	var valid = true;
  $("button#submitBT").click(function(){
-         $.ajax({
-     		type: "POST",
- 			url: "addBT.jsp",
- 			data: $('form.addBT').serialize(),
-         	success: function(msg){
-                console.log($('form.addBT').serialize());
-                location.reload();
-         	},
- 		error: function(){
- 				console.log("Error");
- 				location.reload();
- 		}
-     });
- });
+			  $.ajax({
+					type: "POST",
+					url: "addBT.jsp",
+		 			data: $('form.addBT').serialize(),
+				    success: function(msg){
+				          console.log($('form.addBT').serialize());
+				          location.reload();
+				    },
+				 	error: function(){
+				 		   console.log("Error");
+				 	       location.reload();
+				 	}
+				});
+	});
 });
 </script>
 
@@ -390,31 +402,40 @@ if (productList == null){
 	//Hidden field to pass the total
 	out.print("<input id=\"hiddenTotal\" type=\"hidden\" name=\"total\" value='"+total+"'>");
 }
+	}
+		
+
 %>
 
 
 <!--confirm order button click-->  
 <script>
-$(function() {
- $("button#confirmOrder").click(function(){
-        var add = $('form#selectAddress').serialize();
-        var pay = $('form#selectPay').serialize();
-        var total = $('#hiddenTotal').serialize();
-        var submitString = add+"&"+pay+"&"+total;
-        console.log(submitString);
-	 	$.ajax({
-     		type: "POST",
- 			url: "confirmOrder.jsp",
- 			data: submitString,
-         	success: function(msg){
-				console.log("Success");
-				window.location.replace("profilehome.jsp");
-         	},
- 		error: function(){
- 				console.log("Error");
- 			}
-    	 });
- 	});
+	$(function() {
+	 $("button#confirmOrder").click(function(){
+		 if (!$("input[name='radAdd']:checked").val()) {
+			 	alert('Please select a shipping address');
+			} else if(!$("input[name='radPay']:checked").val()){
+				alert('Please select a payment method');
+			} else {
+		        var add = $('form#selectAddress').serialize();
+		        var pay = $('form#selectPay').serialize();
+		        var total = $('#hiddenTotal').serialize();
+		        var submitString = add+"&"+pay+"&"+total;
+		        console.log(submitString);
+			 	$.ajax({
+		     		type: "POST",
+		 			url: "confirmOrder.jsp",
+		 			data: submitString,
+		         	success: function(msg){
+						console.log("Success");
+						window.location.replace("profilehome.jsp");
+		         	},
+		 			error: function(){
+		 				console.log("Error");
+		 			}
+			 });
+	 	}
+	});
 });
 </script>
   

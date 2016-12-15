@@ -26,19 +26,14 @@
 <h3>Click <a href="addremovewarehouse.jsp">here</a> to go back.</h3>
 
 <%
-			Connection con = null; 
-			String url = "jdbc:mysql://cosc304.ok.ubc.ca/db_jrogers";
-			String uid = "jrogers";
-			String pass = "40520158";
 
 			//Gather User information from request			
 			String wid = request.getParameter("delete");
 
+				FetchData data = new FetchData();
+				//Try to connect to db
+				try (Connection con = data.connect();){
 
-
-			try{
-				Class.forName("com.mysql.jdbc.Driver");
-				con = DriverManager.getConnection(url,uid,pass);
 				
 				//Prepared statements to insert into Organ table
 				String sql = ("DELETE FROM Warehouse WHERE WID=?;");
@@ -49,16 +44,11 @@
 			
 				//Execute Query
 				pst.executeUpdate();
-				
+				con.close();
 			} catch (SQLException ex){
 				System.out.println(ex);
 			}
-			
-			finally{
-				if (con != null) 
-					try { con.close(); } 
-					catch (SQLException ex) { System.err.println("SQLException: " + ex); } 
-			}
+
 %>
 <%@include file="footer.jsp" %>
 

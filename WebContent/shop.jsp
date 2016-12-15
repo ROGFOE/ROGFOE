@@ -1,10 +1,11 @@
-<%@page import="com.sun.xml.internal.bind.v2.TODO"%>
-<%@page import="dbTransactions.FetchData"%> 
-<%@ page import="java.sql.PreparedStatement"%>
-<%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="java.text.NumberFormat" %>
-<%@page import="java.util.*" %>
+<%@page import="dbTransactions.FetchData"%>
+<%@ page import="java.sql.ResultSet"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Iterator"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.text.NumberFormat"%>
+<%@ page import="java.util.Map"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF8"%>
 
 <!DOCTYPE html>
@@ -35,11 +36,20 @@ div.row.form-group.organ-search {
 	margin: 0 auto; 
  	text-align: center; 
 }
-div.form-group.filter-list > ul {
-	width: 70%;
-	margin: auto; 
- 	text-align: center; 
+#filter > * {
+	width: 75%;
+	margin: 0 auto;
+	text-align: center;
 }
+#filter > div > ul {
+	margin: 0 auto;
+	text-align: center;
+}
+#filter > div > ul > .col-sm-3, .col-sm-2 {
+	width: initial;
+	margin-bottom: 20px;
+}
+
 input.search.form-control {
 	padding-top: 6px;
     padding-right: 12px;
@@ -99,7 +109,7 @@ button {
 	
 </head>
 <body>
-
+    
 <%@include file="navbar.jsp" %>
 
 <div class="shop container-fluid"><!-- wraps everything to footer -->
@@ -115,20 +125,20 @@ button {
 		<br />
 		
     <!-- Filters -->
-<form action="shop.jsp" method="get" id="filter" onsubmit="filter();">
+<form action="shop.jsp" method="get" id="filter">
     <div class="form-group filter-list">   
 		<ul class="row nav nav-pills">
-			<li class="dropdown organs col-sm-3">
+			<li class="dropdown organs col-sm-4">
 		    	<select class="form-control" name="organ" form="filter">
 		    		<option value="" disabled selected>Organ</option>
 				<!-- Getting list of organs for dropdown menu -->				
 <%
 
-//Set up the db connection and ability to grab data
 FetchData data = new FetchData();
-data.connect();
-ResultSet rst;
-rst = data.listUniqueOrgans();
+//Try to connect to db
+try (Connection con = data.connect()){
+	ResultSet rst;
+	rst = data.listUniqueOrgans();
 
 				while(rst.next())
 				{	
@@ -143,7 +153,7 @@ rst = data.listUniqueOrgans();
   					 					
 				</li><!-- dropdown organs -->
 					
-			<li class="dropdown categories col-sm-3">
+			<li class="dropdown categories col-sm-4">
 				
 		    	<select class="form-control" name="cat" form="filter">
 		    		<option value="" disabled selected>Category</option>
@@ -162,7 +172,7 @@ rst = data.listUniqueOrgans();
   					</select> 										
 				</li><!-- dropdown categories --> 	
 
-				<li class="dropdown blood-type col-sm-3">				
+				<li class="dropdown blood-type col-sm-2">				
 			    <select class="form-control" name="blood" form="filter">
 			    	<option value="" disabled selected>Blood Type</option>
 			    	<option value="A">A</option>
@@ -183,7 +193,8 @@ rst = data.listUniqueOrgans();
 </form>
 
 	<div class="row product-list">	 
-<%	    
+<%
+
 /* List Products */
 /* Print out the table headers */
 out.print("<table class=\"table table-hover organ-list\">"+
@@ -222,6 +233,9 @@ else{
 }
 
 out.print("</tbody></table>");
+} catch (SQLException ex) {
+	System.out.println(ex);
+}
 %>
 	</div><!-- row -->	
 	
